@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/macaronIllust.png">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Sawarabi+Mincho&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <title>TAKAMURA</title>
+  </head>
+  <body>
+    <div class="page-transition">
+      <div class="bar barTop"></div>
+      <div class="bar barBottom"></div>
+    </div>
+
+    <header class="site-header is-scrolled" data-lock-scrolled>
+      <nav>
+        <h1 class="logo">
+          <a href="index.html">
+          <img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
+          <img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
+          </a>
+        </h1>
+        <ul id="global-nav">
+          <li><a href="macaron.html" class="englishText">Macarons</a></li>
+          <li><a href="cake.html" class="englishText">Cakes</a></li>
+          <li><a href="about.html" class="englishText">About</a></li>
+          <li><a href="access.html" class="englishText">Access</a></li>
+          <li><a href="mailto:hello@takamura.example" class="englishText contactLink" target="_blank">Contact</a></li>
+          <li><a href="" class="englishText englishLink">English</a></li>
+          <img class="spMenuPic" src="images/macaron.jpg">
+        </ul>
+        <button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
+          <i class="fas fa-search" aria-label="検索を開く"></i>
+        </button>
+        <button class="burger" aria-label="Menu" aria-controls="global-nav" aria-expanded="false">
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+          <span class="burger-bar"></span>
+        </button>
+      </nav>
+    <!-- ヘッダーの“下端”から出る帯。初期は隠す -->
+      <div id="search-panel" class="search-panel" role="search">
+        <form action="" method="get" class="search-form" autocomplete="off">
+          <input type="search" name="q" placeholder="キーワードで検索" aria-label="検索キーワード">
+          <button type="submit" class="search-submit englishText" aria-label="検索">search</button>
+          <a class="searchClose"></a>
+        </form>
+      </div>
+    </header>
+    <div class="site-dim" aria-hidden="true"></div>
+    <main>
+      <div class="container">
+        <h1 class="productTitle englishText reveal-letters">Macaron</h1>
+        <p class="productDescription reveal-letters">
+          甘さは軽やかに、香りは記憶に残る——それが当店のマカロン。皮は“サクっ”と薄く、中心は“しっとり、とろり”。砕いたアーモンドの香りを最大限に引き出すため、皮は低温でじっくり焼き上げ、クリームは素材ごとの温度帯で仕込みます。
+        </p><br>
+        <p class="productDescription reveal-letters">
+          焼成後は24時間寝かせ、皮とクリームがほどよく馴染む“食べ頃”でご提供。着色はできる限り果実やナッツ由来の色味で、味の余韻まで自然に。季節の果物や香り高いチョコレートを使い、見た目だけに頼らない“恋のようにとろける”一粒を目指しています。
+        </p>
+        <section class="menuSec subMenu">
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/ichigoBefore.png">
+              <img class="after" src="images/ichigoAfter.png">
+            </div>
+            <span class="menuName">苺マカロン</span>
+            <p class="quantity">1箱3個入り<span class="price">600円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/raspberryBefore.png">
+              <img class="after" src="images/raspberryAfter.png">
+            </div>
+            <span class="menuName">ラズベリー</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/earlGreyBefore.png">
+              <img class="after" src="images/earlGreyAfter.png">
+            </div>
+            <span class="menuName">アールグレイ</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/chocoMintBefore.png">
+              <img class="after" src="images/chocoMintAfter.png">
+            </div>
+            <span class="menuName">チョコミント</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/matchaBefore.png">
+              <img class="after" src="images/matchaAfter.png">
+            </div>
+            <span class="menuName">抹茶</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/strawberryBefore.png">
+              <img class="after" src="images/strawberryAfter.png">
+            </div>
+            <span class="menuName">ストロベリー</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/chocoBefore.png">
+              <img class="after" src="images/chocoAfter.png">
+            </div>
+            <span class="menuName">チョコレート</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/bitterChocoBefore.png">
+              <img class="after" src="images/bitterChocoAfter.png">
+            </div>
+            <span class="menuName">ビターチョコ</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+          <div class="menu">
+            <div class="menuPic">
+              <img class="before" src="images/lavenderBefore.png">
+              <img class="after" src="images/lavenderAfter.png">
+            </div>
+            <span class="menuName">ラベンダー</span>
+            <p class="quantity">1箱3個入り<span class="price">450円</span></p>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <div class="footerContent">
+          <div class="footerWrapper">
+            <div class="footerLeft">
+              <span class="englishText">Adress</span>
+              <address>
+                〒123-4567<br>
+                東京都渋谷区桜丘町1-23<br class="br-sp">さくらヒルズビル 5階
+              </address>
+              <p>[OPEN]10:00-17:00 / [CLOSE]木曜日</p>
+              <p>アクセス | <a href="https://maps.app.goo.gl/iMPRMgPsNcLv5wnB6">Google Maps</a></p>
+              <span class="englishText socialIcon">Follow Us ―</span>
+              <a href="https://www.instagram.com/yourusername" target="_blank">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.tiktok.com/@yourusername" target="_blank">
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+            <div class="footerLinks">
+              <ul>
+                <li><a href="macaron.html" class="englishText">Macarons</a></li>
+                <li><a href="cake.html" class="englishText">Cakes</a></li>
+              </ul>
+              <ul>
+                <li><a href="about.html" class="englishText">About</a></li>
+                <li><a href="access.html" class="englishText">Access</a></li>
+                <li><a href="contact.html" class="englishText">Contact</a></li>
+                <li><a href="" class="englishText">English</a></li>
+              </ul>
+            </div>
+            <div class="footerRight">
+              <form class="email-form" action="/subscribe" method="post" novalidate>
+                <label for="email">初来店15%OFFクーポンを受け取る</label>
+                <div class="field">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    placeholder="you@example.com"
+                    required
+                    aria-describedby="emailHelp emailError"
+                    spellcheck="false"
+                  />
+                  <button type="submit" class="search-submit englishText" aria-label="送信">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        <h2 class="footerLogo englishText">Takamura</h2>
+        <div class="copyRight">
+          <p>Copyright © TAKAMURA. All Rights Reserved.</p>
+        </div>
+      </footer>
+      <script src="js/subPage.js"></script>
+  </body>
+</html>
