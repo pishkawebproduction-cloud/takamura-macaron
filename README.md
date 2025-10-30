@@ -2,7 +2,7 @@
 
 **ライブサイト**：<https://pishkawebproduction-cloud.github.io/takamura-macaron/>
 
-静的サイト（HTML/CSS/JS）を GitHub Pages で公開。  
+静的サイト（HTML/CSS/JS）を GitHub Pages で公開。
 GSAP を使った軽やかなアニメーションとレスポンシブ対応。
 
 ## 特徴
