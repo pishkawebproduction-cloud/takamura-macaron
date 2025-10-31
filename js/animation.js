@@ -514,7 +514,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
-//ページトランジション
 // ページトランジション
 (() => {
   const topBar = document.querySelector('.barTop');

@@ -1038,12 +1038,9 @@ img.cake {
   margin: 0 auto;
 }
 
-.sectionWrap h1,
-.sectionWrap h2 {  }
-
 /* ===== Intro ===== */
 
-.aboutIntro { 
+.aboutIntro {
   margin-top: 100px;
   color: #112229;
 }
