@@ -589,11 +589,11 @@ img.hoverImgParts {
   overflow: hidden;
 }
 
-.bestSeller picture {
+.circle picture {
   display: contents;
 }
 
-.bestSeller picture > img {
+.circle picture > img {
   display: block;
   line-height: 0;
 }
