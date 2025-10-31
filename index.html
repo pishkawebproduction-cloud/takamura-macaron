@@ -6,7 +6,10 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
-    <link rel="preload" as="image" href="images/hero.webp" imagesizes="100vw">
+    <link rel="preload" as="image"
+      href="images/hero-1600.webp"
+      imagesrcset="images/hero-800.webp 800w, images/hero-1200.webp 1200w, images/hero-1600.webp 1600w"
+      imagesizes="100vw">
     <meta property="og:title" content="TAKAMURA">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/ogp.png">
@@ -73,8 +76,13 @@
 
     <div class="mainVisual">
       <picture class="hero">
-        <source srcset="images/hero.webp" type="image/webp">
-        <img src="images/hero.webp" alt="色とりどりのマカロンが並ぶメインビジュアル" fetchpriority="high" decoding="async">
+        <source type="image/webp"
+          srcset="images/hero-800.webp 800w, images/hero-1200.webp 1200w, images/hero-1600.webp 1600w"
+          sizes="100vw">
+        <img src="images/hero-1600.webp"
+          alt="色とりどりのマカロンが並ぶメインビジュアル"
+          width="1600" height="2400"
+          fetchpriority="high">
       </picture>
       <h2 class="reveal-letters">恋のように<br>とろけるマカロン</h2>
       <div class="indulge">
