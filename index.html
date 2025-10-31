@@ -34,8 +34,8 @@
       <nav>
         <h1 class="logo">
           <a href="index.html">
-          <img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
-          <img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
+            <img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
+            <img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
           </a>
         </h1>
         <ul id="global-nav">
@@ -45,7 +45,10 @@
           <li><a href="access.html" class="englishText">Access</a></li>
           <li><a href="mailto:hello@takamura.example" class="englishText contactLink" target="_blank">Contact</a></li>
           <li><a href="javascript:void(0)" class="englishText englishLink">English</a></li>
-          <img class="spMenuPic" src="images/macaron.jpg">
+          <picture>
+            <source srcset="images/macaron.webp" type="image/webp">
+            <img class="spMenuPic" src="images/macaron.jpg" alt="...">
+          </picture>
         </ul>
         <button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
           <i class="fas fa-search" aria-label="検索を開く"></i>
@@ -72,9 +75,18 @@
       <div class="indulge">
         <div class="indulgePic">
           <a href="#recommendation">
-          <img class ="defaultImg" src="images/indulgeBefore.png">
-          <img class ="hoverImg" src="images/indulgeAfter2.png">
-          <img class="hoverImgParts" src="images/indulge_pierce.png">
+            <picture>
+              <source srcset="images/indulgeBefore.webp" type="image/webp">
+              <img class="defaultImg" src="images/indulgeBefore.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/indulgeAfter2.webp" type="image/webp">
+              <img class="hoverImg" src="images/indulgeAfter2.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/indulge_pierce.webp" type="image/webp">
+              <img class="hoverImgParts" src="images/indulge_pierce.png" alt="...">
+            </picture>
           </a>
         </div>
       </div>
@@ -89,26 +101,47 @@
           <p class="reveal-letters">ひと口ごとに広がるのは、甘くとろける不思議な余韻。そのやさしい口どけは、恋心のように儚く、そっと消えていきます。カラフルに並ぶマカロンは、それぞれが小さな恋の物語を紡ぎ、出会いのときめきから、寄り添う安らぎまでを映し出す。一粒ごとに異なる甘美な世界へと誘い、あなたを甘い謎へ導く──。特別な日も、日常のひとときも彩る、とっておきのスイーツです。
           </p>
         </div>
-        <img src="images/macaronIllust.png" alt="">
+        <picture>
+          <source srcset="images/macaronIllust.webp" type="image/webp">
+          <img src="images/macaronIllust.png" alt="...">
+        </picture>
       </section>
 
       <section class="bestSeller" id="recommendation" >
         <div class="circleWrapper">
           <div class="circle">
-            <img class="before" src="images/strawberryBefore.png">
-            <img class="after" src="images/strawberryAfter.png">
+            <picture>
+              <source srcset="images/strawberryBefore.webp" type="image/webp">
+              <img class="before" src="images/strawberryBefore.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/strawberryAfter.webp" type="image/webp">
+              <img class="after" src="images/strawberryAfter.png" alt="...">
+            </picture>
             <span class="menuName">ストロベリー</span>
             <p class="quantity">1箱3個入り<br class="br-sp"><span class="price">450円</span></p>
           </div>
           <div class="circle">
-            <img class="before" src="images/raspberryBefore.png">
-            <img class="after" src="images/raspberryAfter.png">
+            <picture>
+              <source srcset="images/raspberryBefore.webp" type="image/webp">
+              <img class="before" src="images/raspberryBefore.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/raspberryAfter.webp" type="image/webp">
+              <img class="after" src="images/raspberryAfter.png" alt="...">
+            </picture>
             <span class="menuName">ラズベリー</span>
             <p class="quantity">1箱3個入り<br class="br-sp"><span class="price">450円</span></p>
           </div>
           <div class="circle">
-            <img class="before" src="images/matchaBefore.png">
-            <img class="after" src="images/matchaAfter.png">
+            <picture>
+              <source srcset="images/matchaBefore.webp" type="image/webp">
+              <img class="before" src="images/matchaBefore.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/matchaAfter.webp" type="image/webp">
+              <img class="after" src="images/matchaAfter.png" alt="...">
+            </picture>
             <span class="menuName">抹茶</span>
             <p class="quantity">1箱3個入り<br class="br-sp"><span class="price">450円</span></p>
           </div>
@@ -120,14 +153,38 @@
         <h2 class="reveal-letters">「私、ケーキを食べるの。<br>だって今日も<br>どこかで誰かの誕生日なんだから。」</h2>
         <div class="scrollContainer">
           <div class="imageWrap" id="imageWrap">
-            <img class="donut is-init"             src="images/donut.png"             alt="">
-            <img class="strawberryLatte is-init"   src="images/strawberryLatte.png"   alt="">
-            <img class="matchaLatte is-init"       src="images/matchaLatte.png"       alt="">
-            <img class="macaroonIllust is-init"    src="images/macaroonIllust.png"    alt="">
-            <img class="strawBerryMacaron is-init" src="images/strawBerryMacaron.png" alt="">
-            <img class="strawBerryCupCake is-init" src="images/strawBerryCupCake.png" alt="">
-            <img class="maronCake is-init"         src="images/maronCake.png"         alt="">
-            <img class="chocoCakeIllust is-init"   src="images/chocoCakeIllust.png"   alt="">
+            <picture>
+              <source srcset="images/donut.webp" type="image/webp">
+              <img class="donut is-init" src="images/donut.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/strawberryLatte.webp" type="image/webp">
+              <img class="strawberryLatte is-init" src="images/strawberryLatte.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/matchaLatte.webp" type="image/webp">
+              <img class="matchaLatte is-init" src="images/matchaLatte.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/macaroonIllust.webp" type="image/webp">
+              <img class="macaroonIllust is-init" src="images/macaroonIllust.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/strawBerryMacaron.webp" type="image/webp">
+              <img class="strawBerryMacaron is-init" src="images/strawBerryMacaron.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/strawBerryMacaron.webp" type="image/webp">
+              <img class="strawBerryCupCake is-init"src="images/strawBerryCupCake.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/maronCake.webp" type="image/webp">
+              <img class="maronCake is-init" src="images/maronCake.png" alt="...">
+            </picture>
+            <picture>
+              <source srcset="images/chocoCakeIllust.webp" type="image/webp">
+              <img class="chocoCakeIllust is-init" src="images/chocoCakeIllust.png" alt="...">
+            </picture>
           </div>
         </div>
       </section>
@@ -136,48 +193,84 @@
         <div class="menuSec top">
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/ichigoBefore.png">
-              <img class="after" src="images/ichigoAfter.png">
+              <picture>
+                <source srcset="images/ichigoBefore.webp" type="image/webp">
+                <img class="before" src="images/ichigoBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/ichigoAfter.webp" type="image/webp">
+                <img class="after" src="images/ichigoAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">苺マカロン</span>
             <p class="quantity">1箱3個入り<span class="price">600円</span></p>
           </div>
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/raspberryBefore.png">
-              <img class="after" src="images/raspberryAfter.png">
+              <picture>
+                <source srcset="images/raspberryBefore.webp" type="image/webp">
+                <img class="before" src="images/raspberryBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/raspberryAfter.webp" type="image/webp">
+                <img class="after" src="images/raspberryAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">ラズベリー</span>
             <p class="quantity">1箱3個入り<span class="price">450円</span></p>
           </div>
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/earlGreyBefore.png">
-              <img class="after" src="images/earlGreyAfter.png">
+              <picture>
+                <source srcset="images/earlGreyBefore.webp" type="image/webp">
+                <img class="before" src="images/earlGreyBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/earlGreyAfter.webp" type="image/webp">
+                <img class="after" src="images/earlGreyAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">アールグレイ</span>
             <p class="quantity">1箱3個入り<span class="price">450円</span></p>
           </div>
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/chocoMintBefore.png">
-              <img class="after" src="images/chocoMintAfter.png">
+              <picture>
+                <source srcset="images/chocoMintBefore.webp" type="image/webp">
+                <img class="before" src="images/chocoMintBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/chocoMintAfter.webp" type="image/webp">
+                <img class="after" src="images/chocoMintAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">チョコミント</span>
             <p class="quantity">1箱3個入り<span class="price">450円</span></p>
           </div>
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/matchaBefore.png">
-              <img class="after" src="images/matchaAfter.png">
+              <picture>
+                <source srcset="images/matchaBefore.webp" type="image/webp">
+                <img class="before" src="images/matchaBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/matchaAfter.webp" type="image/webp">
+                <img class="after" src="images/matchaAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">抹茶</span>
             <p class="quantity">1箱3個入り<span class="price">450円</span></p>
           </div>
           <div class="menu">
             <div class="menuPic">
-              <img class="before" src="images/strawberryBefore.png">
-              <img class="after" src="images/strawberryAfter.png">
+              <picture>
+                <source srcset="images/strawberryBefore.webp" type="image/webp">
+                <img class="before" src="images/strawberryBefore.png" alt="...">
+              </picture>
+              <picture>
+                <source srcset="images/strawberryAfter.webp" type="image/webp">
+                <img class="after" src="images/strawberryAfter.png" alt="...">
+              </picture>
             </div>
             <span class="menuName">ストロベリー</span>
             <p class="quantity">1箱3個入り<span class="price">450円</span></p>
@@ -188,7 +281,7 @@
       <section class="reviewMarquee" aria-label="reviews ticker">
         <div class="scroller" id="review-scroller">
           <div class="track" id="review-track">
-            <div class="review">  
+            <div class="review">
               <blockquote>
                 <p>まるで物語の扉を開けるような体験。ピンク色のマカロンが並ぶディスプレイは、訪れた人を一瞬で虜にするはず。甘さ控えめの上品な味わいは、日本人の感性にぴったりだ。</p>
                 <cite>東京グルメタイム</cite>
@@ -232,7 +325,7 @@
       <div class="footerContent">
         <div class="footerWrapper">
           <div class="footerLeft">
-            <span class="englishText">Adress</span>
+            <span class="englishText">Address</span>
             <address>
               〒123-4567<br>
               東京都渋谷区桜丘町1-23<br class="br-sp">さくらヒルズビル 5階
@@ -256,7 +349,7 @@
               <li><a href="about.html" class="englishText">About</a></li>
               <li><a href="access.html" class="englishText">Access</a></li>
               <li><a href="contact.html" class="englishText">Contact</a></li>
-              <li><a href="" class="englishText">English</a></li>
+              <li><a href="javascript:void(0)" class="englishText">English</a></li>
             </ul>
           </div>
           <div class="footerRight">
@@ -279,6 +372,7 @@
             </form>
           </div>
         </div>
+      </div>
       <h2 class="footerLogo englishText">Takamura</h2>
       <div class="copyRight">
         <p>Copyright © TAKAMURA. All Rights Reserved.</p>
