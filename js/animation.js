@@ -515,10 +515,11 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 //ページトランジション
+// ページトランジション
 (() => {
-  // GSAP/ScrollTriggerは既に読み込み済み想定
   const topBar = document.querySelector('.barTop');
   const bottomBar = document.querySelector('.barBottom');
+  if (!topBar || !bottomBar) return; // 念のためガード
 
   // ページ読込時：開く（= 上は上へ、下は下へ退場）
   window.addEventListener('load', () => {
@@ -526,18 +527,33 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to(bottomBar, { duration: 0.9, yPercent:  100, ease: "power4.inOut", delay: 0.05 });
   });
 
-  // ページ遷移時：閉じる（= 画面を覆う位置へ）
-  document.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (!href || href.startsWith('#') || a.target === '_blank') return;
+  // クリックを1か所で拾う（イベント委譲）
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (!a) return;
 
-      e.preventDefault();
-      // まず戻す（yPercent:0 で40vh/60vh位置に“閉じる”）
-      gsap.to(topBar,    { duration: 0.9, yPercent: 0, ease: "power4.inOut" });
-      gsap.to(bottomBar, { duration: 0.9, yPercent: 0, ease: "power4.inOut", delay: 0.05,
-        onComplete: () => { window.location.href = href; }
-      });
+    const href = a.getAttribute('href') || '';
+
+    // ---- 遷移させないリンクを除外（ここがキモ）----
+    const isHashOnly   = href === '#' || href.startsWith('#');   // ページ内リンク
+    const isJSLink     = href.startsWith('javascript:');         // javascript:void(0) など
+    const isBlank      = href.trim() === '';                     // 空href
+    const isExternal   = a.origin && a.origin !== location.origin; // 外部リンク
+    const isNoTrans    = a.hasAttribute('data-no-transition');   // 明示除外フラグ
+    const isDownload   = a.hasAttribute('download');             // ダウンロード
+    const isNewWindow  = a.target === '_blank';                  // 別タブ
+
+    if (isHashOnly || isJSLink || isBlank || isExternal || isNoTrans || isDownload || isNewWindow) {
+      // これらはトランジションを出さない
+      return;
+    }
+    // -----------------------------------------------
+
+    // ここから通常のページ遷移（トランジションあり）
+    e.preventDefault();
+    gsap.to(topBar,    { duration: 0.9, yPercent: 0,   ease: "power4.inOut" });
+    gsap.to(bottomBar, { duration: 0.9, yPercent: 0,   ease: "power4.inOut", delay: 0.05,
+      onComplete: () => { window.location.href = a.href; }
     });
   });
 })();
