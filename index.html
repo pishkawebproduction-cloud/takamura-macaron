@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+    <link rel="preload" as="image" href="images/hero.webp" imagesizes="100vw">
     <meta property="og:title" content="TAKAMURA">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/ogp.png">
@@ -71,6 +72,10 @@
     <div class="site-dim" aria-hidden="true"></div>
 
     <div class="mainVisual">
+      <picture class="hero">
+        <source srcset="images/hero.webp" type="image/webp">
+        <img src="images/hero.webp" alt="色とりどりのマカロンが並ぶメインビジュアル" fetchpriority="high" decoding="async">
+      </picture>
       <h2 class="reveal-letters">恋のように<br>とろけるマカロン</h2>
       <div class="indulge">
         <div class="indulgePic">

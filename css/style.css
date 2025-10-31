@@ -381,11 +381,18 @@ main {
   position: relative;
 }
 
+.mainVisual .hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .mainVisual::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../images/macaron.svg") center/cover no-repeat;
   z-index: -1;
 }
 
