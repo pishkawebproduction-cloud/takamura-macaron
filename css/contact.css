@@ -1,0 +1,145 @@
+/* contact page overrides / additions */
+.contact-hero {
+  margin-top: 106px;
+  text-align: center;
+}
+
+.contact-title {
+  font-family: "Impact", system-ui, sans-serif;
+  font-size: clamp(28px, 5vw, 40px);
+  margin: 0 0 8px;
+}
+
+.contact-lead {
+  color: #444;
+  margin: 0 auto 24px;
+  max-width: 680px;
+  line-height: 1.8;
+}
+
+.contact-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px 64px;
+}
+
+.contact-card {
+  background: #fff;
+  border: 2px solid #147C98;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .05);
+}
+
+.contact-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.contact-label {
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.contact-req {
+  color: #fff;
+  background: #147C98;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  border: 2px solid #147C98;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 16px;
+  background: #f8f8f2;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  border-color: #0f5f74;
+  box-shadow: 0 0 0 3px rgba(20, 124, 152, .15);
+}
+
+.contact-help {
+  font-size: 13px;
+  color: #666;
+  margin-top: 6px;
+}
+
+.contact-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #147C98;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e7eef1;
+  color: #0f5f74;
+}
+
+/* アクセシビリティ補助 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* 送信後の完了表示切替 */
+.contact-success {
+  display: none;
+  margin-top: 16px;
+  padding: 14px;
+  border: 2px solid #47a776;
+  background: #e9f7ef;
+  border-radius: 12px;
+  color: #1a6b3a;
+}
+
+.is-sent .contact-form {
+  display: none;
+}
+
+.is-sent .contact-success {
+  display: block;
+}
+
+/* 小さめ端末での余白最適化 */
+@media (max-width: 480px) {
+  .contact-card {
+    padding: 18px 14px;
+  }
+
+  .contact-actions {
+    justify-content: center;
+  }
+}

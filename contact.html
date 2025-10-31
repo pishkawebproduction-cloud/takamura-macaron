@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<title>Contact | TAKAMURA</title>
+
+	<!-- 既存の本番CSS（先に読む） -->
+	<link rel="preload" href="css/app.min.css?v=20251031c" as="style">
+	<link rel="stylesheet" href="css/app.min.css?v=20251031c" media="print" onload="this.media='all'">
+	<noscript>
+		<link rel="stylesheet" href="css/app.min.css?v=20251031c">
+	</noscript>
+
+	<!-- Contact専用の上書きCSS（後読みで優先） -->
+	<link rel="stylesheet" href="css/contact.css?v=20251031c">
+
+	<!-- Webフォント（index.htmlと同じ最小構成） -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preload" as="style"
+		href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@900&display=swap"
+		onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@900&display=swap">
+	</noscript>
+
+	<!-- Font Awesome（必要なら。使わなければ削除OK） -->
+	<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+		onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	</noscript>
+
+	<!-- GSAP系（index.htmlと同じ） -->
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ModifiersPlugin.min.js" defer></script>
+	<script src="js/subPage.js" defer></script>
+</head>
+
+<body>
+	<!-- ページトランジション（index.htmlと同じ構造） -->
+	<div class="page-transition">
+		<div class="bar barTop"></div>
+		<div class="bar barBottom"></div>
+	</div>
+
+	<!-- ===== header（index.html準拠） ===== -->
+	<header class="site-header is-scrolled" data-lock-scrolled>
+		<nav>
+			<h1 class="logo">
+				<a href="index.html">
+					<img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
+					<img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
+				</a>
+			</h1>
+			<ul id="global-nav">
+				<li><a href="macaron.html" class="englishText">Macarons</a></li>
+				<li><a href="cake.html" class="englishText">Cakes</a></li>
+				<li><a href="about.html" class="englishText">About</a></li>
+				<li><a href="access.html" class="englishText">Access</a></li>
+				<!-- Contact は“このページ”なので mailto ではなく self ページを指す -->
+				<li><a href="contact.html" class="englishText contactLink" aria-current="page">Contact</a></li>
+				<li><a href="javascript:void(0)" class="englishText englishLink" data-no-transition>English</a></li>
+				<picture>
+					<source srcset="images/macaron.webp" type="image/webp">
+					<img class="spMenuPic" src="images/macaron.jpg" alt="商品写真">
+				</picture>
+			</ul>
+			<button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
+				<i class="fas fa-search" aria-label="検索を開く"></i>
+			</button>
+			<button class="burger" aria-label="Menu" aria-controls="global-nav" aria-expanded="false">
+				<span class="burger-bar"></span>
+				<span class="burger-bar"></span>
+				<span class="burger-bar"></span>
+			</button>
+		</nav>
+
+		<div id="search-panel" class="search-panel" role="search">
+			<form action="" method="get" class="search-form" autocomplete="off">
+				<input type="search" name="q" placeholder="キーワードで検索" aria-label="検索キーワード">
+				<button type="submit" class="search-submit englishText" aria-label="検索">search</button>
+				<a class="searchClose"></a>
+			</form>
+		</div>
+	</header>
+	<div class="site-dim" aria-hidden="true"></div>
+
+	<!-- ===== main ===== -->
+	<main id="main">
+		<section class="contact-hero">
+			<h1 class="contact-title">Contact</h1>
+			<p class="contact-lead">
+				デモ用のお問い合わせページです。送信は行われず、ページ内で完了表示に切り替わります。
+			</p>
+		</section>
+
+		<section class="contact-wrap">
+			<div class="contact-card" id="contact-card" aria-live="polite">
+				<!-- 完了表示 -->
+				<div class="contact-success" id="contact-success" role="status" aria-atomic="true">
+					送信が完了しました（デモ表示）。実際のメール送信は行っていません。<br>
+					トップへ戻る場合は <a href="./">こちら</a>。
+				</div>
+
+				<!-- フォーム本体（送信はしない） -->
+				<form class="contact-form" id="contact-form" novalidate>
+					<div class="contact-grid">
+						<div>
+							<label for="name" class="contact-label">お名前<span class="contact-req">必須</span></label>
+							<input id="name" name="name" type="text" class="contact-input" autocomplete="name" required
+								placeholder="山田 太郎">
+							<p class="contact-help">例：山田 太郎</p>
+						</div>
+
+						<div>
+							<label for="email" class="contact-label">メールアドレス<span class="contact-req">必須</span></label>
+							<input id="email" name="email" type="email" class="contact-input" autocomplete="email" required
+								placeholder="you@example.com" inputmode="email">
+							<p class="contact-help">ご連絡可能なメールアドレスをご記入ください。</p>
+						</div>
+
+						<div>
+							<label for="message" class="contact-label">お問い合わせ内容<span class="contact-req">必須</span></label>
+							<textarea id="message" name="message" rows="6" class="contact-textarea" required
+								placeholder="お問い合わせ内容を入力してください。"></textarea>
+						</div>
+
+						<!-- honeypot（人間は非表示） -->
+						<div aria-hidden="true" class="sr-only">
+							<label>Leave this field empty
+								<input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+							</label>
+						</div>
+
+						<div class="contact-actions">
+							<button type="reset" class="btn btn-secondary">クリア</button>
+							<button type="submit" class="btn btn-primary" id="submitBtn">送信</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<!-- ===== footer（index.html準拠） ===== -->
+	<footer>
+		<div class="footerContent">
+			<div class="footerWrapper">
+				<div class="footerLeft">
+					<span class="englishText">Address</span>
+					<address>
+						〒123-4567<br>
+						東京都渋谷区桜丘町1-23<br class="br-sp">さくらヒルズビル 5階
+					</address>
+					<p>[OPEN]10:00-17:00 / [CLOSE]木曜日</p>
+					<p>アクセス | <a href="https://maps.app.goo.gl/iMPRMgPsNcLv5wnB6">Google Maps</a></p>
+					<span class="englishText socialIcon">Follow Us ―</span>
+					<a href="https://www.instagram.com/yourusername" target="_blank">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="https://www.tiktok.com/@yourusername" target="_blank">
+						<i class="fab fa-tiktok"></i>
+					</a>
+				</div>
+				<div class="footerLinks">
+					<ul>
+						<li><a href="macaron.html" class="englishText">Macarons</a></li>
+						<li><a href="cake.html" class="englishText">Cakes</a></li>
+					</ul>
+					<ul>
+						<li><a href="about.html" class="englishText">About</a></li>
+						<li><a href="access.html" class="englishText">Access</a></li>
+						<li><a href="contact.html" class="englishText" aria-current="page">Contact</a></li>
+						<li><a href="javascript:void(0)" class="englishText" data-no-transition>English</a></li>
+					</ul>
+				</div>
+				<div class="footerRight">
+					<form class="email-form" action="/subscribe" method="post" novalidate>
+						<label for="email">初来店15%OFFクーポンを受け取る</label>
+						<div class="field">
+							<input id="email" name="email" type="email" inputmode="email" autocomplete="email"
+								placeholder="you@example.com" required aria-describedby="emailHelp emailError" spellcheck="false" />
+							<button type="submit" class="search-submit englishText" aria-label="送信">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<h2 class="footerLogo englishText">Takamura</h2>
+		<div class="copyRight">
+			<p>Copyright © TAKAMURA. All Rights Reserved.</p>
+		</div>
+	</footer>
+
+	<!-- デモ送信JS（送信はせず完了画面化） -->
+	<script>
+		(function () {
+			const form = document.getElementById('contact-form');
+			const card = document.getElementById('contact-card');
+			const btn = document.getElementById('submitBtn');
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+				const name = form.elements['name'];
+				const email = form.elements['email'];
+				const msg = form.elements['message'];
+				if (!name.value.trim() || !email.validity.valid || !msg.value.trim()) {
+					form.reportValidity();
+					return;
+				}
+				btn.disabled = true; btn.textContent = '送信中…';
+				setTimeout(() => {
+					card.classList.add('is-sent');
+					btn.disabled = false; btn.textContent = '送信';
+				}, 500);
+			});
+		})();
+	</script>
+</body>
+
+</html>
