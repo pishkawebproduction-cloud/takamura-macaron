@@ -589,6 +589,18 @@ img.hoverImgParts {
   overflow: hidden;
 }
 
+/* bestSeller の picture を“透過”させる */
+.bestSeller picture {
+  display: contents;     /* ← これがキモ！中のimgを親に直結扱いにする */
+}
+
+/* 念のための表示安定化 */
+.bestSeller picture > img {
+  display: block;
+  line-height: 0;
+}
+
+
 .circle img {
   position: absolute;
   top: 15%;
