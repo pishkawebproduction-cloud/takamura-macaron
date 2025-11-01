@@ -1880,14 +1880,14 @@ img.cake {
   }
 
   .site-header .logo-img {
-    width: 100px;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    height: 30px;
   }
 
   .site-header .logo-dark {
     inset: 50% auto auto 0;
     opacity: 1;
-    background-color: #f8f8f2
+    background-color: #f8f8f2;
   }
 
   .site-header .logo-light {
@@ -2449,5 +2449,16 @@ img.cake {
 
   .openMapInline {
     font-size: 14px
+  }
+}
+
+/* ===== Responsive logo fix ===== */
+@media (max-width:1080px){
+  /* 画像そのもの／ラッパー両方に効かせて勝ち切る */
+  .site-header .logo-img,
+  .site-header .logo-img img{
+    height: 30px !important;
+    width: auto !important;     /* 比率キープ。ベースの width 固定を無効化 */
+    margin-bottom: 10px;
   }
 }
