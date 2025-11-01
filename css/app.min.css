@@ -415,6 +415,7 @@ main {
 .site-header .logo-img {
   display: block;
   width: 300px;
+  height: 60px;
 }
 
 .site-header .logo-light {
@@ -717,6 +718,7 @@ main {
 
 .mainVisual {
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   padding: 0 40px;
   position: relative

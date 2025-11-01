@@ -6,8 +6,9 @@
 
 .contact-title {
   font-family: "Impact", system-ui, sans-serif;
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: clamp(28px, 5vw, 48px);
   margin: 0 0 8px;
+  text-transform: uppercase;
 }
 
 .contact-lead {
@@ -131,6 +132,80 @@
 
 .is-sent .contact-success {
   display: block;
+}
+
+.contact-actions .btn-primary:hover::before {
+  --r: 120%;
+}
+
+.contact-actions .btn-primary:hover {
+  color: #FFA7EE;
+}
+
+.contact-actions .btn-primary {
+  height: 44px;
+  min-width: 44px;
+  border: 0;
+  border-radius: 27px;
+  background: 0 0;
+  color: #f8f8f2;
+  cursor: pointer;
+  text-align: center;
+  padding: 0 30px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--t, .8s) var(--ulu-curve, ease);
+  z-index: 0
+}
+
+.contact-actions .btn-primary::before {
+  border: 3px solid #FFA7EE;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, transparent var(--r), #FFA7EE calc(var(--r) + .1%));
+  transition: --r var(--t, .8s) var(--ulu-curve, ease);
+  pointer-events: none;
+  z-index: -1
+}
+
+.contact-actions .btn-secondary:hover::before {
+  --r: 120%;
+}
+
+.contact-actions .btn-secondary:hover {
+  color: #147C98;
+}
+
+.contact-actions .btn-secondary {
+  height: 44px;
+  min-width: 44px;
+  border: 0;
+  border-radius: 27px;
+  background: 0 0;
+  color: #f8f8f2;
+  cursor: pointer;
+  text-align: center;
+  padding: 0 30px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color var(--t, .8s) var(--ulu-curve, ease);
+  z-index: 0
+}
+
+.contact-actions .btn-secondary::before {
+  border: 3px solid #147C98;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, transparent var(--r), #147C98 calc(var(--r) + .1%));
+  transition: --r var(--t, .8s) var(--ulu-curve, ease);
+  pointer-events: none;
+  z-index: -1
 }
 
 /* 小さめ端末での余白最適化 */
