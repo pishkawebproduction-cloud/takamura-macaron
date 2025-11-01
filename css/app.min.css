@@ -742,6 +742,7 @@ main {
 .mainVisual h2 {
   color: #f8f8f2;
   font-family: "Dela Gothic One";
+  font-weight: 400;
   font-size: 10vw;
   line-height: 1;
   position: absolute;
@@ -1374,13 +1375,7 @@ footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
   background-color: #f8f8f2
 }
 
-.footerLogo {
-  font-family: Montserrat;
-  font-size: 15vw;
-  line-height: 15vw;
-  text-align: center;
-  padding: 15px 0
-}
+footer h2 { padding: 30px 20px 10px; }
 
 .copyRight {
   font-family: Impact;
@@ -1943,12 +1938,6 @@ img.cake {
   .review,
   .review2 {
     height: 40vh
-  }
-
-  .footerLogo {
-    font-family: Montserrat;
-    font-size: 13vw;
-    line-height: 13vw
   }
 
   .footerWrapper {

@@ -26,12 +26,12 @@
   </noscript>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@900&display=swap"
+
+  <!-- Dela Gothic One only -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap"
     onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Montserrat:wght@900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
   </noscript>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
@@ -92,7 +92,8 @@
     <picture class="hero">
       <source type="image/webp"
         srcset="images/hero-800.webp 800w, images/hero-1200.webp 1200w, images/hero-1600.webp 1600w" sizes="100vw">
-      <img src="images/hero-1600.webp" alt="色とりどりのマカロンが並ぶメインビジュアル" width="1600" height="2400" fetchpriority="high" decoding="async">
+      <img src="images/hero-1600.webp" alt="色とりどりのマカロンが並ぶメインビジュアル" width="1600" height="2400" fetchpriority="high"
+        decoding="async">
     </picture>
     <h2 class="reveal-letters">恋のように<br>とろけるマカロン</h2>
     <div class="indulge">
@@ -401,7 +402,12 @@
         </div>
       </div>
     </div>
-    <h2 class="footerLogo englishText">Takamura</h2>
+    <h2><svg class="footerLogo__svg" viewBox="0 0 792 94" role="img" aria-label="TAKAMURA"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor"
+          d="m28.5198 90.6001v-69.504h-27.520007v-20.09601h80.256007v20.09601h-27.392v69.504zm46.926 0 39.5522-89.60001h24.96l39.68 89.60001h-26.368l-30.976-77.184h9.984l-30.976 77.184zm21.632-17.408 6.5282-18.688h43.776l6.528 18.688zm112.4012-2.432-1.408-28.416 38.528-41.34401h27.904l-38.4 41.60001-14.08 14.72zm-22.656 19.84v-89.60001h25.088v89.60001zm60.16 0-29.184-36.992 16.512-17.664 42.112 54.656zm21.088 0 39.552-89.60001h24.96l39.68 89.60001h-26.368l-30.976-77.184h9.984l-30.976 77.184zm21.632-17.408 6.528-18.688h43.776l6.528 18.688zm89.745 17.408v-89.60001h20.864l37.12 60.92801h-11.008l36.096-60.92801h20.864l.256 89.60001h-23.296l-.256-54.144h3.968l-27.008 45.312h-11.264l-27.776-45.312h4.864v54.144zm163.469 1.792c-13.227 0-23.552-3.6267-30.976-10.88s-11.136-17.536-11.136-30.848v-49.66401h25.344v48.89601c0 7.68 1.493 13.184 4.48 16.512 3.072 3.328 7.253 4.992 12.544 4.992 5.29 0 9.429-1.664 12.416-4.992 2.986-3.328 4.48-8.832 4.48-16.512v-48.89601h24.96v49.66401c0 13.312-3.712 23.5947-11.136 30.848s-17.75 10.88-30.976 10.88zm59.281-1.792v-89.60001h40.96c8.192 0 15.232 1.32267 21.12 3.968 5.973 2.64534 10.581 6.48531 13.824 11.52001 3.242 4.9493 4.864 10.8373 4.864 17.664 0 6.7413-1.622 12.5867-4.864 17.536-3.243 4.864-7.851 8.6187-13.824 11.264-5.888 2.56-12.928 3.84-21.12 3.84h-26.88l11.264-10.624v34.432zm55.424 0-22.272-32.64h27.008l22.4 32.64zm-30.08-31.744-11.264-11.648h25.344c5.29 0 9.216-1.152 11.776-3.456 2.645-2.304 3.968-5.504 3.968-9.6 0-4.1813-1.323-7.424-3.968-9.728-2.56-2.304-6.486-3.456-11.776-3.456h-25.344l11.264-11.64801zm58.654 31.744 39.552-89.60001h24.96l39.68 89.60001h-26.368l-30.976-77.184h9.984l-30.976 77.184zm21.632-17.408 6.528-18.688h43.776l6.528 18.688z" />
+      </svg>
+    </h2>
     <div class="copyRight">
       <p>Copyright © TAKAMURA. All Rights Reserved.</p>
     </div>
