@@ -1276,6 +1276,12 @@ img.macaroonIllust {
   }
 }
 
+.reviewMarquee {
+  background: none !important;
+  /* デザイン崩れが出たら背景色だけ代替 */
+  background-color: #f7f2f7;
+}
+
 footer {
   position: fixed;
   bottom: 0;
@@ -1336,9 +1342,15 @@ footer {
   margin-top: 10px
 }
 
-footer .icon-instagram { width: 40px;}
+footer .icon-instagram {
+  width: 40px;
+}
 
-footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
+footer .icon-tiktok {
+  height: 35px;
+  margin-bottom: 3px;
+  margin-left: 10px;
+}
 
 .footerLinks {
   display: flex;
@@ -1375,7 +1387,9 @@ footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
   background-color: #f8f8f2
 }
 
-footer h2 { padding: 30px 20px 10px; }
+footer h2 {
+  padding: 30px 20px 10px;
+}
 
 .copyRight {
   font-family: Impact;
