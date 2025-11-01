@@ -23,6 +23,11 @@ main {
   display: block
 }
 
+.section-late {            /* ファーストビュー外の大きいセクションに付与 */
+  content-visibility: auto;
+  contain-intrinsic-size: 1200px; /* だいたいの高さでOK */
+}
+
 address,
 blockquote,
 dl,

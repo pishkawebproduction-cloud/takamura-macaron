@@ -23,11 +23,9 @@
   <meta property="og:url" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/">
   <meta property="og:site_name" content="TAKAMURA">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="css/app.min.css?v=20251031b" as="style">
-  <link rel="stylesheet" href="css/app.min.css?v=20251031b" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="css/app.min.css?v=20251031b">
-  </noscript>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/css/app.min.css"
+    crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="font"
@@ -37,7 +35,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ModifiersPlugin.min.js" defer></script>
-  <script src="js/animation.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/js/animation.js" defer></script>
   <title>TAKAMURA</title>
 </head>
 
@@ -137,7 +135,7 @@
       </picture>
     </section>
 
-    <section class="bestSeller" id="recommendation">
+    <section class="bestSeller section-late" id="recommendation">
       <div class="circleWrapper">
         <div class="circle">
           <picture>
@@ -179,7 +177,7 @@
       </div>
     </section>
 
-    <section class="gallery">
+    <section class="gallery section-late">
       <h2 class="reveal-letters">「私、ケーキを食べるの。<br>だって今日も<br>どこかで誰かの誕生日なんだから。」</h2>
       <div class="scrollContainer">
         <div class="imageWrap" id="imageWrap">
@@ -221,7 +219,7 @@
       </div>
     </section>
 
-    <section class="container">
+    <section class="container section-late">
       <div class="menuSec top">
         <div class="menu">
           <div class="menuPic">
@@ -310,7 +308,7 @@
       </div>
     </section>
 
-    <section class="reviewMarquee" aria-label="reviews ticker">
+    <section class="reviewMarquee section-late" aria-label="reviews ticker">
       <div class="scroller" id="review-scroller">
         <div class="track" id="review-track">
           <div class="review">
@@ -430,6 +428,12 @@
       <p>Copyright © TAKAMURA. All Rights Reserved.</p>
     </div>
   </footer>
+  <script>
+    function init() { window.initAnimations && initAnimations(); }
+    const idle = cb => (window.requestIdleCallback ? requestIdleCallback(cb) : setTimeout(cb, 1000));
+    const isMobile = matchMedia('(max-width:768px)').matches;
+    idle(() => setTimeout(init, isMobile ? 800 : 1000));
+  </script>
 </body>
 
 </html>
