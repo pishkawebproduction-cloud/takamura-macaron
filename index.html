@@ -4,51 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- ★ preconnect を先頭に -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
-
-  <!-- LCP 画像 preload（そのままでOK） -->
   <link rel="preload" as="image"
     href="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-1600.webp"
-    imagesrcset="
-      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-800.webp 800w,
-      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-1200.webp 1200w,
-      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-1600.webp 1600w
-    " imagesizes="100vw" fetchpriority="high">
-
-  <!-- 省略: alternate / OGP / Twitter などはそのままでOK -->
-
-  <!-- app.min.css を非同期化（OK） -->
-  <link rel="preload" as="style"
-    href="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/css/app.min.css">
+    imagesrcset=" https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-800.webp 800w, https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-1200.webp 1200w, https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/hero-1600.webp 1600w "
+    imagesizes="100vw" fetchpriority="high">
+  <link rel="alternate" href="https://pishkawebproduction-cloud.github.io/takamura-macaron/" hreflang="ja">
+  <link rel="alternate" href="https://pishkawebproduction-cloud.github.io/takamura-macaron/en/" hreflang="en">
+  <link rel="alternate" href="https://pishkawebproduction-cloud.github.io/takamura-macaron/" hreflang="x-default">
+  <meta property="og:title" content="TAKAMURA">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/ogp.png">
+  <meta property="og:url" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/">
+  <meta property="og:site_name" content="TAKAMURA">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/css/app.min.css"
-    media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/css/app.min.css">
-  </noscript>
-
-  <!-- Google Fonts を非同期化（OK） -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap"
-    media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
-  </noscript>
-
-  <!-- GSAP は defer なのでOK -->
+    crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font"
+    href="https://fonts.gstatic.com/s/delagothicone/v19/hESp6XxvMDRA-2eD0lXpDa6QkBAGQEsPQAgBRQGhdlWTf4ifQMmxfTPxmI8D_A6A.104.woff2"
+    type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ModifiersPlugin.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/js/animation.js" defer></script>
-
+  <script src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/js/animation.js"
+    defer></script>
   <title>TAKAMURA</title>
 </head>
 
