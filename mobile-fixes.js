@@ -53,3 +53,36 @@
     setTimeout(setVhOnce, 300);
   }, { passive: true });
 })();
+
+// === HERO: iOS Chrome 固定高さ（最大値ロック） ===
+(function(){
+  var maxVH = 0;
+  function currentVH(){
+    var vvh = (window.visualViewport && window.visualViewport.height) ? Math.round(window.visualViewport.height) : 0;
+    var ih  = window.innerHeight || 0;
+    var ch  = document.documentElement ? document.documentElement.clientHeight : 0;
+    return Math.max(vvh, ih, ch);
+  }
+  function apply(v){ document.documentElement.style.setProperty('--vh0', String(v)); }
+
+  // 連続サンプリング（読み込み直後〜650ms）
+  function sampleFor(ms){
+    var t0 = performance.now();
+    var timer = setInterval(function(){
+      var h = currentVH();
+      if (h > maxVH && h > 200) { maxVH = h; apply(maxVH); }
+      if (performance.now() - t0 > ms) clearInterval(timer);
+    }, 50);
+    // 一発目も反映
+    var first = currentVH();
+    if (first > maxVH && first > 200) { maxVH = first; apply(maxVH); }
+  }
+
+  // 初期化
+  sampleFor(650);
+
+  // 画面の向き変更時のみ、少し待ってから再サンプリング
+  window.addEventListener('orientationchange', function(){
+    setTimeout(function(){ maxVH = 0; sampleFor(800); }, 300);
+  }, { passive: true });
+})();
