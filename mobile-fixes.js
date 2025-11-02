@@ -86,3 +86,40 @@
     setTimeout(function(){ maxVH = 0; sampleFor(800); }, 300);
   }, { passive: true });
 })();
+(function () {
+  var root = document.documentElement;
+  var box  = document.querySelector('.mainVisual');
+  var hero = document.querySelector('.mainVisual .hero');
+  if (!box || !hero) return;
+
+  function measureVH() {
+    var vvh = (window.visualViewport && window.visualViewport.height) || 0;
+    var ih  = window.innerHeight || 0;
+    var ch  = root.clientHeight || 0;
+    var h   = Math.max(vvh, ih, ch);
+    if (h < 240) h = ih || ch || 640;
+    return Math.round(h);
+  }
+
+  function apply(h) {
+    box.style.height  = h + 'px';
+    hero.style.height = h + 'px';
+  }
+
+  function lockOnce() {
+    var maxH = 0;
+    var t0 = performance.now();
+    var timer = setInterval(function () {
+      var h = measureVH();
+      if (h > maxH) { maxH = h; apply(maxH); }
+      if (performance.now() - t0 > 650) clearInterval(timer);
+    }, 50);
+    var first = measureVH();
+    if (first > maxH) { maxH = first; apply(maxH); }
+  }
+
+  lockOnce();
+  window.addEventListener('orientationchange', function () {
+    setTimeout(function () { lockOnce(); }, 300);
+  }, { passive: true });
+})();

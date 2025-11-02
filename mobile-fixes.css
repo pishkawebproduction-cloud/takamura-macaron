@@ -151,3 +151,20 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .mainVisual,
+  .mainVisual .hero {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .mainVisual { padding: 0 !important; }
+  .mainVisual .hero img,
+  .mainVisual .hero picture,
+  .mainVisual .hero video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+  }
+}
