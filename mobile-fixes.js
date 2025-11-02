@@ -36,3 +36,20 @@
     hero.style.willChange = 'transform';
   }
 })();
+
+// === HERO: 固定vh変数セット（Android Chrome向け） ===
+(function(){
+  function setVhOnce(){
+    var vh = Math.max(window.innerHeight, document.documentElement.clientHeight);
+    // 端末差を吸収。極端な値（キーボード展開直後など）は弾く
+    if (vh > 200) {
+      document.documentElement.style.setProperty('--vh0', String(vh));
+    }
+  }
+  // 初期化
+  setVhOnce();
+  // 画面の向き変更時のみ再測定（スクロールでは更新しない）
+  window.addEventListener('orientationchange', function(){
+    setTimeout(setVhOnce, 300);
+  }, { passive: true });
+})();

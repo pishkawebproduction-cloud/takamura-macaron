@@ -93,3 +93,32 @@
     object-fit: cover;
   }
 }
+/* === HERO: Android Chrome縮み対策 (2025-11-02) === */
+:root{ --vh0: 100; } /* JSで初期化されるまでの保険 */
+
+@media (max-width: 768px) {
+  /* fallback: 初期ロード時のinnerHeightを固定的に使う（--vh0 は px単位で使う） */
+  .mainVisual,
+  .mainVisual .hero {
+    height: calc(var(--vh0, 100) * 1px) !important;
+    min-height: calc(var(--vh0, 100) * 1px) !important;
+  }
+  .mainVisual .hero img,
+  .mainVisual .hero picture,
+  .mainVisual .hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Chromeがlvh対応なら、それを最優先で使う（スクロールで縮まない） */
+@supports (height: 100lvh) {
+  @media (max-width: 768px) {
+    .mainVisual,
+    .mainVisual .hero {
+      height: 100lvh !important;
+      min-height: 100lvh !important;
+    }
+  }
+}
