@@ -2498,8 +2498,12 @@ img.macaroonIllust {
   .site-header .logo-img,
   .site-header .logo-img img {
     height: 20px !important;
-    width: 100px !important;
+    width: 80px !important;
   }
+
+  .site-header svg { width: 20px; height: 20px; }
+
+  .circle picture { width: 200px; height: 200px; }
 
   img.donut,
   img.strawBerryMacaron {
