@@ -1,16 +1,26 @@
-
 /* === mobile-fixes.css ===
    Patch overrides for mobile/tablet jitter & layout issues.
    Load this AFTER your existing app.min.css.
 */
 
 /* 1) Stabilize section heights (vh -> svh) and reduce hero jank */
-.mainVisual { height: 100svh !important; }
-.indulge { height: 100svh !important; }
-.bestSeller { height: 100svh !important; }
+.mainVisual {
+  height: 100svh !important;
+}
+
+.indulge {
+  height: 100svh !important;
+}
+
+.bestSeller {
+  height: 100svh !important;
+}
 
 /* If you had other sections using vh, keep them stable too */
-.reviewMarquee, .track { height: 80svh !important; }
+.reviewMarquee,
+.track {
+  height: 80svh !important;
+}
 
 /* Hero image smoothing */
 .mainVisual .hero img,
@@ -25,6 +35,7 @@
 .circle {
   height: clamp(420px, 62svh, 640px) !important;
 }
+
 @media (max-width: 1080px) {
   .circle {
     height: clamp(320px, 42svh, 520px) !important;
@@ -36,6 +47,7 @@
   .site-header h1.logo {
     padding-right: 0 !important;
   }
+
   .site-header h1.logo a {
     position: relative !important;
     display: grid !important;
@@ -46,17 +58,38 @@
     background: var(--nav-bg, #f8f8f2) !important;
     overflow: hidden !important;
   }
+
   .site-header .logo-img {
     position: absolute !important;
-    inset: 0 !important;     /* center both logos exactly */
+    inset: 0 !important;
+    /* center both logos exactly */
     margin: auto !important;
     width: 80% !important;
     height: auto !important;
     object-fit: contain !important;
   }
+
   .site-header .logo-dark {
-    opacity: 0;              /* default hidden; reveal via existing logic if any */
-    inset: 0 !important;     /* remove previous off-center inset */
+    opacity: 0;
+    /* default hidden; reveal via existing logic if any */
+    inset: 0 !important;
+    /* remove previous off-center inset */
     background: transparent !important;
+  }
+}
+
+@media (max-width:468px) {
+  .mainVisual {
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .mainVisual .hero {
+    height: 100%;
+  }
+
+  .mainVisual .hero img {
+    height: 100%;
+    object-fit: cover;
   }
 }
