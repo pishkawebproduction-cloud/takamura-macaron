@@ -23,11 +23,6 @@ main {
   display: block
 }
 
-.section-late {            /* ファーストビュー外の大きいセクションに付与 */
-  content-visibility: auto;
-  contain-intrinsic-size: 1200px; /* だいたいの高さでOK */
-}
-
 address,
 blockquote,
 dl,
@@ -1166,9 +1161,9 @@ img.macaroonIllust {
 .reviewMarquee {
   position: relative;
   overflow: hidden;
-  background: url("https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@a117425/images/macaronWomanGirl.png") no-repeat right center/cover;
+  background: url(../images/macaronWomanGirl.png) no-repeat right center/cover;
   color: #f8f8f2;
-  height: 80vh;
+  height: 80vh
 }
 
 .scroller {
@@ -1281,12 +1276,6 @@ img.macaroonIllust {
   }
 }
 
-.reviewMarquee {
-  background: none !important;
-  /* デザイン崩れが出たら背景色だけ代替 */
-  background-color: #f7f2f7;
-}
-
 footer {
   position: fixed;
   bottom: 0;
@@ -1347,15 +1336,9 @@ footer {
   margin-top: 10px
 }
 
-footer .icon-instagram {
-  width: 40px;
-}
+footer .icon-instagram { width: 40px;}
 
-footer .icon-tiktok {
-  height: 35px;
-  margin-bottom: 3px;
-  margin-left: 10px;
-}
+footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
 
 .footerLinks {
   display: flex;
@@ -1392,9 +1375,7 @@ footer .icon-tiktok {
   background-color: #f8f8f2
 }
 
-footer h2 {
-  padding: 30px 20px 10px;
-}
+footer h2 { padding: 30px 20px 10px; }
 
 .copyRight {
   font-family: Impact;
@@ -1880,14 +1861,14 @@ img.cake {
   }
 
   .site-header .logo-img {
-    margin-bottom: 10px;
-    height: 30px;
+    width: 100px;
+    margin-bottom: 10px
   }
 
   .site-header .logo-dark {
     inset: 50% auto auto 0;
     opacity: 1;
-    background-color: #f8f8f2;
+    background-color: #f8f8f2
   }
 
   .site-header .logo-light {
@@ -2449,16 +2430,5 @@ img.cake {
 
   .openMapInline {
     font-size: 14px
-  }
-}
-
-/* ===== Responsive logo fix ===== */
-@media (max-width:1080px){
-  /* 画像そのもの／ラッパー両方に効かせて勝ち切る */
-  .site-header .logo-img,
-  .site-header .logo-img img{
-    height: 30px !important;
-    width: auto !important;     /* 比率キープ。ベースの width 固定を無効化 */
-    margin-bottom: 10px;
   }
 }
