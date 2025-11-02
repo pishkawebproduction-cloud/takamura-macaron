@@ -93,7 +93,12 @@
       padding: 18px
     }
   </style>
-  <link rel="stylesheet" href="../hero-fix.css?v=20251102h">
+  <style id="hero-fix-inline">/* Hero minimal fix: unify height to 100dvh on mobile (inline) */
+@media (max-width: 1080px){
+  .mainVisual, .mainVisual .hero{height:100dvh !important;min-height:100dvh !important;}
+  .mainVisual .hero img, .mainVisual .hero picture, .mainVisual .hero video{width:100%;height:100%;object-fit:cover;display:block;backface-visibility:hidden;transform:translateZ(0);will-change:transform;}
+}
+</style>
 </head>
 
 <body>
