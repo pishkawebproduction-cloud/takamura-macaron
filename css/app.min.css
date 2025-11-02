@@ -2433,12 +2433,92 @@ img.cake {
   }
 }
 
-@media (max-width:1080px){
+.site-header {
+  height: 100px;
+}
+
+.site-header .logo {
+  height: 60px;
+}
+
+.site-header nav {
+  align-items: center;
+}
+
+.site-header nav ul {
+  margin-top: 10px;
+}
+
+img.donut,
+img.strawBerryMacaron {
+  height: 380px
+}
+
+img.strawBerryCupCake,
+img.strawberryLatte {
+  height: 310px
+}
+
+img.maronCake,
+img.matchaLatte {
+  height: 290px
+}
+
+img.chocoCakeIllust,
+img.macaroonIllust {
+  height: 170px
+}
+
+@media (max-width:1080px) {
+
   .site-header .logo-img,
   .site-header .logo-img img {
     height: 30px !important;
     width: 150px !important;
-    margin-bottom: 10px;
+  }
+
+  .site-header nav {
+    height: 100px;
+  }
+}
+
+@media (max-width:468px) {
+  .site-header {
+    height: 80px;
+  }
+
+  .site-header nav {
+    height: 80px;
+  }
+
+  .site-header .logo {
+    height: 40px;
+  }
+
+  .site-header .logo-img,
+  .site-header .logo-img img {
+    height: 20px !important;
+    width: 100px !important;
+  }
+
+  img.donut,
+  img.strawBerryMacaron {
+    height: 280px
+  }
+
+  img.strawBerryCupCake,
+  img.strawberryLatte {
+    height: 210px
+  }
+
+  img.maronCake,
+  img.matchaLatte {
+    height: 190px
+  }
+
+  img.chocoCakeIllust,
+  img.macaroonIllust {
+    height: 100px
   }
 }
 
