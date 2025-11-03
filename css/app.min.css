@@ -2652,6 +2652,31 @@ img.cake {
     left: auto !important;
     transform: none !important;
   }
-}@media (max-width:1080px){.site-header a{display:grid!important;justify-items:center!important;align-content:center!important}}
-@media (max-width:468px){.site-header .logo-img{width:80px!important;height:20px!important;display:block!important;margin:0 auto!important;object-fit:contain!important;object-position:center!important}}
-.site-header .logo-light,.site-header .logo-dark{position:static!important;inset:auto!important;left:auto!important;transform:none!important}
+}
+
+@media (max-width:1080px) {
+  .site-header a {
+    display: grid !important;
+    justify-items: center !important;
+    align-content: center !important
+  }
+}
+
+@media (max-width:468px) {
+  .site-header .logo-img {
+    width: 80px !important;
+    height: 20px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    object-position: center !important
+  }
+}
+
+.site-header .logo-light,
+.site-header .logo-dark {
+  position: static !important;
+  inset: auto !important;
+  left: auto !important;
+  transform: none !important
+}
