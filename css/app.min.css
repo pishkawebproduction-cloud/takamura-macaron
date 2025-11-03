@@ -2566,25 +2566,28 @@ img.cake {
 }
 
 /* ロゴ白背景内でテキスト（画像）を中央寄せ */
-.site-header .logo-dark{
+.site-header .logo-dark {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
 }
 
-@media (max-width:1080px){
-  .site-header .logo-dark{
-    position: static !important;   /* ← 重ねない */
-    inset: auto !important;        /* ← 以前の inset を打ち消す */
+@media (max-width:1080px) {
+  .site-header .logo-dark {
+    position: static !important;
+    /* ← 重ねない */
+    inset: auto !important;
+    /* ← 以前の inset を打ち消す */
     transform: none !important;
   }
 
-  
+
 }
 
-@media (max-width:468px){
-  .site-header .logo-dark{
-    width: 80px !important;        /* 画像と同サイズに揃える */
+@media (max-width:468px) {
+  .site-header .logo-dark {
+    width: 80px !important;
+    /* 画像と同サイズに揃える */
     height: 20px !important;
     display: inline-flex !important;
     justify-content: center !important;
@@ -2594,27 +2597,61 @@ img.cake {
 }
 
 /* 親 <a> で2つのロゴを中央寄せ（縦並び想定） */
-@media (max-width:1080px){
-  .site-header a { 
-    display: flex !important; 
-    flex-direction: column !important; 
-    align-items: center !important; 
+@media (max-width:1080px) {
+  .site-header a {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
 }
 
 /* 共通の描画安定化（80×20に収める・内容は常に中央） */
-@media (max-width:468px){
-  .site-header .logo-img{
+@media (max-width:468px) {
+  .site-header .logo-img {
     width: 80px !important;
     height: 20px !important;
     display: block !important;
     object-fit: contain !important;
-    object-position: center !important;  /* まず全体を中央に */
+    object-position: center !important;
+    /* まず全体を中央に */
   }
 
   /* 黒ロゴ（下）だけ、見た目が左寄りなら右へオフセット */
-  .site-header .logo-dark{
-    object-position: calc(50% + 6px) 50% !important; /* ← まず +6px で実機テスト */
-    background-color: #f8f8f2 !important;            /* 既存の白背景は維持 */
+  .site-header .logo-dark {
+    object-position: calc(50% + 6px) 50% !important;
+    /* ← まず +6px で実機テスト */
+    background-color: #f8f8f2 !important;
+    /* 既存の白背景は維持 */
   }
-}
+
+  .site-header a {
+    display: grid !important;
+    justify-items: center !important;
+    /* ← 横中央固定 */
+    align-content: center !important;
+  }
+
+  /* 2つの<img>を確実に中央基準で描画 */
+  .site-header .logo-img {
+    width: 80px !important;
+    /* 既存SP幅のサイズに合わせる。必要ならメディアクエリ側に置いてOK */
+    height: 20px !important;
+    display: block !important;
+    margin: 0 auto !important;
+    /* ブロック要素でも中央に */
+    object-fit: contain !important;
+    /* SVGの中身を箱の中央に */
+    object-position: center !important;
+  }
+
+  /* スクロール時に当たる“左寄せ系”を無効化（安全ネット） */
+  .site-header .logo-light,
+  .site-header .logo-dark {
+    position: static !important;
+    inset: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}@media (max-width:1080px){.site-header a{display:grid!important;justify-items:center!important;align-content:center!important}}
+@media (max-width:468px){.site-header .logo-img{width:80px!important;height:20px!important;display:block!important;margin:0 auto!important;object-fit:contain!important;object-position:center!important}}
+.site-header .logo-light,.site-header .logo-dark{position:static!important;inset:auto!important;left:auto!important;transform:none!important}
