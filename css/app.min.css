@@ -1916,8 +1916,7 @@ img.cake {
   }
 
   .site-header .logo-light {
-    transition: opacity var(--t) var(--ulu-curve);
-    width: 150px;
+    transition: opacity var(--t) var(--ulu-curve)
   }
 
   .site-header.is-search-open .logo-light {
@@ -2028,12 +2027,6 @@ img.cake {
   .site-header .logo {
     height: 40px;
   }
-
-  .site-header .logo-dark,
-  .site-header .logo-light { width: 80px; }
-
-   .site-header .is-scrolled .logo-dark,
-  .site-header .is-scrolled .logo-light { width: 80px; }
 
   .site-header .logo-img,
   .site-header .logo-img img {
@@ -2564,12 +2557,17 @@ img.cake {
   }
 }
 
-
-
 .indulge {
   pointer-events: none;
 }
 
 .indulgePic {
   pointer-events: auto;
+}
+
+/* ロゴ白背景内でテキスト（画像）を中央寄せ */
+.site-header .logo-dark{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
