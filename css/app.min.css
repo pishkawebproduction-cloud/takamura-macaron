@@ -2555,3 +2555,15 @@ img.cake {
     font-size: 14px
   }
 }
+
+/* ギャラリー安定化（合成レイヤー＆はみ出し抑止） */
+.scrollContainer{ overflow:hidden; contain:paint; }
+.imageWrap{
+  will-change: transform;
+  transform: translate3d(0,0,0);   /* GPU 合成レイヤー化 */
+  backface-visibility: hidden;
+}
+.gallery .imageWrap img{
+  display:block;
+  transform-origin:center;
+}

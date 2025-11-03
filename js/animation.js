@@ -82,7 +82,7 @@ window.addEventListener("scroll", () => {
 // Indulge
 // Indulge（PCだけ有効、hover領域は .indulgePic に限定）
 (() => {
-  const box   = document.querySelector('.indulge');
+  const box = document.querySelector('.indulge');
   if (!box) return;
 
   // ★ PC判定：hoverがありポインタが細かい環境のみアニメを有効化
@@ -90,14 +90,14 @@ window.addEventListener("scroll", () => {
 
   // 要素
   const trigger = box.querySelector('.indulgePic') || box; // ← 画像があればそれだけをhover対象に
-  const piece   = box.querySelector('.hoverImgParts');
-  const def     = box.querySelector('.defaultImg');
-  const hov     = box.querySelector('.hoverImg');
+  const piece = box.querySelector('.hoverImgParts');
+  const def = box.querySelector('.defaultImg');
+  const hov = box.querySelector('.hoverImg');
 
   // モバイル（=PC以外）はアニメ無効＆見た目リセットして即return
   if (!isDesktop) {
     if (piece) {
-      piece.style.opacity   = 0;
+      piece.style.opacity = 0;
       piece.style.transform = 'translate(0,0) rotate(0) scale(1)';
       piece.style.willChange = 'auto';
     }
@@ -110,19 +110,27 @@ window.addEventListener("scroll", () => {
 
   // ===== ここからPC用アニメ =====
   const TRAJECTORIES = [
-    { name:'HighArc', v0:100, angleDeg:28, g:1700, spin:520, jitterX:(t)=>0, jitterY:(t)=>0, scaleStart:1.0, scaleEnd:0.65 },
-    { name:'LowDart', v0:400, angleDeg:32, g:1800, spin:720, jitterX:(t)=>8*Math.sin(t*10), jitterY:(t)=>0, scaleStart:0.95, scaleEnd:0.6 },
-    { name:'WindRight', v0:400, angleDeg:45, g:1600, spin:1080, jitterX:(t)=>40*t*t, jitterY:(t)=>0, scaleStart:1.0, scaleEnd:0.7 },
-    { name:'Boogie', v0:200, angleDeg:90, g:1650, spin:()=> (Math.random()<.5?-1:1)*(360+Math.random()*360),
-      jitterX:(t)=>12*Math.sin(t*14+0.7), jitterY:(t)=>-6*Math.sin(t*9), scaleStart:0.98, scaleEnd:0.58 },
-    { name:'Legend', v0:800, angleDeg:80, g:1650, spin:()=> (Math.random()<.5?-1:1)*(360+Math.random()*360),
-      jitterX:(t)=>12*Math.sin(t*14+0.7), jitterY:(t)=>-6*Math.sin(t*9), scaleStart:0.98, scaleEnd:0.58 },
-    { name:'Canon', v0:800, angleDeg:80, g:1650, spin:()=> (Math.random()<.5?-1:1)*(360+Math.random()*360),
-      jitterX:(t)=>12*Math.sin(t*14+0.7), jitterY:(t)=>-6*Math.sin(t*9), scaleStart:0.98, scaleEnd:0.58 },
-    { name:'Choice', v0:400, angleDeg:10, g:650,  spin:()=> (Math.random()<.5?-1:1)*(360+Math.random()*360),
-      jitterX:(t)=>12*Math.sin(t*14+0.7), jitterY:(t)=>-6*Math.sin(t*9), scaleStart:0.98, scaleEnd:0.58 },
+    { name: 'HighArc', v0: 100, angleDeg: 28, g: 1700, spin: 520, jitterX: (t) => 0, jitterY: (t) => 0, scaleStart: 1.0, scaleEnd: 0.65 },
+    { name: 'LowDart', v0: 400, angleDeg: 32, g: 1800, spin: 720, jitterX: (t) => 8 * Math.sin(t * 10), jitterY: (t) => 0, scaleStart: 0.95, scaleEnd: 0.6 },
+    { name: 'WindRight', v0: 400, angleDeg: 45, g: 1600, spin: 1080, jitterX: (t) => 40 * t * t, jitterY: (t) => 0, scaleStart: 1.0, scaleEnd: 0.7 },
+    {
+      name: 'Boogie', v0: 200, angleDeg: 90, g: 1650, spin: () => (Math.random() < .5 ? -1 : 1) * (360 + Math.random() * 360),
+      jitterX: (t) => 12 * Math.sin(t * 14 + 0.7), jitterY: (t) => -6 * Math.sin(t * 9), scaleStart: 0.98, scaleEnd: 0.58
+    },
+    {
+      name: 'Legend', v0: 800, angleDeg: 80, g: 1650, spin: () => (Math.random() < .5 ? -1 : 1) * (360 + Math.random() * 360),
+      jitterX: (t) => 12 * Math.sin(t * 14 + 0.7), jitterY: (t) => -6 * Math.sin(t * 9), scaleStart: 0.98, scaleEnd: 0.58
+    },
+    {
+      name: 'Canon', v0: 800, angleDeg: 80, g: 1650, spin: () => (Math.random() < .5 ? -1 : 1) * (360 + Math.random() * 360),
+      jitterX: (t) => 12 * Math.sin(t * 14 + 0.7), jitterY: (t) => -6 * Math.sin(t * 9), scaleStart: 0.98, scaleEnd: 0.58
+    },
+    {
+      name: 'Choice', v0: 400, angleDeg: 10, g: 650, spin: () => (Math.random() < .5 ? -1 : 1) * (360 + Math.random() * 360),
+      jitterX: (t) => 12 * Math.sin(t * 14 + 0.7), jitterY: (t) => -6 * Math.sin(t * 9), scaleStart: 0.98, scaleEnd: 0.58
+    },
   ];
-  const pickTrajectory = () => TRAJECTORIES[Math.floor(Math.random()*TRAJECTORIES.length)];
+  const pickTrajectory = () => TRAJECTORIES[Math.floor(Math.random() * TRAJECTORIES.length)];
 
   let rafId = null;
 
@@ -131,7 +139,7 @@ window.addEventListener("scroll", () => {
     if (def) def.style.opacity = 0;
 
     const T = pickTrajectory();
-    const angleRad   = (T.angleDeg*Math.PI)/180;
+    const angleRad = (T.angleDeg * Math.PI) / 180;
     const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
     const spinPerSec = typeof T.spin === 'function' ? T.spin() : T.spin;
 
@@ -147,7 +155,7 @@ window.addEventListener("scroll", () => {
       if (T.jitterX) x += T.jitterX(t);
       if (T.jitterY) y += T.jitterY(t);
       const rot = spinPerSec * t;
-      const k = Math.min(1, t/1.0);
+      const k = Math.min(1, t / 1.0);
       const s = T.scaleStart + (T.scaleEnd - T.scaleStart) * k;
 
       piece.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${s})`;
@@ -258,37 +266,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.getElementById('imageWrap');
   if (!wrap) return;
 
+  // === 画像の読み込み待ち（decode → onload） ===
   const waitImages = async (root) => {
     const imgs = Array.from(root.querySelectorAll('img'));
     await Promise.all(imgs.map(img =>
-      (img.decode ? img.decode().catch(() => { }) : Promise.resolve())
+      (img.decode ? img.decode().catch(() => {}) : Promise.resolve())
         .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
     ));
   };
 
-  let revealed = false; // 画像が一度でも出現したかフラグ
-  let tween = null;     // marquee の GSAP tween を保持
+  // === ここがポイント：初回だけ "元セット" を固定取得 ===
+  const ORIGINALS = Array.from(wrap.children).map(n => n.cloneNode(true));
+
+  let revealed = false; // 一度でも表示済みか
+  let tween = null;     // GSAPのマルキー用tween
 
   const buildMarquee = async () => {
+    // 既存ループ停止
     if (tween) { tween.kill(); tween = null; }
 
-    // 元の1セットを保存（初回のみ）
-    const originals = Array.from(wrap.children).map(n => n.cloneNode(true));
-
-    // 一旦初期セットに戻す
-    wrap.replaceChildren(...originals.map(n => n.cloneNode(true)));
+    // 初期構成に戻す（毎回 ORIGINALS から再構築）
+    wrap.replaceChildren(...ORIGINALS.map(n => n.cloneNode(true)));
     await waitImages(wrap);
 
-    // 1セットの正確な幅（margin/gap込み）を取得
-    const laneWidth = wrap.scrollWidth;
+    // === ジッター対策：幅は整数pxで扱う ===
+    const laneWidth = Math.round(wrap.scrollWidth);
+    const containerWidth = Math.round(wrap.parentElement.getBoundingClientRect().width);
 
-    // コンテナ幅を埋めるのに必要なセット数を計算（+1で余裕）
-    const containerWidth = wrap.parentElement.getBoundingClientRect().width;
+    // 画面を埋めるのに必要なセット数（+1で余裕）
     const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1);
 
-    // 必要セット数になるまで丸ごと複製して末尾に追加
     for (let i = 1; i < minSets; i++) {
-      const clones = originals.map(n => {
+      const clones = ORIGINALS.map(n => {
         const c = n.cloneNode(true);
         c.setAttribute('aria-hidden', 'true');
         return c;
@@ -296,33 +305,41 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.append(...clones);
     }
 
-    // すでに出現済みなら、全画像の is-init を外して即表示（opacity問題の根治）
+    // 既に出現済みなら is-init を外して即表示
     if (revealed) {
       wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
     }
 
-    // ===== 無停止ループ（Modifiersで折り返し）=====
+    // === 無停止ループ（毎フレーム整数スナップ） ===
     gsap.registerPlugin(ModifiersPlugin);
-    const SPEED = 120;                 // px/s（好みで）
+    const SPEED = 120; // px/s（調整可）
     const duration = laneWidth / SPEED;
-    const wrapX = gsap.utils.wrap(-laneWidth, 0); // 1セットぶんでループ
+    const wrapX = gsap.utils.wrap(-laneWidth, 0);
 
-    gsap.set(wrap, { x: 0 });
+    gsap.set(wrap, { x: 0, force3D: true }); // 合成レイヤー化
+
     tween = gsap.to(wrap, {
       x: "-=" + laneWidth,
       duration,
       ease: "none",
       repeat: -1,
-      modifiers: { x: (v) => wrapX(parseFloat(v)) + "px" }
+      lazy: false,
+      modifiers: {
+        x: (v) => {
+          // 小数→整数へスナップしてからループ範囲にラップ
+          const snapped = Math.round(parseFloat(v));
+          return wrapX(snapped) + "px";
+        }
+      }
     });
   };
 
   (async () => {
     await buildMarquee();
 
-    // ===== スクロールで画像を等倍・フェードイン =====
+    // ===== スクロールで画像を等倍＆フェードイン =====
     gsap.registerPlugin(ScrollTrigger);
-    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるよう関数に
+    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるように関数化
 
     const playReveal = () => {
       gsap.to(imgs(), {
@@ -338,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "power3.out",
         stagger: 0.08,
         onComplete: () => {
-          // 全ての is-init を外して今後の再構築でも透明にならないように
           document.querySelectorAll(".imageWrap img.is-init")
             .forEach(img => img.classList.remove("is-init"));
           revealed = true;
@@ -347,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     playReveal();
 
-    // リサイズ時は再構築（途切れ対策）。出現済みなら即表示のまま再開
+    // ===== リサイズ時：再構築（幅変動で途切れないように） =====
     let rid = 0;
     window.addEventListener('resize', () => {
       cancelAnimationFrame(rid);
@@ -358,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   })();
 });
+
 
 
 
