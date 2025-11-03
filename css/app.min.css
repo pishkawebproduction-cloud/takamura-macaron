@@ -2003,6 +2003,13 @@ img.cake {
 }
 
 @media (max-width:1080px) {
+
+  .site-header .logo-img,
+  .site-header .logo-img img {
+    height: 30px !important;
+    width: 150px !important;
+  }
+
   .site-header nav {
     height: 100px;
   }
@@ -2567,14 +2574,12 @@ img.cake {
 
 @media (max-width:1080px){
   .site-header .logo-dark{
-    height: 30px !important;
-    width: 150px !important;
     position: static !important;   /* ← 重ねない */
     inset: auto !important;        /* ← 以前の inset を打ち消す */
     transform: none !important;
   }
 
-
+  
 }
 
 @media (max-width:468px){
@@ -2585,5 +2590,31 @@ img.cake {
     justify-content: center !important;
     align-items: center !important;
     background-color: #f8f8f2 !important;
+  }
+}
+
+/* 親 <a> で2つのロゴを中央寄せ（縦並び想定） */
+@media (max-width:1080px){
+  .site-header a { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    align-items: center !important; 
+  }
+}
+
+/* 共通の描画安定化（80×20に収める・内容は常に中央） */
+@media (max-width:468px){
+  .site-header .logo-img{
+    width: 80px !important;
+    height: 20px !important;
+    display: block !important;
+    object-fit: contain !important;
+    object-position: center !important;  /* まず全体を中央に */
+  }
+
+  /* 黒ロゴ（下）だけ、見た目が左寄りなら右へオフセット */
+  .site-header .logo-dark{
+    object-position: calc(50% + 6px) 50% !important; /* ← まず +6px で実機テスト */
+    background-color: #f8f8f2 !important;            /* 既存の白背景は維持 */
   }
 }
