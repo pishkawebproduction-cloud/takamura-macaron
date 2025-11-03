@@ -1874,17 +1874,21 @@ img.cake {
   }
 
   .site-header .logo-dark {
-    width: 150px;
+    width: 200px;
     height: 30px;
     opacity: 1;
     background-color: #f8f8f2;
     margin-top: 30px;
+    display: flex;
+    justify-content: center;
   }
 
   .site-header .logo-light {
-    width: 150px;
+    width: 200px;
     height: 30px;
-    transition: opacity var(--t) var(--ulu-curve)
+    transition: opacity var(--t) var(--ulu-curve);
+    display: flex;
+    justify-content: center;
   }
 
   .site-header.is-search-open .logo-light {
@@ -2006,15 +2010,19 @@ img.cake {
   }
 
   .site-header .logo-dark {
-    width: 80px;
+    width: 100px;
     height: 20px;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
   }
 
   .site-header .logo-light {
-    width: 80px;
+    width: 100px;
     height: 20px;
-    transition: opacity var(--t) var(--ulu-curve)
+    transition: opacity var(--t) var(--ulu-curve);
+    display: flex;
+    justify-content: center;
   }
 
   .site-header svg {
