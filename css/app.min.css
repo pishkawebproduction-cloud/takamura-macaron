@@ -1874,7 +1874,7 @@ img.cake {
   }
 
   .site-header .logo-dark {
-    width: 200px;
+    width: 150px;
     height: 30px;
     opacity: 1;
     background-color: #f8f8f2;
@@ -1884,7 +1884,7 @@ img.cake {
   }
 
   .site-header .logo-light {
-    width: 200px;
+    width: 150px;
     height: 30px;
     transition: opacity var(--t) var(--ulu-curve);
     display: flex;
@@ -2010,7 +2010,7 @@ img.cake {
   }
 
   .site-header .logo-dark {
-    width: 100px;
+    width: 80px;
     height: 20px;
     margin-top: 20px;
     display: flex;
@@ -2018,7 +2018,7 @@ img.cake {
   }
 
   .site-header .logo-light {
-    width: 100px;
+    width:80px;
     height: 20px;
     transition: opacity var(--t) var(--ulu-curve);
     display: flex;
