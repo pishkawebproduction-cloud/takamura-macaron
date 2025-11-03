@@ -8,9 +8,9 @@
 
   <!-- base CSS（既存） -->
   <link rel="preload" href="../css/app.min.css?v=20251031en" as="style">
-  <link rel="stylesheet" href="../css/app.min.css?v=20251031en" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="../css/app.min.css?v=dev">
   <noscript>
-    <link rel="stylesheet" href="../css/app.min.css?v=20251031en">
+    <link rel="stylesheet" href="../css/app.min.css?v=dev">
   </noscript>
 
   <!-- fonts（既存と同じ最小構成） -->
@@ -93,12 +93,6 @@
       padding: 18px
     }
   </style>
-  <style id="hero-fix-inline">/* Hero minimal fix: unify height to 100dvh on mobile (inline) */
-@media (max-width: 1080px){
-  .mainVisual, .mainVisual .hero{height:100dvh !important;min-height:100dvh !important;}
-  .mainVisual .hero img, .mainVisual .hero picture, .mainVisual .hero video{width:100%;height:100%;object-fit:cover;display:block;backface-visibility:hidden;transform:translateZ(0);will-change:transform;}
-}
-</style>
 </head>
 
 <body>

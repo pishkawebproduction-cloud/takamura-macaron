@@ -2533,3 +2533,21 @@ img.macaroonIllust {
 .indulgePic {
   pointer-events: auto;
 }
+/* === Hero mobile hard-stabilize (2025-11-03) ===
+   ビューポート単位に依存せず、アスペクト比で固定して揺れを断つ */
+@media (max-width: 1080px){
+  .mainVisual,
+  .mainVisual .hero{
+    height:auto !important;
+    min-height:0 !important;
+    aspect-ratio: 9 / 16;   /* 必要なら 3/4 や 10/16 に調整OK */
+  }
+  .mainVisual .hero img,
+  .mainVisual .hero picture,
+  .mainVisual .hero video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+}
