@@ -2571,3 +2571,30 @@ img.cake {
   justify-content: center !important;
   align-items: center !important;
 }
+
+/* SPでロゴの箱サイズを明示 & 親を基準点に */
+@media (max-width:468px){
+  .site-header .logo-img{
+    width: 80px !important;
+    height: 20px !important;
+    position: relative !important;   /* ← これが基準点になる */
+  }
+  .site-header .logo-img img{
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+  }
+}
+
+/* タブ以下は背景ボックスを親と同じ箱に固定（左右中央ブレ防止） */
+@media (max-width:1080px){
+  .site-header .logo-dark{
+    position: absolute !important;
+    inset: 0 !important;             /* ← left/top を親の0,0に */
+    width: 100% !important;          /* 親（＝.logo-img）の幅に一致 */
+    height: 100% !important;         /* 高さも一致 */
+    background-color: #f8f8f2 !important;
+    /* もし以前の translate などが残っていたら無効化 */
+    transform: none !important;
+  }
+}
