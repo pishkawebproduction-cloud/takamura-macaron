@@ -2003,13 +2003,6 @@ img.cake {
 }
 
 @media (max-width:1080px) {
-
-  .site-header .logo-img,
-  .site-header .logo-img img {
-    height: 30px !important;
-    width: 150px !important;
-  }
-
   .site-header nav {
     height: 100px;
   }
@@ -2574,10 +2567,14 @@ img.cake {
 
 @media (max-width:1080px){
   .site-header .logo-dark{
+    height: 30px !important;
+    width: 150px !important;
     position: static !important;   /* ← 重ねない */
     inset: auto !important;        /* ← 以前の inset を打ち消す */
     transform: none !important;
   }
+
+
 }
 
 @media (max-width:468px){
