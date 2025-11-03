@@ -717,8 +717,6 @@ main {
 }
 
 .mainVisual {
-  height: 100vh;
-  height: 100dvh;
   width: 100%;
   padding: 0 40px;
   position: relative
@@ -1336,9 +1334,15 @@ footer {
   margin-top: 10px
 }
 
-footer .icon-instagram { width: 40px;}
+footer .icon-instagram {
+  width: 40px;
+}
 
-footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
+footer .icon-tiktok {
+  height: 35px;
+  margin-bottom: 3px;
+  margin-left: 10px;
+}
 
 .footerLinks {
   display: flex;
@@ -1375,7 +1379,9 @@ footer .icon-tiktok { height: 35px; margin-bottom: 3px; margin-left: 10px;}
   background-color: #f8f8f2
 }
 
-footer h2 { padding: 30px 20px 10px; }
+footer h2 {
+  padding: 30px 20px 10px;
+}
 
 .copyRight {
   font-family: Impact;
@@ -2501,9 +2507,15 @@ img.macaroonIllust {
     width: 80px !important;
   }
 
-  .site-header svg { width: 20px; height: 20px; }
+  .site-header svg {
+    width: 20px;
+    height: 20px;
+  }
 
-  .circle picture { width: 200px; height: 200px; }
+  .circle picture {
+    width: 200px;
+    height: 200px;
+  }
 
   img.donut,
   img.strawBerryMacaron {
@@ -2524,6 +2536,23 @@ img.macaroonIllust {
   img.macaroonIllust {
     height: 100px
   }
+
+  .mainVisual,
+  .mainVisual .hero {
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 9 / 16;
+    /* 必要なら 3/4 や 10/16 に調整OK */
+  }
+
+  .mainVisual .hero img,
+  .mainVisual .hero picture,
+  .mainVisual .hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
 .indulge {
@@ -2532,22 +2561,4 @@ img.macaroonIllust {
 
 .indulgePic {
   pointer-events: auto;
-}
-/* === Hero mobile hard-stabilize (2025-11-03) ===
-   ビューポート単位に依存せず、アスペクト比で固定して揺れを断つ */
-@media (max-width: 1080px){
-  .mainVisual,
-  .mainVisual .hero{
-    height:auto !important;
-    min-height:0 !important;
-    aspect-ratio: 9 / 16;   /* 必要なら 3/4 や 10/16 に調整OK */
-  }
-  .mainVisual .hero img,
-  .mainVisual .hero picture,
-  .mainVisual .hero video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-  }
 }
