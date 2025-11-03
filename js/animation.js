@@ -266,38 +266,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.getElementById('imageWrap');
   if (!wrap) return;
 
-  // === 画像の読み込み待ち（decode → onload） ===
   const waitImages = async (root) => {
     const imgs = Array.from(root.querySelectorAll('img'));
     await Promise.all(imgs.map(img =>
-      (img.decode ? img.decode().catch(() => {}) : Promise.resolve())
+      (img.decode ? img.decode().catch(() => { }) : Promise.resolve())
         .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
     ));
   };
 
-  // === ここがポイント：初回だけ "元セット" を固定取得 ===
-  const ORIGINALS = Array.from(wrap.children).map(n => n.cloneNode(true));
-
-  let revealed = false; // 一度でも表示済みか
-  let tween = null;     // GSAPのマルキー用tween
+  let revealed = false; // 画像が一度でも出現したかフラグ
+  let tween = null;     // marquee の GSAP tween を保持
 
   const buildMarquee = async () => {
-    // 既存ループ停止
     if (tween) { tween.kill(); tween = null; }
 
-    // 初期構成に戻す（毎回 ORIGINALS から再構築）
-    wrap.replaceChildren(...ORIGINALS.map(n => n.cloneNode(true)));
+    // 元の1セットを保存（初回のみ）
+    const originals = Array.from(wrap.children).map(n => n.cloneNode(true));
+
+    // 一旦初期セットに戻す
+    wrap.replaceChildren(...originals.map(n => n.cloneNode(true)));
     await waitImages(wrap);
 
-    // === ジッター対策：幅は整数pxで扱う ===
-    const laneWidth = Math.round(wrap.scrollWidth);
-    const containerWidth = Math.round(wrap.parentElement.getBoundingClientRect().width);
+    // 1セットの正確な幅（margin/gap込み）を取得
+    const laneWidth = wrap.scrollWidth;
 
-    // 画面を埋めるのに必要なセット数（+1で余裕）
+    // コンテナ幅を埋めるのに必要なセット数を計算（+1で余裕）
+    const containerWidth = wrap.parentElement.getBoundingClientRect().width;
     const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1);
 
+    // 必要セット数になるまで丸ごと複製して末尾に追加
     for (let i = 1; i < minSets; i++) {
-      const clones = ORIGINALS.map(n => {
+      const clones = originals.map(n => {
         const c = n.cloneNode(true);
         c.setAttribute('aria-hidden', 'true');
         return c;
@@ -305,41 +304,33 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.append(...clones);
     }
 
-    // 既に出現済みなら is-init を外して即表示
+    // すでに出現済みなら、全画像の is-init を外して即表示（opacity問題の根治）
     if (revealed) {
       wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
     }
 
-    // === 無停止ループ（毎フレーム整数スナップ） ===
+    // ===== 無停止ループ（Modifiersで折り返し）=====
     gsap.registerPlugin(ModifiersPlugin);
-    const SPEED = 120; // px/s（調整可）
+    const SPEED = 120;                 // px/s（好みで）
     const duration = laneWidth / SPEED;
-    const wrapX = gsap.utils.wrap(-laneWidth, 0);
+    const wrapX = gsap.utils.wrap(-laneWidth, 0); // 1セットぶんでループ
 
-    gsap.set(wrap, { x: 0, force3D: true }); // 合成レイヤー化
-
+    gsap.set(wrap, { x: 0 });
     tween = gsap.to(wrap, {
       x: "-=" + laneWidth,
       duration,
       ease: "none",
       repeat: -1,
-      lazy: false,
-      modifiers: {
-        x: (v) => {
-          // 小数→整数へスナップしてからループ範囲にラップ
-          const snapped = Math.round(parseFloat(v));
-          return wrapX(snapped) + "px";
-        }
-      }
+      modifiers: { x: (v) => wrapX(parseFloat(v)) + "px" }
     });
   };
 
   (async () => {
     await buildMarquee();
 
-    // ===== スクロールで画像を等倍＆フェードイン =====
+    // ===== スクロールで画像を等倍・フェードイン =====
     gsap.registerPlugin(ScrollTrigger);
-    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるように関数化
+    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるよう関数に
 
     const playReveal = () => {
       gsap.to(imgs(), {
@@ -355,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "power3.out",
         stagger: 0.08,
         onComplete: () => {
+          // 全ての is-init を外して今後の再構築でも透明にならないように
           document.querySelectorAll(".imageWrap img.is-init")
             .forEach(img => img.classList.remove("is-init"));
           revealed = true;
@@ -363,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     playReveal();
 
-    // ===== リサイズ時：再構築（幅変動で途切れないように） =====
+    // リサイズ時は再構築（途切れ対策）。出現済みなら即表示のまま再開
     let rid = 0;
     window.addEventListener('resize', () => {
       cancelAnimationFrame(rid);
@@ -374,7 +366,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   })();
 });
-
 
 // レビューセクション
 (() => {
