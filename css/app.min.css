@@ -789,7 +789,8 @@ main {
   height: 100vh;
   overflow: hidden;
   bottom: 0;
-  right: 0
+  right: 0;
+  pointer-events: none;
 }
 
 .indulgePic {
@@ -797,7 +798,8 @@ main {
   width: 14vw;
   height: 14vw;
   margin-top: 70vh;
-  margin-left: 5vw
+  margin-left: 5vw;
+  pointer-events: auto;
 }
 
 .indulgePic img.defaultImg,
@@ -1074,12 +1076,6 @@ img.macaroonIllust {
   will-change: transform, opacity
 }
 
-@media (prefers-reduced-motion:reduce) {
-  .imageWrap {
-    transform: none !important
-  }
-}
-
 .container {
   max-width: 1200px;
   margin: 100px auto;
@@ -1298,19 +1294,6 @@ img.macaroonIllust {
   height: 170px
 }
 
-@media (max-width:768px) {
-
-  .review,
-  .review2 {
-    width: 80vw;
-    height: 56vh
-  }
-
-  .track {
-    gap: 40px
-  }
-}
-
 footer {
   position: fixed;
   bottom: 0;
@@ -1486,12 +1469,6 @@ img.cake {
   width: 70%
 }
 
-@media (max-width:900px) {
-  .introGrid {
-    grid-template-columns: 1fr
-  }
-}
-
 .introCopy h2 {
   font-size: clamp(24px, 3vw, 32px);
   margin: 0 0 .5rem;
@@ -1536,12 +1513,6 @@ img.cake {
   display: grid;
   gap: clamp(18px, 3vw, 32px);
   grid-template-columns: repeat(3, 1fr)
-}
-
-@media (max-width:900px) {
-  .pillarsGrid {
-    grid-template-columns: 1fr
-  }
 }
 
 .pillarCard {
@@ -1634,12 +1605,6 @@ img.cake {
   width: 70%
 }
 
-@media (max-width:900px) {
-  .aboutCTA .ctaCard {
-    grid-template-columns: 1fr
-  }
-}
-
 .ctaCopy h2 {
   font-size: clamp(24px, 3vw, 32px);
   margin: 0 0 .5rem;
@@ -1724,12 +1689,6 @@ img.cake {
   grid-template-columns: 1fr 1.2fr;
   gap: clamp(20px, 3vw, 40px);
   color: #112229
-}
-
-@media (max-width:900px) {
-  .accessGrid {
-    grid-template-columns: 1fr
-  }
 }
 
 .mapCard,
@@ -1903,19 +1862,27 @@ img.cake {
     margin-bottom: 500px
   }
 
-  .site-header .logo-img {
-    width: 100px;
-    margin-bottom: 10px
+  .site-header nav {
+    height: 100px;
+  }
+
+  .site-header .logo-img,
+  .site-header .logo-img img {
+    height: 30px;
+    width: 150px;
   }
 
   .site-header .logo-dark {
     width: 150px;
-    inset: 50% auto auto 0;
+    height: 30px;
     opacity: 1;
-    background-color: #f8f8f2
+    background-color: #f8f8f2;
+    margin-top: 30px;
   }
 
   .site-header .logo-light {
+    width: 150px;
+    height: 30px;
     transition: opacity var(--t) var(--ulu-curve)
   }
 
@@ -1981,7 +1948,8 @@ img.cake {
 
   .review,
   .review2 {
-    height: 40vh
+    width: 40vw;
+    height: 30vh
   }
 
   .footerWrapper {
@@ -2000,38 +1968,47 @@ img.cake {
   .email-form input {
     width: 20vw
   }
-}
 
-@media (max-width:1080px) {
-
-  .site-header .logo-img,
-  .site-header .logo-img img {
-    height: 30px !important;
-    width: 150px !important;
+  .accessGrid {
+    grid-template-columns: 1fr
   }
 
-  .site-header nav {
-    height: 100px;
+  .aboutCTA .ctaCard {
+    grid-template-columns: 1fr
+  }
+
+  .pillarsGrid {
+    grid-template-columns: 1fr
+  }
+
+  .track {
+    gap: 40px
+  }
+
+  .introGrid {
+    grid-template-columns: 1fr
   }
 }
 
 @media (max-width:468px) {
   .site-header {
-    height: 80px;
-  }
-
-  .site-header nav {
-    height: 80px;
+    height: 100px;
   }
 
   .site-header .logo {
     height: 40px;
   }
 
-  .site-header .logo-img,
-  .site-header .logo-img img {
-    height: 20px !important;
-    width: 80px !important;
+  .site-header .logo-dark {
+    width: 80px;
+    height: 20px;
+    margin-top: 20px;
+  }
+
+  .site-header .logo-light {
+    width: 80px;
+    height: 20px;
+    transition: opacity var(--t) var(--ulu-curve)
   }
 
   .site-header svg {
@@ -2042,6 +2019,12 @@ img.cake {
   .circle picture {
     width: 200px;
     height: 200px;
+  }
+
+  .review,
+  .review2 {
+    width: 80vw;
+    height: 40vh
   }
 
   img.donut,
@@ -2069,7 +2052,6 @@ img.cake {
     height: auto !important;
     min-height: 0 !important;
     aspect-ratio: 9 / 16;
-    /* 必要なら 3/4 や 10/16 に調整OK */
   }
 
   .mainVisual .hero img,
@@ -2080,9 +2062,7 @@ img.cake {
     object-fit: cover;
     display: block;
   }
-}
 
-@media (max-width:414px) {
   :root {
     --sp-pad: 16px;
     --nav-bg: #f8f8f2;
@@ -2092,7 +2072,7 @@ img.cake {
   }
 
   main {
-    margin-bottom: 90vh
+    margin-bottom: 600px;
   }
 
   .site-header {
@@ -2179,6 +2159,8 @@ img.cake {
     gap: 3px
   }
 
+  .site-header nav ul { margin-top: 0}
+
   .site-header nav ul#global-nav {
     position: fixed;
     top: var(--header-h, 64px);
@@ -2187,7 +2169,7 @@ img.cake {
     bottom: 0;
     height: 100vh;
     transform: translateY(-125%);
-    transition: transform .55s cubic-bezier(.2, .7, .2, 1);
+    transition: transform .95s cubic-bezier(.2, .7, .2, 1);
     background: var(--nav-bg);
     color: var(--nav-text);
     z-index: 1000;
@@ -2251,7 +2233,8 @@ img.cake {
     width: 220px;
     height: auto;
     margin: 60px auto 20px;
-    transition: opacity .8s ease
+    transition: opacity .8s ease;
+    border-radius: 16px;
   }
 
   body.is-nav-open .site-header nav ul#global-nav {
@@ -2368,7 +2351,7 @@ img.cake {
   .concept img {
     width: 100px;
     margin-top: 30px;
-    margin-left: 55vw
+    margin-right: auto;
   }
 
   .bestSeller {
@@ -2388,8 +2371,8 @@ img.cake {
   }
 
   .circle {
-    width: 70vw;
-    height: 50vh
+    width: 250px;
+    height: 350px
   }
 
   .bestSeller .bg-text .line {
@@ -2447,6 +2430,8 @@ img.cake {
   .email-form .search-submit {
     padding: 0 15px
   }
+
+  .footerLinks { display: none;}
 
   .footerLeft address,
   .footerLeft p,
@@ -2555,128 +2540,4 @@ img.cake {
   .openMapInline {
     font-size: 14px
   }
-}
-
-.indulge {
-  pointer-events: none;
-}
-
-.indulgePic {
-  pointer-events: auto;
-}
-
-/* ロゴ白背景内でテキスト（画像）を中央寄せ */
-.site-header .logo-dark {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-@media (max-width:1080px) {
-  .site-header .logo-dark {
-    position: static !important;
-    /* ← 重ねない */
-    inset: auto !important;
-    /* ← 以前の inset を打ち消す */
-    transform: none !important;
-  }
-
-
-}
-
-@media (max-width:468px) {
-  .site-header .logo-dark {
-    width: 80px !important;
-    /* 画像と同サイズに揃える */
-    height: 20px !important;
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    background-color: #f8f8f2 !important;
-  }
-}
-
-/* 親 <a> で2つのロゴを中央寄せ（縦並び想定） */
-@media (max-width:1080px) {
-  .site-header a {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-}
-
-/* 共通の描画安定化（80×20に収める・内容は常に中央） */
-@media (max-width:468px) {
-  .site-header .logo-img {
-    width: 80px !important;
-    height: 20px !important;
-    display: block !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    /* まず全体を中央に */
-  }
-
-  /* 黒ロゴ（下）だけ、見た目が左寄りなら右へオフセット */
-  .site-header .logo-dark {
-    object-position: calc(50% + 6px) 50% !important;
-    /* ← まず +6px で実機テスト */
-    background-color: #f8f8f2 !important;
-    /* 既存の白背景は維持 */
-  }
-
-  .site-header a {
-    display: grid !important;
-    justify-items: center !important;
-    /* ← 横中央固定 */
-    align-content: center !important;
-  }
-
-  /* 2つの<img>を確実に中央基準で描画 */
-  .site-header .logo-img {
-    width: 80px !important;
-    /* 既存SP幅のサイズに合わせる。必要ならメディアクエリ側に置いてOK */
-    height: 20px !important;
-    display: block !important;
-    margin: 0 auto !important;
-    /* ブロック要素でも中央に */
-    object-fit: contain !important;
-    /* SVGの中身を箱の中央に */
-    object-position: center !important;
-  }
-
-  /* スクロール時に当たる“左寄せ系”を無効化（安全ネット） */
-  .site-header .logo-light,
-  .site-header .logo-dark {
-    position: static !important;
-    inset: auto !important;
-    left: auto !important;
-    transform: none !important;
-  }
-}
-
-@media (max-width:1080px) {
-  .site-header a {
-    display: grid !important;
-    justify-items: center !important;
-    align-content: center !important
-  }
-}
-
-@media (max-width:468px) {
-  .site-header .logo-img {
-    width: 80px !important;
-    height: 20px !important;
-    display: block !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
-    object-position: center !important
-  }
-}
-
-.site-header .logo-light,
-.site-header .logo-dark {
-  position: static !important;
-  inset: auto !important;
-  left: auto !important;
-  transform: none !important
 }
