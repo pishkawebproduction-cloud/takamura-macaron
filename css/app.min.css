@@ -2567,3 +2567,34 @@ img.cake {
   display:block;
   transform-origin:center;
 }
+
+/* コンテナのはみ出し抑止＆再描画の波及を防ぐ */
+.scrollContainer{ overflow: hidden; contain: paint; }
+
+/* トラックは 2セット横並び＋CSSアニメで無限ループ */
+.imageWrap{
+  display: flex;
+  gap: var(--gap, 20px);
+  width: max-content;                   /* 中身の実幅で広がる */
+  will-change: transform;
+  transform: translateZ(0);             /* 合成レイヤー化 */
+  animation: gallery-marquee var(--marquee-dur, 20s) linear infinite;
+}
+
+@keyframes gallery-marquee{
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(calc(-50% - var(--gap, 20px)), 0, 0); }
+}
+
+/* 画像の描画安定化 */
+.imageWrap img{
+  display: block;
+  transform-origin: center;
+  /* 必要に応じて */
+  /* width: 100%; height: auto; object-fit: cover; */
+}
+
+/* 端末配慮：動きを減らしたい設定ではアニメ停止 */
+@media (prefers-reduced-motion: reduce){
+  .imageWrap{ animation: none; transform: none; }
+}

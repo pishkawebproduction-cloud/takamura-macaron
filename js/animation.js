@@ -266,82 +266,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.getElementById('imageWrap');
   if (!wrap) return;
 
-  // === 画像の読み込み待ち（decode → onload） ===
+  // 画像の読み込み待ち（decode→onload）
   const waitImages = async (root) => {
     const imgs = Array.from(root.querySelectorAll('img'));
-    await Promise.all(imgs.map(img =>
-      (img.decode ? img.decode().catch(() => {}) : Promise.resolve())
-        .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
-    ));
+    await Promise.all(
+      imgs.map(img =>
+        (img.decode ? img.decode().catch(() => {}) : Promise.resolve())
+          .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
+      )
+    );
   };
 
-  // === ここがポイント：初回だけ "元セット" を固定取得 ===
+  // ====== マルキーは CSS アニメに切替 ======
+  // 初回の子要素を保存して、2セット（オリジナル + クローン）にする
   const ORIGINALS = Array.from(wrap.children).map(n => n.cloneNode(true));
 
-  let revealed = false; // 一度でも表示済みか
-  let tween = null;     // GSAPのマルキー用tween
-
-  const buildMarquee = async () => {
-    // 既存ループ停止
-    if (tween) { tween.kill(); tween = null; }
-
-    // 初期構成に戻す（毎回 ORIGINALS から再構築）
-    wrap.replaceChildren(...ORIGINALS.map(n => n.cloneNode(true)));
+  const buildTrack = async () => {
+    // 2セット構成に（200% 幅にして CSS で -50% まで流す）
+    const clones = ORIGINALS.map(n => {
+      const c = n.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      return c;
+    });
+    wrap.replaceChildren(...ORIGINALS.map(n => n.cloneNode(true)), ...clones);
     await waitImages(wrap);
 
-    // === ジッター対策：幅は整数pxで扱う ===
-    const laneWidth = Math.round(wrap.scrollWidth);
-    const containerWidth = Math.round(wrap.parentElement.getBoundingClientRect().width);
-
-    // 画面を埋めるのに必要なセット数（+1で余裕）
-    const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1);
-
-    for (let i = 1; i < minSets; i++) {
-      const clones = ORIGINALS.map(n => {
-        const c = n.cloneNode(true);
-        c.setAttribute('aria-hidden', 'true');
-        return c;
-      });
-      wrap.append(...clones);
-    }
-
-    // 既に出現済みなら is-init を外して即表示
-    if (revealed) {
-      wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
-    }
-
-    // === 無停止ループ（毎フレーム整数スナップ） ===
-    gsap.registerPlugin(ModifiersPlugin);
-    const SPEED = 120; // px/s（調整可）
-    const duration = laneWidth / SPEED;
-    const wrapX = gsap.utils.wrap(-laneWidth, 0);
-
-    gsap.set(wrap, { x: 0, force3D: true }); // 合成レイヤー化
-
-    tween = gsap.to(wrap, {
-      x: "-=" + laneWidth,
-      duration,
-      ease: "none",
-      repeat: -1,
-      lazy: false,
-      modifiers: {
-        x: (v) => {
-          // 小数→整数へスナップしてからループ範囲にラップ
-          const snapped = Math.round(parseFloat(v));
-          return wrapX(snapped) + "px";
-        }
-      }
-    });
+    // アニメ速度は「1セットの幅 ÷ 速度(px/s)」から算出して CSS 変数へ
+    // ※ 1セット幅 = 全体幅の 1/2（2セットにしてるため）
+    const totalWidth = wrap.scrollWidth;         // 2セット合算の幅
+    const laneWidth  = Math.max(1, Math.round(totalWidth / 2)); // 1セットぶん
+    const SPEED = 120; // px/s（端末に合わせて 80〜140 くらいで調整可）
+    const dur = Math.max(8, Math.round(laneWidth / SPEED)); // 秒
+    wrap.style.setProperty('--marquee-dur', `${dur}s`);
   };
 
   (async () => {
-    await buildMarquee();
+    await buildTrack();
 
-    // ===== スクロールで画像を等倍＆フェードイン =====
-    gsap.registerPlugin(ScrollTrigger);
-    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるように関数化
+    // ===== スクロールでのフェード/スケールは任意（GSAP使用例） =====
+    // なくてもOK。使うなら以下を有効化。
+    if (window.gsap && window.ScrollTrigger) {
+      const imgs = () => Array.from(document.querySelectorAll(".imageWrap img"));
+      gsap.registerPlugin(ScrollTrigger);
 
-    const playReveal = () => {
       gsap.to(imgs(), {
         scrollTrigger: {
           trigger: ".gallery",
@@ -353,31 +320,28 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 1,
         scale: 1,
         ease: "power3.out",
-        stagger: 0.08,
-        onComplete: () => {
-          document.querySelectorAll(".imageWrap img.is-init")
-            .forEach(img => img.classList.remove("is-init"));
-          revealed = true;
-        }
+        stagger: 0.08
       });
-    };
-    playReveal();
 
-    // ===== リサイズ時：再構築（幅変動で途切れないように） =====
-    let rid = 0;
-    window.addEventListener('resize', () => {
-      cancelAnimationFrame(rid);
-      rid = requestAnimationFrame(async () => {
-        await buildMarquee();
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      });
-    }, { passive: true });
+      // レイアウト変化時のみ refresh（スクロール中の停止は発生しない構成）
+      let rid = 0;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(rid);
+        rid = requestAnimationFrame(async () => {
+          await buildTrack();
+          ScrollTrigger.refresh();
+        });
+      }, { passive: true });
+    } else {
+      // GSAPなし運用でもOK：CSSアニメは常時動作
+      let rid = 0;
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(rid);
+        rid = requestAnimationFrame(buildTrack);
+      }, { passive: true });
+    }
   })();
 });
-
-
-
-
 
 
 // レビューセクション
