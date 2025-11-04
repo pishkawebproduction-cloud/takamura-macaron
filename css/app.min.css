@@ -2247,7 +2247,8 @@ img.cake {
   }
 
   .spMenuPicWrap .spPic {
-    position:absolute; inset:0; width:220px; height:auto; border-radius:16px;
+    position:absolute; bottom: 15%; left: 50%;
+    transform: translateX(-50%); width:220px; height:auto; border-radius:16px;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
   
@@ -2371,18 +2372,18 @@ img.cake {
   }
 
   .bestSeller {
-    height: 168vh
+    height: 1250px
   }
 
   .bestSeller .bg-text {
-    height: 168vh;
+    height: 1250px;
     top: 0
   }
 
   .circleWrapper {
     margin: 0 auto;
     flex-direction: column;
-    gap: 4vh;
+    gap: 30px;
     z-index: 2
   }
 
@@ -2410,6 +2411,8 @@ img.cake {
   .menuSec.top {
     margin-bottom: 200px
   }
+
+  .menu { height: 350px; }
 
   .review blockquote,
   .review2 blockquote {
