@@ -2555,3 +2555,43 @@ img.cake {
     font-size: 14px
   }
 }
+
+/* === 追加: モバイル/タブレットをCSS-onlyに === */
+@media (max-width: 1080px) {
+  .gallery .scrollContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    /* 余白が欲しければ padding-inline を適宜 */
+  }
+
+  .gallery .scrollContainer::-webkit-scrollbar { display: none; } /* 任意 */
+
+  /* JS停止中でも並ぶように（既にflex） */
+  .gallery .imageWrap {
+    gap: 16px;            /* 既存20pxでもOK。微調整可 */
+    transform: none !important; /* JSアニメ無効化の保険 */
+    will-change: auto;
+  }
+
+  .gallery .imageWrap img {
+    scroll-snap-align: center;
+    transition: transform .3s ease, opacity .3s ease;
+    /* 好みで“中央付近でちょい拡大”を演出（任意） */
+  }
+
+  /* 初期状態で縮小・透明にしていたのを無効化（JSを動かさないため） */
+  .gallery img.is-init {
+    transform: none !important;
+    opacity: 1 !important;
+    will-change: auto !important;
+  }
+
+  /* “今見えてる画像”を少しだけ強調（IOを入れないなら:focus/hoverでもOK） */
+  .gallery .imageWrap img:focus-visible,
+  .gallery .imageWrap img:hover {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
