@@ -251,6 +251,7 @@ window.addEventListener("scroll", () => {
   for (let i = 0; i < LINES; i++) build(i % 2 === 0);
 })();
 
+//編集
 
 //ギャラリー
 document.addEventListener('DOMContentLoaded', () => {
@@ -357,7 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   })();
 });
-
 
 
 
