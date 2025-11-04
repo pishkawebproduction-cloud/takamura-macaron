@@ -251,67 +251,113 @@ window.addEventListener("scroll", () => {
   for (let i = 0; i < LINES; i++) build(i % 2 === 0);
 })();
 
-//編集
 
 //ギャラリー
 document.addEventListener('DOMContentLoaded', () => {
-  const track = document.querySelector('.marquee-track');
-  const strips = track ? track.querySelectorAll('.strip') : [];
-  if (!track || strips.length < 2) return;
+  const wrap = document.getElementById('imageWrap');
+  if (!wrap) return;
 
-  // 速度（px/秒）※R→Lは負方向
-  const SPEED = 240; // 体感で調整：120〜360くらい
-
-  let tile = 0;   // 1枚（strip）の表示幅(px)
-  let start = 0;  // アニメ開始時刻（ms）
-
-  const measure = () => {
-    // stripの表示高さに対してアスペクト比で表示幅を算出
-    const h  = strips[0].getBoundingClientRect().height;
-    const nW = strips[0].naturalWidth;
-    const nH = strips[0].naturalHeight;
-    if (!h || !nW || !nH) return false;
-    tile = Math.round(nW * (h / nH)); // 小数切り→サブピクセル誤差排除
-    return tile > 0;
+  const waitImages = async (root) => {
+    const imgs = Array.from(root.querySelectorAll('img'));
+    await Promise.all(imgs.map(img =>
+      (img.decode ? img.decode().catch(() => { }) : Promise.resolve())
+        .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
+    ));
   };
 
-  const loop = (t) => {
-    if (!start) start = t;
-    const dt = (t - start) / 1000; // 秒
-    // 位置 = 連続値をモジュロで折り返す（反復リセットなし）
-    const x = -((dt * SPEED) % tile);
-    track.style.transform = `translate3d(${x}px,0,0)`;
-    requestAnimationFrame(loop);
-  };
+  let revealed = false; // 画像が一度でも出現したかフラグ
+  let tween = null;     // marquee の GSAP tween を保持
 
-  // 画像ロード後に計測→ループ開始
-  let loaded = 0;
-  const onReady = () => {
-    if (!measure()) return;   // 幅がまだ出ない場合は次フレームで再試行
-    track.style.willChange = 'transform';
-    track.style.transform  = 'translate3d(0,0,0)';
-    requestAnimationFrame(loop);
-  };
+  const buildMarquee = async () => {
+    if (tween) { tween.kill(); tween = null; }
 
-  strips.forEach(img => {
-    if (img.complete) loaded++;
-    else img.addEventListener('load', () => { if (++loaded === strips.length) onReady(); }, { once:true });
-  });
-  if (loaded === strips.length) onReady();
+    // 元の1セットを保存（初回のみ）
+    const originals = Array.from(wrap.children).map(n => n.cloneNode(true));
 
-  // リサイズで再計測（滑らかに継続）
-  let rid = 0;
-  const remeasure = () => {
-    cancelAnimationFrame(rid);
-    rid = requestAnimationFrame(() => {
-      const oldTile = tile;
-      if (measure() && oldTile !== tile) {
-        // 位置はそのまま、次フレームから新しいtileで自然に続行
-      }
+    // 一旦初期セットに戻す
+    wrap.replaceChildren(...originals.map(n => n.cloneNode(true)));
+    await waitImages(wrap);
+
+    // 1セットの正確な幅（margin/gap込み）を取得
+    const laneWidth = wrap.scrollWidth;
+
+    // コンテナ幅を埋めるのに必要なセット数を計算（+1で余裕）
+    const containerWidth = wrap.parentElement.getBoundingClientRect().width;
+    const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1);
+
+    // 必要セット数になるまで丸ごと複製して末尾に追加
+    for (let i = 1; i < minSets; i++) {
+      const clones = originals.map(n => {
+        const c = n.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        return c;
+      });
+      wrap.append(...clones);
+    }
+
+    // すでに出現済みなら、全画像の is-init を外して即表示（opacity問題の根治）
+    if (revealed) {
+      wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
+    }
+
+    // ===== 無停止ループ（Modifiersで折り返し）=====
+    gsap.registerPlugin(ModifiersPlugin);
+    const SPEED = 120;                 // px/s（好みで）
+    const duration = laneWidth / SPEED;
+    const wrapX = gsap.utils.wrap(-laneWidth, 0); // 1セットぶんでループ
+
+    gsap.set(wrap, { x: 0 });
+    tween = gsap.to(wrap, {
+      x: "-=" + laneWidth,
+      duration,
+      ease: "none",
+      repeat: -1,
+      modifiers: { x: (v) => wrapX(parseFloat(v)) + "px" }
     });
   };
-  window.addEventListener('resize', remeasure, { passive:true });
+
+  (async () => {
+    await buildMarquee();
+
+    // ===== スクロールで画像を等倍・フェードイン =====
+    gsap.registerPlugin(ScrollTrigger);
+    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるよう関数に
+
+    const playReveal = () => {
+      gsap.to(imgs(), {
+        scrollTrigger: {
+          trigger: ".gallery",
+          start: "top 85%",
+          toggleActions: "play none none none",
+          once: true
+        },
+        duration: 1,
+        opacity: 1,
+        scale: 1,
+        ease: "power3.out",
+        stagger: 0.08,
+        onComplete: () => {
+          // 全ての is-init を外して今後の再構築でも透明にならないように
+          document.querySelectorAll(".imageWrap img.is-init")
+            .forEach(img => img.classList.remove("is-init"));
+          revealed = true;
+        }
+      });
+    };
+    playReveal();
+
+    // リサイズ時は再構築（途切れ対策）。出現済みなら即表示のまま再開
+    let rid = 0;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rid);
+      rid = requestAnimationFrame(async () => {
+        await buildMarquee();
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      });
+    }, { passive: true });
+  })();
 });
+
 
 
 

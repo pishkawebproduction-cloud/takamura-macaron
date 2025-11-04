@@ -2555,13 +2555,3 @@ img.cake {
     font-size: 14px
   }
 }
-
-.gallery{ overflow:hidden; height:600px; position:relative; }
-
-.marquee-track{
-  position:relative; height:60%; margin-top:80px;
-  display:flex; gap:0; flex-wrap:nowrap;
-  will-change:transform; transform:translate3d(0,0,0);
-}
-
-.strip{ height:100%; width:auto; flex:0 0 auto; display:block; }
