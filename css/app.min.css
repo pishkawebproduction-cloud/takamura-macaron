@@ -697,7 +697,7 @@ main {
   transform: translateZ(0)
 }
 
-.spMenuPic {
+.spMenuPicWrap {
   display: none
 }
 
@@ -2242,14 +2242,12 @@ img.cake {
     transition-delay: .20s
   }
 
-  .spMenuPic {
-    display: block;
-    width: 220px;
-    height: auto;
-    margin: 60px auto 20px;
-    transition: opacity .8s ease;
-    border-radius: 16px;
+  .spMenuPicWrap .spPic {
+    position:absolute; inset:0; width:220px; height:auto; border-radius:16px;
+    transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
+  
+  .spMenuPicWrap .spPic.is-show{opacity:1}
 
   body.is-nav-open .site-header nav ul#global-nav {
     transform: translateY(0)
