@@ -263,316 +263,214 @@ window.addEventListener("scroll", () => {
 
 //ギャラリー
 document.addEventListener('DOMContentLoaded', () => {
-  const wrap = document.getElementById('imageWrap');
-  if (!wrap) return;
+  const wrap = document.getElementById('imageWrap'); if (!wrap) return; const waitImages = async (root) => { const imgs = Array.from(root.querySelectorAll('img')); await Promise.all(imgs.map(img => (img.decode ? img.decode().catch(() => { }) : Promise.resolve()).then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r)))))); }; let revealed = false; // 画像が一度でも出現したかフラグ let tween = null; // marquee の GSAP tween を保持 const buildMarquee = async () => { if (tween) { tween.kill(); tween = null; } // 元の1セットを保存（初回のみ） const originals = Array.from(wrap.children).map(n => n.cloneNode(true)); // 一旦初期セットに戻す wrap.replaceChildren(...originals.map(n => n.cloneNode(true))); await waitImages(wrap); // 1セットの正確な幅（margin/gap込み）を取得 const laneWidth = wrap.scrollWidth; // コンテナ幅を埋めるのに必要なセット数を計算（+1で余裕） const containerWidth = wrap.parentElement.getBoundingClientRect().width; const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1); // 必要セット数になるまで丸ごと複製して末尾に追加 for (let i = 1; i < minSets; i++) { const clones = originals.map(n => { const c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); return c; }); wrap.append(...clones); } // すでに出現済みなら、全画像の is-init を外して即表示（opacity問題の根治） if (revealed) { wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init')); } // ===== 無停止ループ（Modifiersで折り返し）===== gsap.registerPlugin(ModifiersPlugin); const SPEED = 120; // px/s（好みで） const duration = laneWidth / SPEED; const wrapX = gsap.utils.wrap(-laneWidth, 0); // 1セットぶんでループ gsap.set(wrap, { x: 0 }); tween = gsap.to(wrap, { x: "-=" + laneWidth, duration, ease: "none", repeat: -1, modifiers: { x: (v) => wrapX(parseFloat(v)) + "px" } }); }; (async () => { await buildMarquee(); // ===== スクロールで画像を等倍・フェードイン ===== gsap.registerPlugin(ScrollTrigger); const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるよう関数に const playReveal = () => { gsap.to(imgs(), { scrollTrigger: { trigger: ".gallery", start: "top 85%", toggleActions: "play none none none", once: true }, duration: 1, opacity: 1, scale: 1, ease: "power3.out", stagger: 0.08, onComplete: () => { // 全ての is-init を外して今後の再構築でも透明にならないように document.querySelectorAll(".imageWrap img.is-init") .forEach(img => img.classList.remove("is-init")); revealed = true; } }); }; playReveal(); // リサイズ時は再構築（途切れ対策）。出現済みなら即表示のまま再開 let rid = 0; window.addEventListener('resize', () => { cancelAnimationFrame(rid); rid = requestAnimationFrame(async () => { await buildMarquee(); if (window.ScrollTrigger) ScrollTrigger.refresh(); }); }, { passive: true }); })(); });
 
-  const waitImages = async (root) => {
-    const imgs = Array.from(root.querySelectorAll('img'));
-    await Promise.all(imgs.map(img =>
-      (img.decode ? img.decode().catch(() => { }) : Promise.resolve())
-        .then(() => (img.complete ? undefined : new Promise(r => (img.onload = img.onerror = r))))
-    ));
-  };
+  // レビューセクション
+  (() => {
+    const scroller = document.getElementById('review-scroller');
+    const track = document.getElementById('review-track');
 
-  let revealed = false; // 画像が一度でも出現したかフラグ
-  let tween = null;     // marquee の GSAP tween を保持
+    const ensureWidth = () => {
+      if (!scroller.querySelector('[data-clone="1"]')) {
+        const c1 = track.cloneNode(true);
+        c1.dataset.clone = "1";
+        c1.setAttribute('aria-hidden', 'true');
+        scroller.appendChild(c1);
+      }
 
-  const buildMarquee = async () => {
-    if (tween) { tween.kill(); tween = null; }
+      const containerW = scroller.parentElement.getBoundingClientRect().width;
+      const totalW = scroller.scrollWidth;
+      let i = 2;
+      while (scroller.scrollWidth < containerW * 2 && i < 10) {
+        const cx = track.cloneNode(true);
+        cx.dataset.clone = String(i++);
+        cx.setAttribute('aria-hidden', 'true');
+        scroller.appendChild(cx);
+      }
+    };
 
-    // 元の1セットを保存（初回のみ）
-    const originals = Array.from(wrap.children).map(n => n.cloneNode(true));
+    const SPEED = 120;
+    const setDuration = () => {
+      const baseWidth = track.getBoundingClientRect().width;
+      const durationSec = baseWidth / SPEED;
+      scroller.style.setProperty('--duration', `${durationSec}s`);
+      scroller.style.setProperty('--loop-distance', '-50%');
+    };
 
-    // 一旦初期セットに戻す
-    wrap.replaceChildren(...originals.map(n => n.cloneNode(true)));
-    await waitImages(wrap);
+    const refresh = () => { ensureWidth(); setDuration(); };
 
-    // 1セットの正確な幅（margin/gap込み）を取得
-    const laneWidth = wrap.scrollWidth;
+    refresh();
+    addEventListener('resize', refresh);
+  })();
 
-    // コンテナ幅を埋めるのに必要なセット数を計算（+1で余裕）
-    const containerWidth = wrap.parentElement.getBoundingClientRect().width;
-    const minSets = Math.max(2, Math.ceil(containerWidth / laneWidth) + 1);
-
-    // 必要セット数になるまで丸ごと複製して末尾に追加
-    for (let i = 1; i < minSets; i++) {
-      const clones = originals.map(n => {
-        const c = n.cloneNode(true);
-        c.setAttribute('aria-hidden', 'true');
-        return c;
-      });
-      wrap.append(...clones);
-    }
-
-    // すでに出現済みなら、全画像の is-init を外して即表示（opacity問題の根治）
-    if (revealed) {
-      wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
-    }
-
-    // ===== 無停止ループ（Modifiersで折り返し）=====
-    gsap.registerPlugin(ModifiersPlugin);
-    const SPEED = 120;                 // px/s（好みで）
-    const duration = laneWidth / SPEED;
-    const wrapX = gsap.utils.wrap(-laneWidth, 0); // 1セットぶんでループ
-
-    gsap.set(wrap, { x: 0 });
-    tween = gsap.to(wrap, {
-      x: "-=" + laneWidth,
-      duration,
-      ease: "none",
-      repeat: -1,
-      modifiers: { x: (v) => wrapX(parseFloat(v)) + "px" }
-    });
-  };
-
-  (async () => {
-    await buildMarquee();
-
-    // ===== スクロールで画像を等倍・フェードイン =====
+  //文字のアニメーション
+  (() => {
     gsap.registerPlugin(ScrollTrigger);
-    const imgs = () => Array.from(document.querySelectorAll(".imageWrap img")); // 再構築後も拾えるよう関数に
 
-    const playReveal = () => {
-      gsap.to(imgs(), {
+    const targets = document.querySelectorAll('.reveal-letters');
+    if (!targets.length) return;
+
+    targets.forEach(el => {
+      const raw = el.innerHTML;
+      const lines = raw.split(/<br\s*\/?>/i);
+      el.innerHTML = '';
+
+      const chars = [];
+
+      lines.forEach((line, i) => {
+        const frag = document.createDocumentFragment();
+
+        // ← 行頭の余白を削除
+        const cleanLine = line.replace(/^\s+/, "");
+
+        [...cleanLine].forEach(ch => {
+          if (ch === " ") {
+            frag.appendChild(document.createTextNode(" "));
+          } else {
+            const wrap = document.createElement('span');
+            wrap.className = 'charWrap';
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = ch;
+            wrap.appendChild(span);
+            frag.appendChild(wrap);
+            chars.push(span);
+          }
+        });
+
+        el.appendChild(frag);
+        if (i < lines.length - 1) {
+          const br = document.createElement('span');
+          br.className = 'br';
+          el.appendChild(br);
+        }
+      });
+
+      const total = chars.length;
+      gsap.from(chars, {
         scrollTrigger: {
-          trigger: ".gallery",
+          trigger: el,
+          start: "top 95%",
+          toggleActions: "play reverse play reverse"
+        },
+        duration: 1.2,
+        ease: "expo.out",
+        opacity: 0,
+        y: (i) => gsap.utils.mapRange(0, total - 1, 10, 40)(i),
+        scaleY: (i) => gsap.utils.mapRange(0, total - 1, 0.8, 0.4)(i),
+        delay: (i) => gsap.utils.mapRange(0, total - 1, 0.0, 0.35)(i),
+        stagger: { amount: 0.12 }
+      });
+    });
+  })();
+
+  //画像のアニメーション
+  (() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray(".menuPic img").forEach(img => {
+      gsap.from(img, {
+        scrollTrigger: {
+          trigger: img,
           start: "top 85%",
-          toggleActions: "play none none none",
-          once: true
+          toggleActions: "play none none none"
         },
         duration: 1,
-        opacity: 1,
-        scale: 1,
-        ease: "power3.out",
-        stagger: 0.08,
-        onComplete: () => {
-          // 全ての is-init を外して今後の再構築でも透明にならないように
-          document.querySelectorAll(".imageWrap img.is-init")
-            .forEach(img => img.classList.remove("is-init"));
-          revealed = true;
-        }
+        opacity: 0,   // 透明度だけ
+        y: 100,        // 下からふわっと上がる
+        ease: "power2.out",
+        clearProps: "opacity,transform" // ← 終了後はinline style消去、hoverに干渉しない
       });
-    };
-    playReveal();
-
-    // リサイズ時は再構築（途切れ対策）。出現済みなら即表示のまま再開
-    let rid = 0;
-    window.addEventListener('resize', () => {
-      cancelAnimationFrame(rid);
-      rid = requestAnimationFrame(async () => {
-        await buildMarquee();
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      });
-    }, { passive: true });
+    });
   })();
-});
 
-// レビューセクション
-(() => {
-  const scroller = document.getElementById('review-scroller');
-  const track = document.getElementById('review-track');
+  // ページトランジション
+  (() => {
+    const topBar = document.querySelector('.barTop');
+    const bottomBar = document.querySelector('.barBottom');
+    if (!topBar || !bottomBar) return; // 念のためガード
 
-  const ensureWidth = () => {
-    if (!scroller.querySelector('[data-clone="1"]')) {
-      const c1 = track.cloneNode(true);
-      c1.dataset.clone = "1";
-      c1.setAttribute('aria-hidden', 'true');
-      scroller.appendChild(c1);
-    }
+    // ページ読込時：開く（= 上は上へ、下は下へ退場）
+    window.addEventListener('load', () => {
+      gsap.to(topBar, { duration: 0.9, yPercent: -100, ease: "power4.inOut" });
+      gsap.to(bottomBar, { duration: 0.9, yPercent: 100, ease: "power4.inOut", delay: 0.05 });
+    });
 
-    const containerW = scroller.parentElement.getBoundingClientRect().width;
-    const totalW = scroller.scrollWidth;
-    let i = 2;
-    while (scroller.scrollWidth < containerW * 2 && i < 10) {
-      const cx = track.cloneNode(true);
-      cx.dataset.clone = String(i++);
-      cx.setAttribute('aria-hidden', 'true');
-      scroller.appendChild(cx);
-    }
-  };
+    // クリックを1か所で拾う（イベント委譲）
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
 
-  const SPEED = 120;
-  const setDuration = () => {
-    const baseWidth = track.getBoundingClientRect().width;
-    const durationSec = baseWidth / SPEED;
-    scroller.style.setProperty('--duration', `${durationSec}s`);
-    scroller.style.setProperty('--loop-distance', '-50%');
-  };
+      const href = a.getAttribute('href') || '';
 
-  const refresh = () => { ensureWidth(); setDuration(); };
+      // ---- 遷移させないリンクを除外（ここがキモ）----
+      const isHashOnly = href === '#' || href.startsWith('#');   // ページ内リンク
+      const isJSLink = href.startsWith('javascript:');         // javascript:void(0) など
+      const isBlank = href.trim() === '';                     // 空href
+      const isExternal = a.origin && a.origin !== location.origin; // 外部リンク
+      const isNoTrans = a.hasAttribute('data-no-transition');   // 明示除外フラグ
+      const isDownload = a.hasAttribute('download');             // ダウンロード
+      const isNewWindow = a.target === '_blank';                  // 別タブ
 
-  refresh();
-  addEventListener('resize', refresh);
-})();
-
-//文字のアニメーション
-(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const targets = document.querySelectorAll('.reveal-letters');
-  if (!targets.length) return;
-
-  targets.forEach(el => {
-    const raw = el.innerHTML;
-    const lines = raw.split(/<br\s*\/?>/i);
-    el.innerHTML = '';
-
-    const chars = [];
-
-    lines.forEach((line, i) => {
-      const frag = document.createDocumentFragment();
-
-      // ← 行頭の余白を削除
-      const cleanLine = line.replace(/^\s+/, "");
-
-      [...cleanLine].forEach(ch => {
-        if (ch === " ") {
-          frag.appendChild(document.createTextNode(" "));
-        } else {
-          const wrap = document.createElement('span');
-          wrap.className = 'charWrap';
-          const span = document.createElement('span');
-          span.className = 'char';
-          span.textContent = ch;
-          wrap.appendChild(span);
-          frag.appendChild(wrap);
-          chars.push(span);
-        }
-      });
-
-      el.appendChild(frag);
-      if (i < lines.length - 1) {
-        const br = document.createElement('span');
-        br.className = 'br';
-        el.appendChild(br);
+      if (isHashOnly || isJSLink || isBlank || isExternal || isNoTrans || isDownload || isNewWindow) {
+        // これらはトランジションを出さない
+        return;
       }
+      // -----------------------------------------------
+
+      // ここから通常のページ遷移（トランジションあり）
+      e.preventDefault();
+      gsap.to(topBar, { duration: 0.9, yPercent: 0, ease: "power4.inOut" });
+      gsap.to(bottomBar, {
+        duration: 0.9, yPercent: 0, ease: "power4.inOut", delay: 0.05,
+        onComplete: () => { window.location.href = a.href; }
+      });
     });
+  })();
 
-    const total = chars.length;
-    gsap.from(chars, {
-      scrollTrigger: {
-        trigger: el,
-        start: "top 95%",
-        toggleActions: "play reverse play reverse"
-      },
-      duration: 1.2,
-      ease: "expo.out",
-      opacity: 0,
-      y: (i) => gsap.utils.mapRange(0, total - 1, 10, 40)(i),
-      scaleY: (i) => gsap.utils.mapRange(0, total - 1, 0.8, 0.4)(i),
-      delay: (i) => gsap.utils.mapRange(0, total - 1, 0.0, 0.35)(i),
-      stagger: { amount: 0.12 }
+
+
+
+  (() => {
+    const burger = document.querySelector('.burger');
+    if (!burger) return;
+
+    burger.addEventListener('click', () => {
+      document.body.classList.toggle('is-nav-open');
+      const expanded = document.body.classList.contains('is-nav-open');
+      burger.setAttribute('aria-expanded', expanded);
     });
+  })();
+
+
+
+
+  // SPメニューの画像切り替えアニメーション
+  document.addEventListener("DOMContentLoaded", () => {
+    const spMenuPic = document.querySelector(".spMenuPic");
+    if (!spMenuPic) return;
+
+    const images = [
+      "../images/cheeseCake.jpg",
+      "../images/chocoCake.jpg",
+      "../images/cupCake.jpg",
+      "../images/fancyCake.jpg",
+      "../images/tart.jpg",
+      "../images/cupCake.jpg"
+    ];
+    let index = 0;
+
+    setInterval(() => {
+      // 1) フェードアウト
+      spMenuPic.style.opacity = 0;
+
+      // 2) 少し待って画像を切り替え
+      setTimeout(() => {
+        index = (index + 1) % images.length;
+        spMenuPic.src = images[index];
+
+        // 3) フェードイン
+        spMenuPic.style.opacity = 1;
+      }, 800); // transitionと同じ時間にする
+    }, 4000); // 4秒ごとに切り替え
   });
-})();
-
-//画像のアニメーション
-(() => {
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.utils.toArray(".menuPic img").forEach(img => {
-    gsap.from(img, {
-      scrollTrigger: {
-        trigger: img,
-        start: "top 85%",
-        toggleActions: "play none none none"
-      },
-      duration: 1,
-      opacity: 0,   // 透明度だけ
-      y: 100,        // 下からふわっと上がる
-      ease: "power2.out",
-      clearProps: "opacity,transform" // ← 終了後はinline style消去、hoverに干渉しない
-    });
-  });
-})();
-
-// ページトランジション
-(() => {
-  const topBar = document.querySelector('.barTop');
-  const bottomBar = document.querySelector('.barBottom');
-  if (!topBar || !bottomBar) return; // 念のためガード
-
-  // ページ読込時：開く（= 上は上へ、下は下へ退場）
-  window.addEventListener('load', () => {
-    gsap.to(topBar, { duration: 0.9, yPercent: -100, ease: "power4.inOut" });
-    gsap.to(bottomBar, { duration: 0.9, yPercent: 100, ease: "power4.inOut", delay: 0.05 });
-  });
-
-  // クリックを1か所で拾う（イベント委譲）
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (!a) return;
-
-    const href = a.getAttribute('href') || '';
-
-    // ---- 遷移させないリンクを除外（ここがキモ）----
-    const isHashOnly = href === '#' || href.startsWith('#');   // ページ内リンク
-    const isJSLink = href.startsWith('javascript:');         // javascript:void(0) など
-    const isBlank = href.trim() === '';                     // 空href
-    const isExternal = a.origin && a.origin !== location.origin; // 外部リンク
-    const isNoTrans = a.hasAttribute('data-no-transition');   // 明示除外フラグ
-    const isDownload = a.hasAttribute('download');             // ダウンロード
-    const isNewWindow = a.target === '_blank';                  // 別タブ
-
-    if (isHashOnly || isJSLink || isBlank || isExternal || isNoTrans || isDownload || isNewWindow) {
-      // これらはトランジションを出さない
-      return;
-    }
-    // -----------------------------------------------
-
-    // ここから通常のページ遷移（トランジションあり）
-    e.preventDefault();
-    gsap.to(topBar, { duration: 0.9, yPercent: 0, ease: "power4.inOut" });
-    gsap.to(bottomBar, {
-      duration: 0.9, yPercent: 0, ease: "power4.inOut", delay: 0.05,
-      onComplete: () => { window.location.href = a.href; }
-    });
-  });
-})();
-
-
-
-
-(() => {
-  const burger = document.querySelector('.burger');
-  if (!burger) return;
-
-  burger.addEventListener('click', () => {
-    document.body.classList.toggle('is-nav-open');
-    const expanded = document.body.classList.contains('is-nav-open');
-    burger.setAttribute('aria-expanded', expanded);
-  });
-})();
-
-
-
-
-// SPメニューの画像切り替えアニメーション
-document.addEventListener("DOMContentLoaded", () => {
-  const spMenuPic = document.querySelector(".spMenuPic");
-  if (!spMenuPic) return;
-
-  const images = [
-    "../images/cheeseCake.jpg",
-    "../images/chocoCake.jpg",
-    "../images/cupCake.jpg",
-    "../images/fancyCake.jpg",
-    "../images/tart.jpg",
-    "../images/cupCake.jpg"
-  ];
-  let index = 0;
-
-  setInterval(() => {
-    // 1) フェードアウト
-    spMenuPic.style.opacity = 0;
-
-    // 2) 少し待って画像を切り替え
-    setTimeout(() => {
-      index = (index + 1) % images.length;
-      spMenuPic.src = images[index];
-
-      // 3) フェードイン
-      spMenuPic.style.opacity = 1;
-    }, 800); // transitionと同じ時間にする
-  }, 4000); // 4秒ごとに切り替え
-});
