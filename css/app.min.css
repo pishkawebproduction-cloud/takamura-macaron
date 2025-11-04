@@ -1025,7 +1025,7 @@ img.hoverImgParts {
 
 .gallery h2 {
   font-size: 4.5vw;
-  line-height: 5vw;
+  line-height: 5.2vw;
   font-family: "Dela Gothic One";
   color: #112229;
   text-align: center;
@@ -2559,13 +2559,13 @@ img.cake {
 
 .gallery{
   overflow: hidden;
-  height: 600px; /* ←必要に合わせて高さ調整 */
+  height: 800px; /* ←必要に合わせて高さ調整 */
   position: relative;
 }
 
 /* スプライトを流すボックス */
 .marquee-sprite{
-  --speed: 120s; /* 好みで 60〜180s くらい */
+  --speed: 60s; /* 好みで 60〜180s くらい */
   width: 200%; /* 背景の繰り返しを視覚的に余裕を持たせる */
   height: 60%;
   background-image: url("../images/gallery-sprite.webp");
@@ -2575,6 +2575,7 @@ img.cake {
   animation: marquee var(--speed) linear infinite;
   will-change: background-position;
   contain: paint;
+  margin-top: 80px;
 }
 
 /* アニメーション本体 */
