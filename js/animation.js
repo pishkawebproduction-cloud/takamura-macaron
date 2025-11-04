@@ -549,12 +549,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!spMenuPic) return;
 
   const images = [
-    "images/cheeseCake.jpg",
-    "images/chocoCake.jpg",
-    "images/cupCake.jpg",
-    "images/fancyCake.jpg",
-    "images/tart.jpg",
-    "images/cupCake.jpg"
+    "images/cheeseCake.webp",
+    "images/chocoCake.webp",
+    "images/cupCake.webp",
+    "images/fancyCake.webp",
+    "images/tart.webp",
+    "images/cupCake.webp"
   ];
   let index = 0;
 
