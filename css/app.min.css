@@ -2567,7 +2567,7 @@ img.cake {
   --speed: 120s; /* 好みで 60〜180s くらい */
   width: 200%; /* 背景の繰り返しを視覚的に余裕を持たせる */
   height: 60%;
-  background-image: url("images/gallery-sprite.webp");
+  background-image: url("../images/gallery-sprite.webp");
   background-repeat: repeat-x;
   background-size: auto 100%;
   background-position: 0 0;
