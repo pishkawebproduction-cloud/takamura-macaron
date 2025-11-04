@@ -1024,7 +1024,8 @@ img.hoverImgParts {
 }
 
 .gallery h2 {
-  font-size: 5vw;
+  font-size: 4.5vw;
+  line-height: 5vw;
   font-family: "Dela Gothic One";
   color: #112229;
   text-align: center;
