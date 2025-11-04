@@ -2559,33 +2559,33 @@ img.cake {
 
 .gallery{
   overflow: hidden;
-  height: 600px; /* ←必要に合わせて高さ調整 */
+  height: 600px;            /* 必要に合わせて調整 */
   position: relative;
 }
 
-/* スプライトを流すボックス */
 .marquee-sprite{
-  --speed: 30s; /* 好みで 60〜180s くらい */
-  width: 200%; /* 背景の繰り返しを視覚的に余裕を持たせる */
-  height: 60%;
-  background-image: url("../images/gallery-sprite.webp");
+  --speed: 12s;             /* 小さいほど速い：12s〜20sあたりが実用的 */
+  width: 200%;
+  height: 60%;              /* = 360px（600pxの60%） */
+  background-image: url("../images/gallery-sprite.webp"); /* CSSが /css/ 以下なら ../images/ が正 */
   background-repeat: repeat-x;
   background-size: auto 100%;
-  background-position: 0 0;
-  animation: marquee var(--speed) linear infinite;
-  will-change: background-position;
+  background-position-x: 0; /* ← 方向ズレ対策：Xのみ明示 */
+  background-position-y: 0;
+  animation: marquee-x var(--speed) linear infinite;
+  will-change: background-position-x;
   contain: paint;
   margin-top: 80px;
 }
 
-@keyframes marquee{
-  from { background-position: -100% 0; }
-  to   { background-position: 0 0; }
+/* 右 → 左（R→L）へ流れる */
+@keyframes marquee-x{
+  from { background-position-x: 0; }
+  to   { background-position-x: -100%; }
 }
 
-/* 低スペ端末 & アクセシビリティ対応 */
+/* アクセシビリティ：動きを減らす設定では停止 */
 @media (prefers-reduced-motion: reduce){
-  .marquee-sprite{
-    animation: none;
-  }
+  .marquee-sprite{ animation: none; }
 }
+
