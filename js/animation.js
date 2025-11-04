@@ -563,30 +563,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // SPメニューの画像切り替えアニメーション
 document.addEventListener("DOMContentLoaded", () => {
-  const spMenuPic = document.querySelector(".spMenuPic");
-  if (!spMenuPic) return;
+  const A = document.querySelector(".spPic--a");
+  const B = document.querySelector(".spPic--b");
+  if (!A || !B) return;
 
-  const images = [
-    "images/cheeseCake.webp",
-    "images/chocoCake.webp",
-    "images/cupCake.webp",
-    "images/fancyCake.webp",
-    "images/tart.webp",
-    "images/cupCake.webp"
-  ];
-  let index = 0;
+  const images = ["images/cheeseCake.webp","images/chocoCake.webp","images/cupCake.webp","images/fancyCake.webp","images/tart.webp","images/cupCake.webp"];
+  images.forEach(s=>{const im=new Image(); im.src=s;});
 
-  setInterval(() => {
-    // 1) フェードアウト
-    spMenuPic.style.opacity = 0;
+  let i = 0, showA = true;
+  A.classList.add("is-show");
 
-    // 2) 少し待って画像を切り替え
-    setTimeout(() => {
-      index = (index + 1) % images.length;
-      spMenuPic.src = images[index];
+  const sleep = ms => new Promise(r=>setTimeout(r,ms));
 
-      // 3) フェードイン
-      spMenuPic.style.opacity = 1;
-    }, 800); // transitionと同じ時間にする
-  }, 4000); // 4秒ごとに切り替え
+  (async function loop(){
+    while(true){
+      await sleep(4000);
+      // 次の画像をバックで読み込む
+      i = (i+1)%images.length;
+      const next = images[i];
+      const back = showA ? B : A;
+      back.src = next;
+
+      if (back.decode) { try { await back.decode(); } catch{} }
+      else if (!back.complete) { await new Promise(r=> back.onload = r); }
+
+      // クロスフェード
+      (showA ? A : B).classList.remove("is-show");
+      back.classList.add("is-show");
+      showA = !showA;
+      await sleep(800); // トランジション時間
+    }
+  })();
 });
