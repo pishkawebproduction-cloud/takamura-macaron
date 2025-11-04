@@ -251,6 +251,24 @@ window.addEventListener("scroll", () => {
   for (let i = 0; i < LINES; i++) build(i % 2 === 0);
 })();
 
+// === 追加: タッチ端末判定（ファイル上部のどこでもOK・1回定義） ===
+const __IS_TOUCH__ = matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+//ギャラリー
+document.addEventListener('DOMContentLoaded', () => {
+  const wrap = document.getElementById('imageWrap');
+  if (!wrap) return;
+
+  // === 追加: タッチ端末はJSアニメ停止（CSS-onlyへ） ===
+  if (__IS_TOUCH__) {
+    // 初期フェード用の is-init を外して通常表示
+    wrap.querySelectorAll('img.is-init').forEach(img => img.classList.remove('is-init'));
+    return; // ← GSAPの複製/無限ループ/ScrollTriggerは実行しない
+  }
+
+  // 以降（既存）はPCだけで動作
+  // ...（既存の buildMarquee / gsap / ScrollTrigger コードそのまま）...
+});
 
 //ギャラリー
 document.addEventListener('DOMContentLoaded', () => {
