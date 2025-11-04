@@ -2243,7 +2243,7 @@ img.cake {
   }
 
   .spMenuPicWrap {
-    display: none
+    display: block;
   }
 
   .spMenuPicWrap .spPic {
