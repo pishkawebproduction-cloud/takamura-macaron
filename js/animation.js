@@ -256,32 +256,62 @@ window.addEventListener("scroll", () => {
 //ギャラリー
 document.addEventListener('DOMContentLoaded', () => {
   const track = document.querySelector('.marquee-track');
-  const tiles = track ? track.querySelectorAll('.tile') : null;
-  if (!track || !tiles || tiles.length < 2) return;
+  const strips = track ? track.querySelectorAll('.strip') : [];
+  if (!track || strips.length < 2) return;
 
-  const calc = () => {
-    // 1枚目タイルの「実表示幅(px)」を取得
-    const tileW = Math.round(tiles[0].getBoundingClientRect().width);
-    if (tileW > 0) track.style.setProperty('--tile', tileW + 'px');
+  // 速度（px/秒）※R→Lは負方向
+  const SPEED = 240; // 体感で調整：120〜360くらい
+
+  let tile = 0;   // 1枚（strip）の表示幅(px)
+  let start = 0;  // アニメ開始時刻（ms）
+
+  const measure = () => {
+    // stripの表示高さに対してアスペクト比で表示幅を算出
+    const h  = strips[0].getBoundingClientRect().height;
+    const nW = strips[0].naturalWidth;
+    const nH = strips[0].naturalHeight;
+    if (!h || !nW || !nH) return false;
+    tile = Math.round(nW * (h / nH)); // 小数切り→サブピクセル誤差排除
+    return tile > 0;
   };
 
-  const ready = () => {
-    // 画像読込後に幅が確定 → 計測
-    let loaded = 0;
-    tiles.forEach(img => {
-      if (img.complete) loaded++;
-      else img.addEventListener('load', () => { if (++loaded === tiles.length) calc(); }, { once:true });
-    });
-    if (loaded === tiles.length) calc();
+  const loop = (t) => {
+    if (!start) start = t;
+    const dt = (t - start) / 1000; // 秒
+    // 位置 = 連続値をモジュロで折り返す（反復リセットなし）
+    const x = -((dt * SPEED) % tile);
+    track.style.transform = `translate3d(${x}px,0,0)`;
+    requestAnimationFrame(loop);
   };
 
-  ready();
-  // 向き変更やレスポンシブで高さが変わる → 再計測
+  // 画像ロード後に計測→ループ開始
+  let loaded = 0;
+  const onReady = () => {
+    if (!measure()) return;   // 幅がまだ出ない場合は次フレームで再試行
+    track.style.willChange = 'transform';
+    track.style.transform  = 'translate3d(0,0,0)';
+    requestAnimationFrame(loop);
+  };
+
+  strips.forEach(img => {
+    if (img.complete) loaded++;
+    else img.addEventListener('load', () => { if (++loaded === strips.length) onReady(); }, { once:true });
+  });
+  if (loaded === strips.length) onReady();
+
+  // リサイズで再計測（滑らかに継続）
   let rid = 0;
-  const remeasure = () => { cancelAnimationFrame(rid); rid = requestAnimationFrame(calc); };
+  const remeasure = () => {
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(() => {
+      const oldTile = tile;
+      if (measure() && oldTile !== tile) {
+        // 位置はそのまま、次フレームから新しいtileで自然に続行
+      }
+    });
+  };
   window.addEventListener('resize', remeasure, { passive:true });
 });
-
 
 
 
