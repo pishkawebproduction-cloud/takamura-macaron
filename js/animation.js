@@ -260,6 +260,42 @@ window.addEventListener("scroll", () => {
 })();
 
 //編集
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.querySelector('.marquee-sprite');
+  if (!el) return;
+
+  // スプライト画像の自然サイズを取得
+  const url = getComputedStyle(el).backgroundImage
+               .replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+  const img = new Image();
+  img.decoding = 'async';
+  img.src = url;
+
+  const setTile = () => {
+    const h = el.getBoundingClientRect().height;   // 表示高さ(px)
+    const nW = img.naturalWidth;                   // 画像の自然幅
+    const nH = img.naturalHeight;                  // 画像の自然高
+    if (!nW || !nH || !h) return;
+
+    // 背景は auto 100%（高さ基準で等比スケール）
+    // 1タイルの “表示上の幅(px)” を正確に算出
+    const tile = Math.round(nW * (h / nH));
+    el.style.setProperty('--tile', tile + 'px');
+  };
+
+  // 画像読み込み完了後に実測 → CSS変数へ反映
+  if (img.complete) { setTile(); }
+  else { img.addEventListener('load', setTile, { once: true }); }
+
+  // レイアウトが変わったら再計測（向き変更/レスポンシブなど）
+  let rid = 0;
+  const remeasure = () => {
+    cancelAnimationFrame(rid);
+    rid = requestAnimationFrame(setTile);
+  };
+  window.addEventListener('resize', remeasure, { passive: true });
+});
+
 
 // レビューセクション
 (() => {

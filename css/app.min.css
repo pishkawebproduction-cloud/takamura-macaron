@@ -2558,42 +2558,39 @@ img.cake {
 }
 
 .gallery{
-  overflow: hidden;
-  height: 600px;
-  position: relative;
+  overflow:hidden;
+  height:600px;
+  position:relative;
 }
 
-/* 1) 帯を擬似要素で作る（2倍幅の無限タイル） */
 .marquee-sprite{
-  position: relative;
-  height: 60%;
-  margin-top: 80px;
-  contain: paint;
-}
-.marquee-sprite::before{
-  content:"";
-  position:absolute; inset:0;
-  /* 横に無限タイル化したスプライトを 2倍幅の面に貼る */
-  width: 200%; height: 100%;
+  position:relative;
+  height:60%;
+  margin-top:80px;
+
+  /* 方向と速度（お好みで調整） */
+  --speed: 12s;              /* 小さいほど速い */
+  --tile: 2000px;            /* ← JSで上書きするので初期値はダミー */
+
   background-image: url("../images/gallery-sprite.webp");
   background-repeat: repeat-x;
   background-size: auto 100%;
-  will-change: transform;
-  transform: translate3d(0,0,0);
-  /* 2) 右→左（常に同じ向き）へ流れる */
-  animation: marqueeTrack var(--speed, 12s) linear infinite;
+  background-position-x: 0;
+  background-position-y: 0;
+
+  /* “1タイルぶん”だけ移動させる → 無限に継ぎ目ゼロ */
+  animation: marquee-x var(--speed) linear infinite;
+  will-change: background-position-x;
+  contain: paint;
 }
 
-/* 3) 右→左へ 2倍面の半分(-50%)だけ流す＝継ぎ目なし */
-@keyframes marqueeTrack{
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-50%,0,0); }
+/* 右→左（R→L）：Xのみを -var(--tile) まで動かす */
+@keyframes marquee-x{
+  from { background-position-x: 0; }
+  to   { background-position-x: calc(var(--tile) * -1); }
 }
 
-/* 動きを減らす指定のときは停止 */
 @media (prefers-reduced-motion: reduce){
-  .marquee-sprite::before{ animation: none; }
+  .marquee-sprite{ animation: none; }
 }
-
-.marquee-sprite{ --speed: 8s; }   /* さらに速く */
 
