@@ -2559,38 +2559,41 @@ img.cake {
 
 .gallery{
   overflow:hidden;
-  height:600px;
+  height:600px;              /* 好みで */
   position:relative;
 }
 
-.marquee-sprite{
+/* 横2枚並びの帯をそのまま動かす（R→L） */
+.marquee-track{
   position:relative;
   height:60%;
   margin-top:80px;
 
-  /* 方向と速度（お好みで調整） */
-  --speed: 12s;              /* 小さいほど速い */
-  --tile: 2000px;            /* ← JSで上書きするので初期値はダミー */
-
-  background-image: url("../images/gallery-sprite.webp");
-  background-repeat: repeat-x;
-  background-size: auto 100%;
-  background-position-x: 0;
-  background-position-y: 0;
-
-  /* “1タイルぶん”だけ移動させる → 無限に継ぎ目ゼロ */
-  animation: marquee-x var(--speed) linear infinite;
-  will-change: background-position-x;
-  contain: paint;
+  display:flex;
+  flex-wrap:nowrap;
+  will-change:transform;
+  transform: translate3d(0,0,0);
+  animation: marqueeTrack var(--speed, 12s) linear infinite;
 }
 
-/* 右→左（R→L）：Xのみを -var(--tile) まで動かす */
-@keyframes marquee-x{
-  from { background-position-x: 0; }
-  to   { background-position-x: calc(var(--tile) * -1); }
+.tile{
+  height:100%;
+  width:auto;                /* 画像比率で横幅が決まる */
+  flex:0 0 auto;             /* 折り返さない */
+  user-select:none;
+  pointer-events:none;
+  display:block;
 }
+
+/* 1タイルぶんだけ左へ移動。終点=始点と同じ画（シームレス） */
+@keyframes marqueeTrack{
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(calc(var(--tile) * -1), 0, 0); }
+}
+
+/* 速度はCSS変数で管理（小さいほど速い） */
+.marquee-track{ --speed: 10s; } /* 速めの例 */
 
 @media (prefers-reduced-motion: reduce){
-  .marquee-sprite{ animation: none; }
+  .marquee-track{ animation:none; transform:none; }
 }
-

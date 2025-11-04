@@ -261,39 +261,31 @@ window.addEventListener("scroll", () => {
 
 //編集
 document.addEventListener('DOMContentLoaded', () => {
-  const el = document.querySelector('.marquee-sprite');
-  if (!el) return;
+  const track = document.querySelector('.marquee-track');
+  const tiles = track ? track.querySelectorAll('.tile') : null;
+  if (!track || !tiles || tiles.length < 2) return;
 
-  // スプライト画像の自然サイズを取得
-  const url = getComputedStyle(el).backgroundImage
-               .replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
-  const img = new Image();
-  img.decoding = 'async';
-  img.src = url;
-
-  const setTile = () => {
-    const h = el.getBoundingClientRect().height;   // 表示高さ(px)
-    const nW = img.naturalWidth;                   // 画像の自然幅
-    const nH = img.naturalHeight;                  // 画像の自然高
-    if (!nW || !nH || !h) return;
-
-    // 背景は auto 100%（高さ基準で等比スケール）
-    // 1タイルの “表示上の幅(px)” を正確に算出
-    const tile = Math.round(nW * (h / nH));
-    el.style.setProperty('--tile', tile + 'px');
+  const calc = () => {
+    // 1枚目タイルの「実表示幅(px)」を取得
+    const tileW = Math.round(tiles[0].getBoundingClientRect().width);
+    if (tileW > 0) track.style.setProperty('--tile', tileW + 'px');
   };
 
-  // 画像読み込み完了後に実測 → CSS変数へ反映
-  if (img.complete) { setTile(); }
-  else { img.addEventListener('load', setTile, { once: true }); }
+  const ready = () => {
+    // 画像読込後に幅が確定 → 計測
+    let loaded = 0;
+    tiles.forEach(img => {
+      if (img.complete) loaded++;
+      else img.addEventListener('load', () => { if (++loaded === tiles.length) calc(); }, { once:true });
+    });
+    if (loaded === tiles.length) calc();
+  };
 
-  // レイアウトが変わったら再計測（向き変更/レスポンシブなど）
+  ready();
+  // 向き変更やレスポンシブで高さが変わる → 再計測
   let rid = 0;
-  const remeasure = () => {
-    cancelAnimationFrame(rid);
-    rid = requestAnimationFrame(setTile);
-  };
-  window.addEventListener('resize', remeasure, { passive: true });
+  const remeasure = () => { cancelAnimationFrame(rid); rid = requestAnimationFrame(calc); };
+  window.addEventListener('resize', remeasure, { passive:true });
 });
 
 
