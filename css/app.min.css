@@ -2555,3 +2555,36 @@ img.cake {
     font-size: 14px
   }
 }
+
+.gallery{
+  overflow: hidden;
+  height: 200px; /* ←必要に合わせて高さ調整 */
+  position: relative;
+}
+
+/* スプライトを流すボックス */
+.marquee-sprite{
+  --speed: 120s; /* 好みで 60〜180s くらい */
+  width: 200%; /* 背景の繰り返しを視覚的に余裕を持たせる */
+  height: 100%;
+  background-image: url("images/gallery-sprite.webp");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: 0 0;
+  animation: marquee var(--speed) linear infinite;
+  will-change: background-position;
+  contain: paint;
+}
+
+/* アニメーション本体 */
+@keyframes marquee{
+  from { background-position: 0 0; }
+  to   { background-position: -100% 0; } /* 1枚分左へ */
+}
+
+/* 低スペ端末 & アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce){
+  .marquee-sprite{
+    animation: none;
+  }
+}
