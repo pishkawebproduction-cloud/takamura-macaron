@@ -2242,6 +2242,10 @@ img.cake {
     transition-delay: .20s
   }
 
+  .spMenuPicWrap {
+    display: none
+  }
+
   .spMenuPicWrap .spPic {
     position:absolute; inset:0; width:220px; height:auto; border-radius:16px;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
