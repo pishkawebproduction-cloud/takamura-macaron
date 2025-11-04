@@ -36,14 +36,12 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
 
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
-    onerror="this.onerror=null;this.src='https://unpkg.com/gsap@3.12.5/dist/gsap.min.js'"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
-    onerror="this.onerror=null;this.src='https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js'"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ModifiersPlugin.min.js"
-    onerror="this.onerror=null;this.src='https://unpkg.com/gsap@3.12.5/dist/ModifiersPlugin.min.js'"></script>
-  <script defer
-    src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@main/js/animation.js?v=gsap3125"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ModifiersPlugin.min.js"></script>
+
+  <!-- ← jsDelivrの@mainをやめ、同一オリジンから配信（キャッシュも即更新される） -->
+  <script defer src="/js/animation.js?v=gsap3125"></script>
 
   <title>TAKAMURA</title>
 </head>
