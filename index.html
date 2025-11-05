@@ -23,6 +23,7 @@
   <meta property="og:url" content="https://pishkawebproduction-cloud.github.io/takamura-macaron/">
   <meta property="og:site_name" content="TAKAMURA">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
   <link rel="stylesheet" href="./css/app.min.css?v=20251103115659">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,12 +69,12 @@
         <li><a href="cake.html" class="englishText">Cakes</a></li>
         <li><a href="about.html" class="englishText">About</a></li>
         <li><a href="access.html" class="englishText">Access</a></li>
-        <li><a href="mailto:hello@takamura.example" class="englishText contactLink" target="_blank">Contact</a></li>
+        <li><a href="contact.html" class="englishText contactLink" target="_blank">Contact</a></li>
         <li><a href="javascript:void(0)" class="englishText englishLink" data-no-transition>English</a></li>
-        <picture>
-          <source srcset="images/macaron.webp" type="image/webp">
-          <img class="spMenuPic" src="images/macaron.jpg" alt="商品写真">
-        </picture>
+        <div class="spMenuPicWrap">
+          <img class="spPic spPic--a" src="images/macaron.webp" alt="" />
+          <img class="spPic spPic--b" alt="" />
+        </div>
       </ul>
       <button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
         <svg width="30" height="30" viewBox="0 0 24 24" aria-label="検索を開く" role="img">
@@ -189,7 +190,7 @@
     </section>
 
     <section class="gallery section-late">
-      <h2 class="reveal-letters">「私、ケーキを食べるの。<br>だって今日も<br>どこかで誰かの誕生日なんだから。」</h2>
+      <h2 class="reveal-letters">The best things in<br>life are sweet</h2>
       <div class="scrollContainer">
         <div class="imageWrap" id="imageWrap">
           <picture>
@@ -227,8 +228,15 @@
             <img class="chocoCakeIllust is-init" src="images/chocoCakeIllust.png" alt="チョコケーキの写真" loading="lazy">
           </picture>
         </div>
-      </div>
+      </div>      
     </section>
+
+    <div class="c-loop-slider">
+      <div class="c-loop-slider__wrapper">
+        <img class="c-loop-slider__items" src="images/gallery-sprite.webp" alt="">
+        <img class="c-loop-slider__items" src="images/gallery-sprite.webp" alt="">
+      </div>
+    </div>
 
     <section class="container section-late">
       <div class="menuSec top">
