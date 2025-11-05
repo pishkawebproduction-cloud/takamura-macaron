@@ -1858,6 +1858,8 @@ img.cake {
   opacity: .85
 }
 
+.c-loop-slider { display: none; }
+
 @media (max-width:1080px) {
   main {
     margin-bottom: 500px
@@ -1941,6 +1943,43 @@ img.cake {
 
   .menu {
     height: 35vh
+  }
+
+  .scrollContainer { display: none;}
+
+  @keyframes infinity-scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .c-loop-slider {
+    display: block;
+    overflow: hidden;
+  }
+
+  .c-loop-slider__wrapper {
+    display: flex;
+    width: max-content;
+  }
+
+  .c-loop-slider__items {
+    display: flex;
+    animation: infinity-scroll 30s linear infinite both;
+  }
+
+  .c-loop-slider__items img {
+    margin-right: 20px;
+    width: auto;
+    height: 240px;
+
+    @media screen and (min-width: 900px) {
+      height: min(340 / 900 * 100vw, 340px);
+    }
   }
 
   .reviewMarquee {
