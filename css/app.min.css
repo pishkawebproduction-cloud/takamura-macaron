@@ -1972,7 +1972,7 @@ img.cake {
     animation: infinity-scroll 20s linear infinite both;
   }
 
-  .c-loop-slider__items img {
+  .c-loop-slider__items {
     margin-right: 20px;
     width: auto;
     height: min(340 / 900 * 100vw, 340px);
@@ -2600,7 +2600,7 @@ img.cake {
     animation: infinity-scroll 30s linear infinite both;
   }
 
-  .c-loop-slider__items img {
+  .c-loop-slider__items {
   height: 240px;
   }
 }
