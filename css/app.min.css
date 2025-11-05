@@ -1969,13 +1969,13 @@ img.cake {
 
   .c-loop-slider__items {
     display: flex;
-    animation: infinity-scroll 30s linear infinite both;
+    animation: infinity-scroll 20s linear infinite both;
   }
 
   .c-loop-slider__items img {
     margin-right: 20px;
     width: auto;
-    height: 240px;
+    height: min(340 / 900 * 100vw, 340px);
   }
 
   .reviewMarquee {
@@ -2593,5 +2593,14 @@ img.cake {
 
   .openMapInline {
     font-size: 14px
+  }
+
+  .c-loop-slider__items {
+    display: flex;
+    animation: infinity-scroll 30s linear infinite both;
+  }
+
+  .c-loop-slider__items img {
+  height: 240px;
   }
 }
