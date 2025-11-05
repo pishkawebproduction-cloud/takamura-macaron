@@ -1973,7 +1973,6 @@ img.cake {
   }
 
   .c-loop-slider__items {
-    margin-right: 20px;
     width: auto;
     height: min(340 / 900 * 100vw, 340px);
   }
@@ -2281,8 +2280,10 @@ img.cake {
     display: block;
   }
 
+  .footerLeft address { margin-top: 0px; }
+
   .spMenuPicWrap .spPic {
-    position:absolute; bottom: 30%; left: 50%;
+    position:absolute; bottom: 20%; left: 50%;
     transform: translateX(-50%); width:220px; height:auto; border-radius:16px;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
