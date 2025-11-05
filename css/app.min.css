@@ -1311,7 +1311,6 @@ footer {
 }
 
 .footerWrapper {
-  padding-top: 30px;
   display: flex;
   justify-content: space-between;
   gap: 20px
