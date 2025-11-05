@@ -2247,7 +2247,7 @@ img.cake {
   }
 
   .spMenuPicWrap .spPic {
-    position:absolute; bottom: 15%; left: 50%;
+    position:absolute; bottom: 30%; left: 50%;
     transform: translateX(-50%); width:220px; height:auto; border-radius:16px;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
