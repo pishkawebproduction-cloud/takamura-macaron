@@ -9,6 +9,8 @@ GSAP を使った軽やかなアニメーションとレスポンシブ対応。
 - GSAP（ScrollTrigger）によるアニメーション
 - レスポンシブ対応
 - 画像＆ファビコン整理（`favicon.ico` / 32px / 16px）
+- PSI全項目90以上
+- https://x.gd/psi_contact
 
 ## ディレクトリ
 takamura-macaron/
