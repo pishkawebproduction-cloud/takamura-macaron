@@ -1637,7 +1637,10 @@ img.cake {
 }
 
 .btn.ghost {
+<<<<<<< HEAD
   border: 2px solid #147c98;
+=======
+>>>>>>> origin/main
   background: #fff;
   color: #147c98
 }
@@ -2321,7 +2324,7 @@ img.cake {
     transform: translateX(-50%); width:220px; height:auto; border-radius:16px;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
-  
+
   .spMenuPicWrap .spPic.is-show{opacity:1}
 
   body.is-nav-open .site-header nav ul#global-nav {
@@ -2639,6 +2642,7 @@ img.cake {
   height: 240px;
   }
 }
+<<<<<<< HEAD
 
 /* contact page overrides / additions */
 .contact-hero {
@@ -2867,3 +2871,5 @@ img.cake {
   transform-origin: center;
   transform: translateY(var(--logo-shift-y, 0px)) scaleX(var(--logo-scale-x, 1));
 }
+=======
+>>>>>>> origin/main
