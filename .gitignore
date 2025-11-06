@@ -1,7 +1,4 @@
-*.zip
 .DS_Store
-__MACOSX/
-*.zip
-.DS_Store
-__MACOSX/
-.DS_Store
+node_modules/
+dist/
+*.log
