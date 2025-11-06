@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const B = document.querySelector(".spPic--b");
   if (!A || !B) return;
 
-  const images = ["images/cheeseCake.webp", "images/chocoCake.webp", "images/cupCake.webp", "images/fancyCake.webp", "images/tart.webp", "images/cupCake.webp"];
+  const images = ["images/cheeseCake-320.webp", "images/chocoCake-320.webp", "images/cupCake-320.webp", "images/fancyCake-320.webp", "images/tart-320.webp"];
   images.forEach(s => { const im = new Image(); im.src = s; });
 
   let i = 0, showA = true;
