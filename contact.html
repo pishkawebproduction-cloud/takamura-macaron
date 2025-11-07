@@ -52,112 +52,121 @@
 </head>
 
 <body>
-	<!-- ページトランジション（index.htmlと同じ構造） -->
-	<div class="page-transition">
-		<div class="bar barTop"></div>
-		<div class="bar barBottom"></div>
-	</div>
+  <!-- ページトランジション（index.htmlと同じ構造） -->
+  <div class="page-transition">
+    <div class="bar barTop"></div>
+    <div class="bar barBottom"></div>
+  </div>
 
-	<!-- ===== header（index.html準拠） ===== -->
-	<header class="site-header is-scrolled" data-lock-scrolled>
-		<nav>
-			<h1 class="logo">
-				<a href="index.html">
-					<img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
-					<img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
-				</a>
-			</h1>
-			<ul id="global-nav">
-				<li><a href="macaron.html" class="englishText">Macarons</a></li>
-				<li><a href="cake.html" class="englishText">Cakes</a></li>
-				<li><a href="about.html" class="englishText">About</a></li>
-				<li><a href="access.html" class="englishText">Access</a></li>
-				<!-- Contact は“このページ”なので mailto ではなく self ページを指す -->
-				<li><a href="contact.html" class="englishText contactLink" aria-current="page">Contact</a></li>
-				<li><a href="javascript:void(0)" class="englishText englishLink" data-no-transition>English</a></li>
-				<div class="spMenuPicWrap">
-          <img class="spPic spPic--a" src="images/macaron.webp" alt="" />
-          <img class="spPic spPic--b" alt="" />
+  <!-- ===== header（index.html準拠） ===== -->
+  <header class="site-header is-scrolled" data-lock-scrolled>
+    <nav>
+      <h1 class="logo">
+        <a href="index.html">
+          <img src="images/takamura-logo.svg" alt="TAKAMURA" class="logo-img logo-light">
+          <img src="images/takamura-logo-black.svg" alt="TAKAMURA" class="logo-img logo-dark">
+        </a>
+      </h1>
+      <ul id="global-nav">
+        <li><a href="macaron.html" class="englishText">Macarons</a></li>
+        <li><a href="cake.html" class="englishText">Cakes</a></li>
+        <li><a href="about.html" class="englishText">About</a></li>
+        <li><a href="access.html" class="englishText">Access</a></li>
+        <!-- Contact は“このページ”なので mailto ではなく self ページを指す -->
+        <li><a href="contact.html" class="englishText contactLink" aria-current="page">Contact</a></li>
+        <li><a href="javascript:void(0)" class="englishText englishLink" data-no-transition>English</a></li>
+        <picture class="spPic spPic--a is-show">
+          <source type="image/webp">
+          <img
+            src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/macaron-500.png?v=20251106"
+            width="500" height="500" alt="おすすめマカロン" decoding="async" fetchpriority="low" loading="lazy"
+            style="aspect-ratio: 1 / 1;">
+        </picture>
+
+        <picture class="spPic spPic--b">
+          <source type="image/webp">
+          <img width="500" height="500" alt="" decoding="async" fetchpriority="low" loading="lazy"
+            style="aspect-ratio: 1 / 1;">
+        </picture>
+      </ul>
+      <button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
+        <i class="fas fa-search" aria-label="検索を開く"></i>
+      </button>
+      <button class="burger" aria-label="Menu" aria-controls="global-nav" aria-expanded="false">
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+        <span class="burger-bar"></span>
+      </button>
+    </nav>
+
+    <div id="search-panel" class="search-panel" role="search">
+      <form action="" method="get" class="search-form" autocomplete="off">
+        <input type="search" name="q" placeholder="キーワードで検索" aria-label="検索キーワード">
+        <button type="submit" class="search-submit englishText" aria-label="検索">search</button>
+        <a class="searchClose"></a>
+      </form>
+    </div>
+  </header>
+  <div class="site-dim" aria-hidden="true"></div>
+
+  <!-- ===== main ===== -->
+  <main id="main">
+    <section class="contact-hero">
+      <h1 class="contact-title">Contact</h1>
+      <p class="contact-lead">
+        デモ用のお問い合わせページです。送信は行われず、ページ内で完了表示に切り替わります。
+      </p>
+    </section>
+
+    <section class="contact-wrap">
+      <div class="contact-card" id="contact-card" aria-live="polite">
+        <!-- 完了表示 -->
+        <div class="contact-success" id="contact-success" role="status" aria-atomic="true">
+          送信が完了しました（デモ表示）。実際のメール送信は行っていません。<br>
+          トップへ戻る場合は <a href="./">こちら</a>。
         </div>
-			</ul>
-			<button class="search-toggle" aria-expanded="false" aria-controls="search-panel">
-				<i class="fas fa-search" aria-label="検索を開く"></i>
-			</button>
-			<button class="burger" aria-label="Menu" aria-controls="global-nav" aria-expanded="false">
-				<span class="burger-bar"></span>
-				<span class="burger-bar"></span>
-				<span class="burger-bar"></span>
-			</button>
-		</nav>
 
-		<div id="search-panel" class="search-panel" role="search">
-			<form action="" method="get" class="search-form" autocomplete="off">
-				<input type="search" name="q" placeholder="キーワードで検索" aria-label="検索キーワード">
-				<button type="submit" class="search-submit englishText" aria-label="検索">search</button>
-				<a class="searchClose"></a>
-			</form>
-		</div>
-	</header>
-	<div class="site-dim" aria-hidden="true"></div>
+        <!-- フォーム本体（送信はしない） -->
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="contact-grid">
+            <div>
+              <label for="name" class="contact-label">お名前<span class="contact-req">必須</span></label>
+              <input id="name" name="name" type="text" class="contact-input" autocomplete="name" required
+                placeholder="山田 太郎">
+              <p class="contact-help">例：山田 太郎</p>
+            </div>
 
-	<!-- ===== main ===== -->
-	<main id="main">
-		<section class="contact-hero">
-			<h1 class="contact-title">Contact</h1>
-			<p class="contact-lead">
-				デモ用のお問い合わせページです。送信は行われず、ページ内で完了表示に切り替わります。
-			</p>
-		</section>
+            <div>
+              <label for="email" class="contact-label">メールアドレス<span class="contact-req">必須</span></label>
+              <input id="email" name="email" type="email" class="contact-input" autocomplete="email" required
+                placeholder="you@example.com" inputmode="email">
+              <p class="contact-help">ご連絡可能なメールアドレスをご記入ください。</p>
+            </div>
 
-		<section class="contact-wrap">
-			<div class="contact-card" id="contact-card" aria-live="polite">
-				<!-- 完了表示 -->
-				<div class="contact-success" id="contact-success" role="status" aria-atomic="true">
-					送信が完了しました（デモ表示）。実際のメール送信は行っていません。<br>
-					トップへ戻る場合は <a href="./">こちら</a>。
-				</div>
+            <div>
+              <label for="message" class="contact-label">お問い合わせ内容<span class="contact-req">必須</span></label>
+              <textarea id="message" name="message" rows="6" class="contact-textarea" required
+                placeholder="お問い合わせ内容を入力してください。"></textarea>
+            </div>
 
-				<!-- フォーム本体（送信はしない） -->
-				<form class="contact-form" id="contact-form" novalidate>
-					<div class="contact-grid">
-						<div>
-							<label for="name" class="contact-label">お名前<span class="contact-req">必須</span></label>
-							<input id="name" name="name" type="text" class="contact-input" autocomplete="name" required
-								placeholder="山田 太郎">
-							<p class="contact-help">例：山田 太郎</p>
-						</div>
+            <!-- honeypot（人間は非表示） -->
+            <div aria-hidden="true" class="sr-only">
+              <label>Leave this field empty
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+              </label>
+            </div>
 
-						<div>
-							<label for="email" class="contact-label">メールアドレス<span class="contact-req">必須</span></label>
-							<input id="email" name="email" type="email" class="contact-input" autocomplete="email" required
-								placeholder="you@example.com" inputmode="email">
-							<p class="contact-help">ご連絡可能なメールアドレスをご記入ください。</p>
-						</div>
+            <div class="contact-actions">
+              <button type="reset" class="btn btn-secondary">クリア</button>
+              <button type="submit" class="btn btn-primary" id="submitBtn">送信</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
 
-						<div>
-							<label for="message" class="contact-label">お問い合わせ内容<span class="contact-req">必須</span></label>
-							<textarea id="message" name="message" rows="6" class="contact-textarea" required
-								placeholder="お問い合わせ内容を入力してください。"></textarea>
-						</div>
-
-						<!-- honeypot（人間は非表示） -->
-						<div aria-hidden="true" class="sr-only">
-							<label>Leave this field empty
-								<input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
-							</label>
-						</div>
-
-						<div class="contact-actions">
-							<button type="reset" class="btn btn-secondary">クリア</button>
-							<button type="submit" class="btn btn-primary" id="submitBtn">送信</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</section>
-	</main>
-
-	<footer>
+  <footer>
     <div class="footerContent">
       <div class="footerWrapper">
         <div class="footerLeft">
@@ -231,29 +240,29 @@
     </div>
   </footer>
 
-	<!-- デモ送信JS（送信はせず完了画面化） -->
-	<script>
-		(function () {
-			const form = document.getElementById('contact-form');
-			const card = document.getElementById('contact-card');
-			const btn = document.getElementById('submitBtn');
-			form.addEventListener('submit', function (e) {
-				e.preventDefault();
-				const name = form.elements['name'];
-				const email = form.elements['email'];
-				const msg = form.elements['message'];
-				if (!name.value.trim() || !email.validity.valid || !msg.value.trim()) {
-					form.reportValidity();
-					return;
-				}
-				btn.disabled = true; btn.textContent = '送信中…';
-				setTimeout(() => {
-					card.classList.add('is-sent');
-					btn.disabled = false; btn.textContent = '送信';
-				}, 500);
-			});
-		})();
-	</script>
+  <!-- デモ送信JS（送信はせず完了画面化） -->
+  <script>
+    (function () {
+      const form = document.getElementById('contact-form');
+      const card = document.getElementById('contact-card');
+      const btn = document.getElementById('submitBtn');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = form.elements['name'];
+        const email = form.elements['email'];
+        const msg = form.elements['message'];
+        if (!name.value.trim() || !email.validity.valid || !msg.value.trim()) {
+          form.reportValidity();
+          return;
+        }
+        btn.disabled = true; btn.textContent = '送信中…';
+        setTimeout(() => {
+          card.classList.add('is-sent');
+          btn.disabled = false; btn.textContent = '送信';
+        }, 500);
+      });
+    })();
+  </script>
 </body>
 
 </html>
