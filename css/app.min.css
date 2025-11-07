@@ -2321,9 +2321,11 @@ img.cake {
 
   .spMenuPicWrap .spPic {
     position:absolute; bottom: 20%; left: 50%;
-    transform: translateX(-50%); width:220px; height:auto; border-radius:16px;
+    transform: translateX(-50%); width:220px; height:auto;
     transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
   }
+
+  .spMenuPicWrap img { width: 100%; height: auto; display: block; border-radius:16px; }
 
   .spMenuPicWrap .spPic.is-show{opacity:1}
 

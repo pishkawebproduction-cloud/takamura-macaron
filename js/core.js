@@ -84,32 +84,92 @@ document.addEventListener("DOMContentLoaded", () => {
   const B = document.querySelector(".spPic--b");
   if (!A || !B) return;
 
-  const images = ["images/cheeseCake-320.webp", "images/chocoCake-320.webp", "images/cupCake-320.webp", "images/fancyCake-320.webp", "images/tart-320.webp"];
-  images.forEach(s => { const im = new Image(); im.src = s; });
+  // 画像リスト（必要に応じてaltを書き換え）
+  const ver = "20251106";
+  const base = "https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images";
+  const images = [
+    { name: "cheeseCake", alt: "チーズケーキ" },
+    { name: "chocoCake",  alt: "チョコケーキ" },
+    { name: "cupCake",    alt: "ミントカップケーキ" },
+    { name: "fancyCake",  alt: "ファンシーケーキ" },
+    { name: "tart",       alt: "タルト" },
+  ];
 
-  let i = 0, showA = true;
-  A.classList.add("is-show");
+  // 共通のsizes（必要ならページに合わせて調整）
+  const sizes = "(max-width: 768px) 90vw, 500px";
 
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  // `<picture>`に画像セットを適用する関数
+  function applyToPicture(pictureEl, item, priority /* 'high' or 'low' */) {
+    const source = pictureEl.querySelector("source[type='image/webp']");
+    const img    = pictureEl.querySelector("img");
+
+    const webp320 = `${base}/${item.name}-320.webp?v=${ver}`;
+    const webp500 = `${base}/${item.name}-500.webp?v=${ver}`;
+    const png500  = `${base}/${item.name}-500.png?v=${ver}`;
+
+    // WebPのsrcset/sizesを更新
+    source.setAttribute("srcset", `${webp320} 320w, ${webp500} 500w`);
+    source.setAttribute("sizes", sizes);
+
+    // フォールバックimgのsrc/srcset/sizes/alt
+    img.setAttribute("src", png500);
+    // フォールバック側にもsrcset付けるとより最適化される（古ブラウザ向けにOK）
+    img.setAttribute("srcset", `${png500} 500w`);
+    img.setAttribute("sizes", sizes);
+    img.setAttribute("alt", item.alt || "");
+
+    // fetchpriorityは見せる直前だけhighにできる
+    img.setAttribute("fetchpriority", priority === "high" ? "high" : "low");
+  }
+
+  // 最初に表示するもの（Aに適用）
+  let i = 0;
+  applyToPicture(A, images[i], "high");
+
+  // 事前デコード用：<img>を取り出すヘルパ
+  const getImg = (pictureEl) => pictureEl.querySelector("img");
+
+  // 事前プリロードはJSではやりすぎると帯域圧迫するので控えめに（必要分だけ）
+  // // 例：次に出す予定の1枚だけ軽く解決しておく（ブラウザに委ねる）
+  // const hint = new Image();
+  // hint.src = `${base}/${images[(i+1)%images.length].name}-500.png?v=${ver}`;
+
+  let showA = true;
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
   (async function loop() {
     while (true) {
       await sleep(4000);
       i = (i + 1) % images.length;
-      const next = images[i];
-      const back = showA ? B : A;
-      back.src = next;
 
-      if (back.decode) { try { await back.decode(); } catch { } }
-      else if (!back.complete) { await new Promise(r => back.onload = r); }
+      const front = showA ? A : B; // 現在表示中
+      const back  = showA ? B : A; // 次に表示する側
 
-      (showA ? A : B).classList.remove("is-show");
+      // 次画像を後ろ側pictureへセット（優先度は一時的にhigh）
+      applyToPicture(back, images[i], "high");
+
+      // 画像のデコード完了を待ってからフェード（チラつき防止＆CLSゼロ）
+      const backImg = getImg(back);
+      if (backImg.decode) {
+        try { await backImg.decode(); } catch {}
+      } else if (!backImg.complete) {
+        await new Promise(r => backImg.onload = r);
+      }
+
+      // フェード切替
+      front.classList.remove("is-show");
       back.classList.add("is-show");
       showA = !showA;
+
+      // 切り替え後は前面のfetchpriorityをlowに戻して帯域節約
+      getImg(front).setAttribute("fetchpriority", "low");
+
+      // 余韻（フェード時間と合わせる）
       await sleep(800);
     }
   })();
 });
+
 
 
 // ページトランジション
