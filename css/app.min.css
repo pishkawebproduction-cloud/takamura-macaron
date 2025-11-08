@@ -1468,6 +1468,7 @@ img.cake {
 
 .introPhoto {
   width: 70%
+  height: 100%;
 }
 
 .introCopy h2 {
@@ -1495,6 +1496,7 @@ img.cake {
 }
 
 .introPhoto img {
+  width: 100%;
   width: 100%;
   height: auto;
   border-radius: 24px;
