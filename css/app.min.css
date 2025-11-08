@@ -1268,6 +1268,7 @@ img.macaroonIllust {
 }
 
 .site-header nav {
+  height: 100px;
   align-items: center;
 }
 
