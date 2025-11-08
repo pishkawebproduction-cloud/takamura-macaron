@@ -1,66 +1,113 @@
-//ヘッダー
+// ===================== ヘッダー（高さ同期＋検索トグル） =====================
 (() => {
-	const header = document.querySelector('.site-header');
-	const nav = header.querySelector('nav');
-	const toggle = header.querySelector('.search-toggle');
-	const input = header.querySelector('input[type="search"]');
-	const searchClose = header.querySelector('.searchClose');
+  const header = document.querySelector('.site-header');
+  if (!header) return;
 
-	const syncHeaderH = () => {
-		const h = nav.offsetHeight;
-		header.style.setProperty('--header-h', h + 'px');
-	};
-	syncHeaderH();
-	window.addEventListener('resize', syncHeaderH);
+  const nav = header.querySelector('nav');
+  const toggle = header.querySelector('.search-toggle');
+  const input = header.querySelector('input[type="search"]');
+  const searchClose = header.querySelector('.searchClose');
 
-	const open = () => {
-		header.classList.add('is-search-open');
-		toggle.setAttribute('aria-expanded', 'true');
-		setTimeout(() => input && input.focus(), 10);
-	};
-	const close = () => {
-		header.classList.remove('is-search-open');
-		toggle.setAttribute('aria-expanded', 'false');
-		toggle.focus();
-	};
+  // rAFスロットル
+  const rafThrottle = (fn) => {
+    let scheduled = false;
+    return (...args) => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        fn(...args);
+      });
+    };
+  };
 
-	toggle.addEventListener('click', () => {
-		header.classList.contains('is-search-open') ? close() : open();
-	});
-	window.addEventListener('keydown', (e) => {
-		if (e.key === 'Escape' && header.classList.contains('is-search-open')) close();
-	});
-	searchClose.addEventListener('click', () => {
-		header.classList.contains('is-search-open') ? close() : open();
-	});
+  // CSS変数 --header-h を同期し、変更イベントを飛ばす
+  const setHeaderH = () => {
+    const h = (nav?.offsetHeight) || 100;
+    header.style.setProperty('--header-h', h + 'px');
+    // IOのrootMargin更新用
+    window.dispatchEvent(new CustomEvent('header:heightchange', { detail: { h } }));
+  };
+  const applyHeaderH = rafThrottle(setHeaderH);
+
+  // 初期適用
+  applyHeaderH();
+
+  // 高さ監視：ResizeObserver優先、なければresize/load
+  if ('ResizeObserver' in window && nav) {
+    const ro = new ResizeObserver(() => applyHeaderH());
+    ro.observe(nav);
+  } else {
+    window.addEventListener('resize', applyHeaderH, { passive: true });
+    window.addEventListener('load', applyHeaderH);
+  }
+
+  // 検索パネルの開閉（アクセシビリティ含む）
+  const open = () => {
+    header.classList.add('is-search-open');
+    toggle?.setAttribute('aria-expanded', 'true');
+    if (input) setTimeout(() => input.focus(), 10);
+  };
+  const close = () => {
+    header.classList.remove('is-search-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.focus();
+  };
+
+  toggle?.addEventListener('click', () => {
+    header.classList.contains('is-search-open') ? close() : open();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header.classList.contains('is-search-open')) close();
+  });
+
+  searchClose?.addEventListener('click', () => {
+    header.classList.contains('is-search-open') ? close() : open();
+  });
 })();
 
+
+// ===================== スクロール連動のヘッダー状態（is-scrolled） =====================
 (() => {
-	const header = document.querySelector('.site-header');
-	const hero = document.querySelector('.mainVisual') || document.body;
-	const H = () => header.querySelector('nav')?.offsetHeight || 100;
+  const header = document.querySelector('.site-header');
+  if (!header) return;
 
-	if (header.hasAttribute('data-lock-scrolled')) {
-		header.classList.add('is-scrolled');
-		return;
-	}
+  const hero = document.querySelector('.mainVisual') || document.body;
+  const nav = header.querySelector('nav');
 
-	const io = new IntersectionObserver(([e]) => {
-		header.classList.toggle('is-scrolled', !e.isIntersecting);
-	}, {
-		root: null,
-		rootMargin: `-${H()}px 0px 0px 0px`,
-		threshold: 0
-	});
+  const H = () => (nav?.offsetHeight || 100);
 
-	io.observe(hero);
+  let io; // IntersectionObserverのハンドル
 
-	addEventListener('load', () => {
-		io.disconnect();
-		new IntersectionObserver(([e]) => {
-			header.classList.toggle('is-scrolled', !e.isIntersecting);
-		}, { rootMargin: `-${H()}px 0px 0px 0px` }).observe(hero);
-	});
+  const createObserver = () => {
+    if (io) io.disconnect();
+
+    io = new IntersectionObserver(([entry]) => {
+      header.classList.toggle('is-scrolled', !entry.isIntersecting);
+    }, {
+      root: null,
+      rootMargin: `-${H()}px 0px 0px 0px`,
+      threshold: 0
+    });
+
+    if (hero) io.observe(hero);
+  };
+
+  // 固定化フラグが付いていれば常時scrolled
+  if (header.hasAttribute('data-lock-scrolled')) {
+    header.classList.add('is-scrolled');
+    return;
+  }
+
+  // 初期生成
+  createObserver();
+
+  // ページロード後に再評価（フォント/レイアウト確定後）
+  window.addEventListener('load', createObserver);
+
+  // ヘッダー高さが変わったらrootMarginを更新
+  window.addEventListener('header:heightchange', createObserver);
 })();
 
 
@@ -78,21 +125,21 @@
 })();
 
 
-// SPメニューの画像切り替えアニメーション
+// SPメニューの画像切り替えアニメーション（安定版：可視時だけ起動／非表示タブでは停止）
 document.addEventListener("DOMContentLoaded", () => {
   const A = document.querySelector(".spPic--a");
   const B = document.querySelector(".spPic--b");
   if (!A || !B) return;
 
   // 画像リスト（必要に応じてaltを書き換え）
-  const ver = "20251106";
+  const ver  = "20251106";
   const base = "https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images";
   const images = [
     { name: "cheeseCake", alt: "チーズケーキ" },
-    { name: "chocoCake",  alt: "チョコケーキ" },
+    { name: "chocoCake",  alt: "チョコケーキ"  },
     { name: "cupCake",    alt: "ミントカップケーキ" },
     { name: "fancyCake",  alt: "ファンシーケーキ" },
-    { name: "tart",       alt: "タルト" },
+    { name: "tart",       alt: "タルト" }
   ];
 
   // 共通のsizes（必要ならページに合わせて調整）
@@ -108,37 +155,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const png500  = `${base}/${item.name}-500.png?v=${ver}`;
 
     // WebPのsrcset/sizesを更新
-    source.setAttribute("srcset", `${webp320} 320w, ${webp500} 500w`);
-    source.setAttribute("sizes", sizes);
+    if (source) {
+      source.setAttribute("srcset", `${webp320} 320w, ${webp500} 500w`);
+      source.setAttribute("sizes", sizes);
+    }
 
     // フォールバックimgのsrc/srcset/sizes/alt
-    img.setAttribute("src", png500);
-    // フォールバック側にもsrcset付けるとより最適化される（古ブラウザ向けにOK）
-    img.setAttribute("srcset", `${png500} 500w`);
-    img.setAttribute("sizes", sizes);
-    img.setAttribute("alt", item.alt || "");
-
-    // fetchpriorityは見せる直前だけhighにできる
-    img.setAttribute("fetchpriority", priority === "high" ? "high" : "low");
+    if (img) {
+      img.setAttribute("src", png500);
+      img.setAttribute("srcset", `${png500} 500w`);
+      img.setAttribute("sizes", sizes);
+      img.setAttribute("alt", item.alt || "");
+      img.setAttribute("fetchpriority", priority === "high" ? "high" : "low");
+      // 安全のため
+      img.setAttribute("decoding", "async");
+      img.setAttribute("loading", "lazy");
+    }
   }
+
+  // 事前デコード用：<img>を取り出すヘルパ
+  const getImg = (pictureEl) => pictureEl.querySelector("img");
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
   // 最初に表示するもの（Aに適用）
   let i = 0;
   applyToPicture(A, images[i], "high");
 
-  // 事前デコード用：<img>を取り出すヘルパ
-  const getImg = (pictureEl) => pictureEl.querySelector("img");
-
-  // 事前プリロードはJSではやりすぎると帯域圧迫するので控えめに（必要分だけ）
-  // // 例：次に出す予定の1枚だけ軽く解決しておく（ブラウザに委ねる）
-  // const hint = new Image();
-  // hint.src = `${base}/${images[(i+1)%images.length].name}-500.png?v=${ver}`;
-
   let showA = true;
-  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-  (async function loop() {
-    while (true) {
+  // ===== 可視状態制御：非表示タブでは停止 =====
+  let running   = !document.hidden;
+  let looping   = false;   // ループ中フラグ
+  let loopToken = 0;       // ループ世代（中断・再開の衝突防止）
+
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+    if (running) startLoop(); // 復帰で再開
+  });
+
+  // ===== 画面に入ったら初めて起動（IntersectionObserver） =====
+  const wrapper = document.querySelector('.spMenuPicWrap') || A.closest('.spMenuPicWrap') || A;
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        startLoop();
+        io.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    io.observe(wrapper);
+  } else {
+    // 古環境は即開始
+    startLoop();
+  }
+
+  // ===== 切り替えループ本体（可視時のみ回す。二重起動防止） =====
+  async function startLoop() {
+    if (looping) return;
+    looping = true;
+    const myToken = ++loopToken;
+
+    while (running && myToken === loopToken) {
       await sleep(4000);
       i = (i + 1) % images.length;
 
@@ -150,11 +226,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 画像のデコード完了を待ってからフェード（チラつき防止＆CLSゼロ）
       const backImg = getImg(back);
-      if (backImg.decode) {
+      if (backImg?.decode) {
         try { await backImg.decode(); } catch {}
-      } else if (!backImg.complete) {
+      } else if (backImg && !backImg.complete) {
         await new Promise(r => backImg.onload = r);
       }
+
+      // 可視状態が変わっていたらここで抜ける
+      if (!running || myToken !== loopToken) break;
 
       // フェード切替
       front.classList.remove("is-show");
@@ -162,12 +241,15 @@ document.addEventListener("DOMContentLoaded", () => {
       showA = !showA;
 
       // 切り替え後は前面のfetchpriorityをlowに戻して帯域節約
-      getImg(front).setAttribute("fetchpriority", "low");
+      const frontImg = getImg(front);
+      if (frontImg) frontImg.setAttribute("fetchpriority", "low");
 
       // 余韻（フェード時間と合わせる）
       await sleep(800);
     }
-  })();
+
+    looping = false;
+  }
 });
 
 
@@ -213,28 +295,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 //文字のアニメーション
+// 文字のアニメーション（必要時だけDOM分割）
 (() => {
   gsap.registerPlugin(ScrollTrigger);
 
   const targets = document.querySelectorAll('.reveal-letters');
   if (!targets.length) return;
 
-  targets.forEach(el => {
+  const build = (el) => {
+    if (el.dataset.built) return;
+    el.dataset.built = '1';
+
     const raw = el.innerHTML;
     const lines = raw.split(/<br\s*\/?>/i);
     el.innerHTML = '';
 
     const chars = [];
-
     lines.forEach((line, i) => {
       const frag = document.createDocumentFragment();
-
-      const cleanLine = line.replace(/^\s+/, "");
-
-      [...cleanLine].forEach(ch => {
-        if (ch === " ") {
-          frag.appendChild(document.createTextNode(" "));
-        } else {
+      const clean = line.replace(/^\s+/, "");
+      [...clean].forEach(ch => {
+        if (ch === " ") frag.appendChild(document.createTextNode(" "));
+        else {
           const wrap = document.createElement('span');
           wrap.className = 'charWrap';
           const span = document.createElement('span');
@@ -245,7 +327,6 @@ document.addEventListener("DOMContentLoaded", () => {
           chars.push(span);
         }
       });
-
       el.appendChild(frag);
       if (i < lines.length - 1) {
         const br = document.createElement('span');
@@ -256,11 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const total = chars.length;
     gsap.from(chars, {
-      scrollTrigger: {
-        trigger: el,
-        start: "top 95%",
-        toggleActions: "play reverse play reverse"
-      },
+      scrollTrigger: { trigger: el, start: "top 95%", toggleActions: "play reverse play reverse" },
       duration: 1.2,
       ease: "expo.out",
       opacity: 0,
@@ -269,7 +346,17 @@ document.addEventListener("DOMContentLoaded", () => {
       delay: (i) => gsap.utils.mapRange(0, total - 1, 0.0, 0.35)(i),
       stagger: { amount: 0.12 }
     });
-  });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { build(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '200px' });
+    targets.forEach(t => io.observe(t));
+  } else {
+    // 古環境は従来通り
+    targets.forEach(build);
+  }
 })();
 
 
