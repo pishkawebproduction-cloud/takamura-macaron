@@ -1638,10 +1638,7 @@ img.cake {
 }
 
 .btn.ghost {
-<<<<<<< HEAD
   border: 2px solid #147c98;
-=======
->>>>>>> origin/main
   background: #fff;
   color: #147c98
 }
@@ -2645,7 +2642,6 @@ img.cake {
   height: 240px;
   }
 }
-<<<<<<< HEAD
 
 /* contact page overrides / additions */
 .contact-hero {
@@ -2874,5 +2870,3 @@ img.cake {
   transform-origin: center;
   transform: translateY(var(--logo-shift-y, 0px)) scaleX(var(--logo-scale-x, 1));
 }
-=======
->>>>>>> origin/main
