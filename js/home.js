@@ -332,7 +332,3 @@ document.addEventListener('DOMContentLoaded', () => {
   refresh();
   addEventListener('resize', refresh);
 })();
-
-
-
-
