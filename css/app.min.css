@@ -1795,13 +1795,12 @@ img.cake {
 .mapWrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 8/7;
   border-radius: 20px;
   overflow: hidden;
-  background: #f4fafc
 }
 
-.mapWrap iframe {
+.mapWrap img {
   position: absolute;
   inset: 0;
   width: 100%;
