@@ -1158,7 +1158,7 @@ img.macaroonIllust {
 .reviewMarquee {
   position: relative;
   overflow: hidden;
-  background: url(../images/macaronWomanGirl.webp) no-repeat right center/cover;
+  background: url("https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronWomanGirl.webp?v=20251106") no-repeat right center/cover;
   color: #f8f8f2;
   height: 80vh
 }
