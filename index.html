@@ -220,21 +220,27 @@
       <div class="circleWrapper">
         <div class="circle">
           <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
+            <!-- PC/Tablet（641px〜）：500px版（=従来のオリジナル系） -->
+            <source media="(min-width: 641px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-500.webp">
+            <!-- Mobile（〜640px）：320px版（ここでは500pxを出さない！） -->
+            <source media="(max-width: 640px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-320.webp">
+            <!-- Fallback（PNGも320pxにしておくとPSI的に安全） -->
             <img class="before"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-500.png?v=20251106"
+              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryBefore-320.png"
               width="500" height="517" loading="lazy" decoding="async" fetchpriority="low" alt="ストロベリーマカロン（Before）">
           </picture>
           <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
+            <!-- PC/Tablet（641px〜）：500px版 -->
+            <source media="(min-width: 641px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-500.webp">
+            <!-- Mobile（〜640px）：320px版 -->
+            <source media="(max-width: 640px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-320.webp">
+            <!-- Fallback（PNGも320pxに） -->
             <img class="after"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-500.png?v=20251106"
+              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/strawberryAfter-320.png"
               width="500" height="395" loading="lazy" decoding="async" fetchpriority="low" alt="ストロベリーマカロン（After）">
           </picture>
           <span class="menuName">ストロベリー</span>
