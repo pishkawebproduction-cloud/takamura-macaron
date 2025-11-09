@@ -175,13 +175,26 @@
         </p>
       </div>
       <picture>
-        <source
-          srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust.webp"
-          type="image/webp">
+        <!-- PC：オリジナル（画質最重視） -->
+        <source media="(min-width: 1024px)" type="image/webp"
+          srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust.webp">
+
+        <!-- Tablet：300x240（2xでオリジナルも選べるようにすると更にクッキリ） -->
+        <source media="(min-width: 641px)" type="image/webp"
+          srcset="
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust-300x240.webp 1x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust.webp 2x">
+
+        <!-- Mobile：100x80（DPR別に 2x=200x160, 3x=300x240） -->
         <img
-          src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust.png"
-          alt="マカロンのイラスト" loading="lazy">
+          src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust-100x80.webp"
+          srcset="
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust-100x80.webp 1x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust-200x160.webp 2x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/macaronIllust-300x240.webp 3x"
+          width="100" height="80" loading="lazy" decoding="async" alt="マカロンのイラスト">
       </picture>
+
     </section>
 
     <section class="bestSeller section-late" id="recommendation">
