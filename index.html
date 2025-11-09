@@ -248,45 +248,67 @@
         </div>
         <div class="circle">
           <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
-            <img class="before"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-500.png?v=20251106"
-              width="500" height="506" decoding="async" alt="ラズベリーマカロン（Before）">
-          </picture>
-          <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
-            <img class="after"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-500.png?v=20251106"
-              width="500" height="355" decoding="async" alt="ラズベリーマカロン（After）">
-          </picture>
+              <!-- PC/Tablet（641px〜）：500px -->
+              <source media="(min-width: 641px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-500.webp">
+
+              <!-- Mobile（〜640px）：320px -->
+              <source media="(max-width: 640px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-320.webp">
+
+              <!-- fallback：PNGも320pxにしてPSIを完全沈黙へ -->
+              <img class="before"
+                src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryBefore-320.png"
+                width="500" height="506" loading="lazy" decoding="async" alt="ラズベリーマカロン（Before）">
+            </picture>
+            <picture>
+              <!-- PC/Tablet（641px〜）：500px -->
+              <source media="(min-width: 641px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-500.webp">
+
+              <!-- Mobile（〜640px）：320px -->
+              <source media="(max-width: 640px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-320.webp">
+
+              <!-- fallback PNG 320px -->
+              <img class="after"
+                src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/raspberryAfter-320.png"
+                width="500" height="355" loading="lazy" decoding="async" alt="ラズベリーマカロン（After）">
+            </picture>
           <span class="menuName">ラズベリー</span>
           <p class="quantity">1箱3個入り<br class="br-sp"><span class="price">450円</span></p>
         </div>
         <div class="circle">
           <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
-            <img class="before"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-500.png?v=20251106"
-              width="500" height="506" loading="lazy" decoding="async" fetchpriority="low" alt="抹茶マカロン（Before）">
-          </picture>
-          <picture>
-            <source type="image/webp"
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-320.webp?v=20251106 320w,
-            https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-500.webp?v=20251106 500w"
-              sizes="(max-width: 768px) 90vw, 500px">
-            <img class="after"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-500.png?v=20251106"
-              width="500" height="315" loading="lazy" decoding="async" fetchpriority="low" alt="抹茶マカロン（After）">
-          </picture>
+              <!-- PC/Tablet（641px〜）：500px版 -->
+              <source media="(min-width: 641px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-500.webp">
+
+              <!-- Mobile（〜640px）：320px版 -->
+              <source media="(max-width: 640px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-320.webp">
+
+              <!-- フォールバック（PNGも320pxにしてPSIを安全側に） -->
+              <img class="before"
+                src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaBefore-320.png"
+                width="500" height="506" loading="lazy" decoding="async" fetchpriority="low" alt="抹茶マカロン（Before）">
+            </picture>
+
+            <!-- matchaAfter -->
+            <picture>
+              <!-- PC/Tablet（641px〜）：500px版 -->
+              <source media="(min-width: 641px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-500.webp">
+
+              <!-- Mobile（〜640px）：320px版 -->
+              <source media="(max-width: 640px)" type="image/webp"
+                srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-320.webp">
+
+              <!-- フォールバック（PNGも320px） -->
+              <img class="after"
+                src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@psi-tuning-20251106/images/matchaAfter-320.png"
+                width="500" height="315" loading="lazy" decoding="async" fetchpriority="low" alt="抹茶マカロン（After）">
+            </picture>
           <span class="menuName">抹茶</span>
           <p class="quantity">1箱3個入り<br class="br-sp"><span class="price">450円</span></p>
         </div>
