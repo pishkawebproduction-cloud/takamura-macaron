@@ -136,20 +136,40 @@
       <div class="indulgePic">
         <a href="#recommendation">
           <picture>
-            <source
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500.webp"
-              type="image/webp">
+            <!-- PC（>=1024px）：オリジナル -->
+            <source media="(min-width: 1024px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500.webp">
+
+            <!-- Tablet（641–1023px）：261px -->
+            <source media="(min-width: 641px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500-261.webp">
+
+            <!-- Mobile（<=640px）：87/174/261 をDPRで切替 -->
             <img class="defaultImg"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500.png"
-              alt="...">
+              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500-87.webp"
+              srcset="
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500-87.webp 1x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500-174.webp 2x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeBefore-500-261.webp 3x"
+              width="87" height="87" loading="lazy" decoding="async" alt="indulge before">
           </picture>
           <picture>
-            <source
-              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2.webp"
-              type="image/webp">
+            <!-- PC（>=1024px）：オリジナルをそのままソースに -->
+            <source media="(min-width: 1024px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2.webp">
+
+            <!-- Tablet（641–1023px）：261px（高DPRで十分クッキリ） -->
+            <source media="(min-width: 641px)" type="image/webp"
+              srcset="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2-261.webp">
+
+            <!-- Mobile（<=640px）：87/174/261 をDPRで切替 -->
             <img class="hoverImg"
-              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2.png"
-              alt="...">
+              src="https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2-87.webp"
+              srcset="
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2-87.webp 1x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2-174.webp 2x,
+      https://cdn.jsdelivr.net/gh/pishkawebproduction-cloud/takamura-macaron@index-html-psi/images/indulgeAfter2-261.webp 3x"
+              width="87" height="87" loading="lazy" decoding="async" alt="indulge after">
           </picture>
           <picture>
             <source
