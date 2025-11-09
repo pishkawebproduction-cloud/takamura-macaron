@@ -1928,10 +1928,7 @@ img.cake {
   }
 
   img.hoverImgParts {
-    top: 0;
-    right: 0;
-    width: 8vw;
-    height: auto
+    display: none;
   }
 
   .bestSeller {
@@ -2413,7 +2410,7 @@ img.cake {
   }
 
   img.hoverImgParts {
-    width: 9vw
+    display: none;
   }
 
   .concept {
