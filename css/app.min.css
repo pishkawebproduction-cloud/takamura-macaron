@@ -863,8 +863,9 @@ img.hoverImgParts {
 
 .concept img {
   width: 200px;
+  height:180px;
   margin-top: 30px;
-  margin-left: 55vw
+  margin-right: auto;
 }
 
 .concept p {
@@ -1981,7 +1982,7 @@ img.cake {
 
   .c-loop-slider__items {
     width: auto;
-    height: min(340 / 900 * 100vw, 340px);
+    height: 340px;
   }
 
   .reviewMarquee {
@@ -2440,6 +2441,7 @@ img.cake {
 
   .concept img {
     width: 100px;
+    height: 80px;
     margin-top: 30px;
     margin-right: auto;
   }
@@ -2640,6 +2642,7 @@ img.cake {
 
   .c-loop-slider__items {
   height: 240px;
+  width: 1500px;
   }
 }
 
