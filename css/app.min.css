@@ -1157,7 +1157,7 @@ img.macaroonIllust {
 .reviewMarquee {
   position: relative;
   overflow: hidden;
-  background: url(../images/macaronWomanGirl.png) no-repeat right center/cover;
+  background: url(../images/macaronWomanGirl.webp) no-repeat right center/cover;
   color: #f8f8f2;
   height: 80vh
 }
