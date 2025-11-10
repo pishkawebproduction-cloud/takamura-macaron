@@ -863,7 +863,7 @@ img.hoverImgParts {
 
 .concept img {
   width: 200px;
-  height:180px;
+  height: 180px;
   margin-top: 30px;
   margin-left: 55vw;
 }
@@ -1860,7 +1860,9 @@ img.cake {
   opacity: .85
 }
 
-.c-loop-slider { display: none; }
+.c-loop-slider {
+  display: none;
+}
 
 @media (max-width:1080px) {
   main {
@@ -1871,7 +1873,11 @@ img.cake {
     padding-right: 3vw;
   }
 
-  .site-header .search-toggle { margin-left: 3vw; height: 25px; width: 25px; }
+  .site-header .search-toggle {
+    margin-left: 3vw;
+    height: 25px;
+    width: 25px;
+  }
 
   .site-header nav {
     height: 100px;
@@ -1950,7 +1956,9 @@ img.cake {
     height: 35vh
   }
 
-  .scrollContainer { display: none;}
+  .scrollContainer {
+    display: none;
+  }
 
   @keyframes infinity-scroll {
     0% {
@@ -2085,7 +2093,7 @@ img.cake {
   }
 
   .site-header .logo-light {
-    width:80px;
+    width: 80px;
     height: 20px;
     transition: opacity var(--t) var(--ulu-curve);
     display: flex;
@@ -2105,7 +2113,7 @@ img.cake {
   .review,
   .review2 {
     width: 80vw;
-    height: 300px;
+    height: 40vh
   }
 
   img.donut,
@@ -2240,7 +2248,9 @@ img.cake {
     gap: 3px
   }
 
-  .site-header nav ul { margin-top: 0}
+  .site-header nav ul {
+    margin-top: 0
+  }
 
   .site-header nav ul#global-nav {
     position: fixed;
@@ -2313,17 +2323,33 @@ img.cake {
     display: block;
   }
 
-  .footerLeft address { margin-top: 0px; }
-
-  .spMenuPicWrap .spPic {
-    position:absolute; bottom: 20%; left: 50%;
-    transform: translateX(-50%); width:220px; height:auto;
-    transition:opacity .8s ease; opacity:0; display:block; margin: 60px auto 20px;
+  .footerLeft address {
+    margin-top: 0px;
   }
 
-  .spMenuPicWrap img { width: 100%; height: auto; display: block; border-radius:16px; }
+  .spMenuPicWrap .spPic {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: auto;
+    transition: opacity .8s ease;
+    opacity: 0;
+    display: block;
+    margin: 60px auto 20px;
+  }
 
-  .spMenuPicWrap .spPic.is-show{opacity:1}
+  .spMenuPicWrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
+
+  .spMenuPicWrap .spPic.is-show {
+    opacity: 1
+  }
 
   body.is-nav-open .site-header nav ul#global-nav {
     transform: translateY(0)
@@ -2484,14 +2510,16 @@ img.cake {
     margin-bottom: 200px
   }
 
-  .menu { height: 350px; }
-
-  .reviewMarquee {
-    height: 400px;
+  .menu {
+    height: 350px;
   }
 
-  .track {
-    height: 400px;
+  .track .review:first-child { margin-left: 25px;}
+
+  .review,
+  .review2 {
+    width: 80vw;
+    height: 300px;
   }
 
   .review blockquote,
@@ -2507,6 +2535,14 @@ img.cake {
   .review blockquote cite,
   .review2 blockquote cite {
     font-size: 20px
+  }
+
+  .reviewMarquee {
+    height: 400px;
+  }
+
+  .track {
+    height: 400px;
   }
 
   .footerWrapper {
@@ -2530,7 +2566,9 @@ img.cake {
     padding: 0 15px
   }
 
-  .footerLinks { display: none;}
+  .footerLinks {
+    display: none;
+  }
 
   .footerLeft address,
   .footerLeft p,
@@ -2646,8 +2684,8 @@ img.cake {
   }
 
   .c-loop-slider__items {
-  height: 240px;
-  width: 1500px;
+    height: 240px;
+    width: 1500px;
   }
 }
 
