@@ -2105,7 +2105,7 @@ img.cake {
   .review,
   .review2 {
     width: 80vw;
-    height: 40vh
+    height: 300px;
   }
 
   img.donut,
@@ -2485,6 +2485,14 @@ img.cake {
   }
 
   .menu { height: 350px; }
+
+  .reviewMarquee {
+    height: 400px;
+  }
+
+  .track {
+    height: 400px;
+  }
 
   .review blockquote,
   .review2 blockquote {
